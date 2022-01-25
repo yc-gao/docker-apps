@@ -26,8 +26,7 @@ docker-app() {
         -v $HOME/Pictures:/home/xundaoxd/Pictures \
         -v $HOME/Documents:/home/xundaoxd/Documents \
         -v $HOME/Desktop:/home/xundaoxd/Desktop \
-        -d xundaoxd/obsidian:latest \
-        /opt/Obsidian/obsidian --no-sandbox"
+        -d xundaoxd/obsidian:latest"
     alias octave="$DOCKER_PREFIX \
         -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
         -d xundaoxd/octave:latest \
