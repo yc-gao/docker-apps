@@ -9,9 +9,9 @@ docker-app() {
         -e LANG=C.UTF-8 -e GTK_IM_MODULE=xim -e XMODIFIERS"
 
     alias node="$DOCKER_PREFIX --network host -ti node:latest node"
-    alias npm="$DOCKER_PREFIX -ti node:latest npm"
-    alias yarn="$DOCKER_PREFIX -ti node:latest yarn"
-    alias npx="$DOCKER_PREFIX -ti node:latest npx"
+    alias npm="$DOCKER_PREFIX --network host -ti node:latest npm"
+    alias yarn="$DOCKER_PREFIX --network host -ti node:latest yarn"
+    alias npx="$DOCKER_PREFIX --network host -ti node:latest npx"
 
     alias go="$DOCKER_PREFIX -ti xundaoxd/go:latest go"
 
