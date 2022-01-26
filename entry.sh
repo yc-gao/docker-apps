@@ -31,15 +31,20 @@ docker-app() {
         -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
         -d xundaoxd/octave:latest \
         octave --gui"
+    alias vlc="$DOCKER_PREFIX \
+        -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
+        -d xundaoxd/vlc:latest"
+
     alias xelatex="$DOCKER_PREFIX \
-        texlive/texlive:latest \
+        -ti texlive/texlive:latest \
         xelatex"
     alias doxygen="$DOCKER_PREFIX \
-        xundaoxd/doxygen:latest \
+        -ti xundaoxd/doxygen:latest \
         doxygen"
     alias you-get="$DOCKER_PREFIX \
-        xundaoxd/you-get:latest \
+        -ti xundaoxd/you-get:latest \
         you-get"
+
 }
 
 docker-app
