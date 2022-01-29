@@ -6,8 +6,8 @@ ARG VERSION=0.13.19
 
 RUN apt update \
     && apt install -y fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto-cjk fonts-noto-cjk-extra xfonts-base \
-    && apt install -y wget firefox yaru-theme-* \
-    && apt install -y libgtk2.0-0 libxshmfence-dev libnss3-dev libatk-bridge2.0-dev libdrm-dev libgtk-3-dev libasound2-dev \
+    && apt install -y wget yaru-theme-* \
+    && apt install -y libgtk2.0-0 libxshmfence-dev libnss3-dev libatk-bridge2.0-dev libdrm-dev libgtk-3-dev libasound2-dev libcanberra-gtk-module firefox \
     && wget https://github.com/obsidianmd/obsidian-releases/releases/download/v${VERSION}/obsidian-${VERSION}.tar.gz \
     && tar -C /opt -xvf obsidian-${VERSION}.tar.gz \
     && mv /opt/obsidian-${VERSION} /opt/obsidian \
