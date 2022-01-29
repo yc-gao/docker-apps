@@ -23,10 +23,10 @@ docker-app() {
     alias cuda-cmake="$DOCKER_PREFIX -ti --gpus all xundaoxd/cuda-cmake:latest cmake"
 
     alias obsidian="$DOCKER_PREFIX \
-        -v $HOME/Downloads:/home/xundaoxd/Downloads \
-        -v $HOME/Pictures:/home/xundaoxd/Pictures \
-        -v $HOME/Documents:/home/xundaoxd/Documents \
-        -v $HOME/Desktop:/home/xundaoxd/Desktop \
+        -v $HOME/Downloads:/home/xundaoxd/Downloads:ro \
+        -v $HOME/Pictures:/home/xundaoxd/Pictures:ro \
+        -v $HOME/Documents:/home/xundaoxd/Documents:ro \
+        -v $HOME/Desktop:/home/xundaoxd/Desktop:ro \
         --gpus all \
         -d xundaoxd/obsidian:latest"
     alias octave="$DOCKER_PREFIX \
