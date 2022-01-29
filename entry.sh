@@ -19,7 +19,7 @@ docker-app() {
     alias javac="$DOCKER_PREFIX -ti openjdk:latest javac"
     alias java="$DOCKER_PREFIX -ti openjdk:latest java"
 
-    alias nvcc="$DOCKER_PREFIX -ti xundaoxd/cuda-cmake:latest nvcc"
+    alias nvcc="$DOCKER_PREFIX -ti --gpus all xundaoxd/cuda-cmake:latest nvcc"
     alias cuda-cmake="$DOCKER_PREFIX -ti --gpus all xundaoxd/cuda-cmake:latest cmake"
 
     alias obsidian="$DOCKER_PREFIX \
