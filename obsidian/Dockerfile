@@ -1,6 +1,6 @@
-FROM ubuntu:20.04
+FROM nvidia/cudagl:11.4.2-devel-ubuntu20.04
 
-ENV DEBIAN_FRONTEND=noninteractive LIBGL_ALWAYS_INDIRECT=1
+ENV DEBIAN_FRONTEND=noninteractive
 
 ARG VERSION=0.13.23
 
