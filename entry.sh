@@ -27,7 +27,6 @@ docker-app() {
         -v $HOME/Pictures:/home/xundaoxd/Pictures \
         -v $HOME/Documents:/home/xundaoxd/Documents \
         -v $HOME/Desktop:/home/xundaoxd/Desktop \
-        -e LIBGL_ALWAYS_INDIRECT=1=0 \
         --gpus all \
         -d xundaoxd/obsidian:latest"
     alias octave="$DOCKER_PREFIX \
