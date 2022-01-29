@@ -34,6 +34,7 @@ docker-app() {
         -v $HOME/Pictures:/home/xundaoxd/Pictures:ro \
         -v $HOME/Documents:/home/xundaoxd/Documents:ro \
         -v $HOME/Desktop:/home/xundaoxd/Desktop:ro \
+        -v \$PWD:/home/xundaoxd/Documents/SiYuan \
         --gpus all \
         -d xundaoxd/siyuan:latest"
     alias octave="$DOCKER_PREFIX \
