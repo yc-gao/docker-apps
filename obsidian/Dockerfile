@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive LIBGL_ALWAYS_INDIRECT=1
 
-ARG VERSION=0.13.19
+ARG VERSION=0.13.23
 
 RUN apt update \
     && apt install -y fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto-cjk fonts-noto-cjk-extra xfonts-base \
