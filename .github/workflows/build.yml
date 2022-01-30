@@ -13,7 +13,6 @@ jobs:
         context:
           - cuda-cmake
           - obsidian
-          - siyuan
           - octave
           - doxygen
           - you-get
