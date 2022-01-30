@@ -1,13 +1,10 @@
-FROM nvidia/cudagl:11.4.2-devel-ubuntu20.04
+FROM xundaoxd/base:latest
 
-ENV DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 
 ARG VERSION=0.13.23
 
 RUN apt update \
-    && apt install -y fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto-cjk fonts-noto-cjk-extra xfonts-base \
-    && apt install -y wget yaru-theme-* \
-    && apt install -y libgtk2.0-0 libxshmfence-dev libnss3-dev libatk-bridge2.0-dev libdrm-dev libgtk-3-dev libasound2-dev firefox libcanberra-gtk-module libcanberra-gtk3-module \
     && wget https://github.com/obsidianmd/obsidian-releases/releases/download/v${VERSION}/obsidian-${VERSION}.tar.gz \
     && tar -C /opt -xvf obsidian-${VERSION}.tar.gz \
     && mv /opt/obsidian-${VERSION} /opt/obsidian \
