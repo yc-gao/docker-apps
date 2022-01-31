@@ -31,11 +31,14 @@ docker-app() {
         -d xundaoxd/obsidian:latest"
     alias octave="$DOCKER_PREFIX \
         -d xundaoxd/octave:latest \
+        --gpus all \
         octave --gui"
     alias vlc="$DOCKER_PREFIX \
         -e PULSE_SERVER=unix:/run/user/1000/pulse/native \
         -v /run/user/1000/pulse:/run/user/1000/pulse \
         -d xundaoxd/vlc:latest"
+    alias gimp="$DOCKER_PREFIX \
+        -d xundaoxd/gimp:latest"
 
     alias xelatex="$DOCKER_PREFIX \
         -ti texlive/texlive:latest \

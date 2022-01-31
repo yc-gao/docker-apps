@@ -1,6 +1,6 @@
 FROM xundaoxd/base:latest
 
-ENV DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt update \
     && apt install -y octave \
