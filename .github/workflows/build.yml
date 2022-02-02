@@ -45,6 +45,7 @@ jobs:
           - go
           - vlc
           - gimp
+          - onedrive
     needs: [base]
     steps:
       - uses: docker/setup-qemu-action@v1
