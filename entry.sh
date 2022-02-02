@@ -1,55 +1,58 @@
 #!/bin/bash
 
-docker-app() {
-    local DOCKER_PREFIX="
-        docker run --rm -u \"\$(id -u):\$(id -g)\" \
-        -h \"$(hostname)\" \
-        -v \$PWD:/Home -w /Home \
+home-docker() {
+    docker run --rm -u $(id -u):$(id -g) \
+        -h $(hostname) \
+        -v $(pwd):/Home -w /Home \
         -v $HOME/Workdir/docker-apps/.home:/home/xundaoxd \
         -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
-        -e LANG=C.UTF-8 -e GTK_IM_MODULE=xim -e XMODIFIERS"
+        -e LANG=C.UTF-8 -e GTK_IM_MODULE=xim -e XMODIFIERS \
+        "$@"
+}
 
-    alias node="$DOCKER_PREFIX --network host -ti node:latest node"
-    alias npx="$DOCKER_PREFIX --network host -ti node:latest npx"
-    alias npm="$DOCKER_PREFIX --network host -ti node:latest npm"
-    alias yarn="$DOCKER_PREFIX --network host -ti node:latest yarn"
+app-docker() {
+    alias node="home-docker --network host -ti node:latest node"
+    alias npx="home-docker --network host -ti node:latest npx"
+    alias npm="home-docker --network host -ti node:latest npm"
+    alias yarn="home-docker --network host -ti node:latest yarn"
 
-    alias go="$DOCKER_PREFIX -ti xundaoxd/go:latest go"
+    alias go="home-docker -ti xundaoxd/go:latest go"
 
-    alias javac="$DOCKER_PREFIX -ti openjdk:latest javac"
-    alias java="$DOCKER_PREFIX -ti openjdk:latest java"
+    alias javac="home-docker -ti openjdk:latest javac"
+    alias java="home-docker -ti openjdk:latest java"
 
-    alias nvcc="$DOCKER_PREFIX -ti --gpus all xundaoxd/cuda-cmake:latest nvcc"
-    alias cuda-cmake="$DOCKER_PREFIX -ti --gpus all xundaoxd/cuda-cmake:latest cmake"
+    alias nvcc="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest nvcc"
+    alias cuda-cmake="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest cmake"
 
-    alias obsidian="$DOCKER_PREFIX \
+    alias obsidian="home-docker \
         -v $HOME/Downloads:/home/xundaoxd/Downloads:ro \
         -v $HOME/Pictures:/home/xundaoxd/Pictures:ro \
         -v $HOME/Documents:/home/xundaoxd/Documents:ro \
         -v $HOME/Desktop:/home/xundaoxd/Desktop:ro \
         --gpus all \
         -d xundaoxd/obsidian:latest"
-    alias octave="$DOCKER_PREFIX \
+    alias octave="home-docker \
         -d xundaoxd/octave:latest \
         --gpus all \
         octave --gui"
-    alias vlc="$DOCKER_PREFIX \
+    alias vlc="home-docker \
         -e PULSE_SERVER=unix:/run/user/1000/pulse/native \
         -v /run/user/1000/pulse:/run/user/1000/pulse \
         -d xundaoxd/vlc:latest"
-    alias gimp="$DOCKER_PREFIX \
+    alias gimp="home-docker \
         -d xundaoxd/gimp:latest"
 
-    alias xelatex="$DOCKER_PREFIX \
+    alias xelatex="home-docker \
         -ti texlive/texlive:latest \
         xelatex"
-    alias doxygen="$DOCKER_PREFIX \
+    alias doxygen="home-docker \
         -ti xundaoxd/doxygen:latest \
         doxygen"
-    alias you-get="$DOCKER_PREFIX \
+    alias you-get="home-docker \
         -ti xundaoxd/you-get:latest \
         you-get"
 
 }
 
-docker-app
+app-docker
+
