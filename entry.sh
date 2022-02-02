@@ -32,8 +32,8 @@ app-docker() {
         --gpus all \
         -d xundaoxd/obsidian:latest"
     alias octave="home-docker \
-        -d xundaoxd/octave:latest \
         --gpus all \
+        -d xundaoxd/octave:latest \
         octave --gui"
     alias vlc="home-docker \
         -e PULSE_SERVER=unix:/run/user/1000/pulse/native \
