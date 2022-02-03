@@ -11,5 +11,8 @@ RUN apt update \
     && apt install -y wget firefox \
     && apt install -y fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto-cjk fonts-noto-cjk-extra xfonts-base \
     && apt install -y yaru-theme-* \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt update \
     && apt install -y libgtk2.0-0 libxshmfence-dev libnss3-dev libatk-bridge2.0-dev libdrm-dev libgtk-3-dev libasound2-dev libcanberra-gtk-module libcanberra-gtk3-module \
     && rm -rf /var/lib/apt/lists/*
