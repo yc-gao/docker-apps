@@ -75,6 +75,7 @@ jobs:
           - cuda-cmake
           - obsidian
           - octave
+          - genymotion
     needs: [base]
     steps:
       - uses: docker/setup-qemu-action@v1
