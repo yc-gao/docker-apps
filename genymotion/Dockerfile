@@ -1,4 +1,5 @@
-FROM xundaoxd/base:latest
+ARG BASE_IMAGE=xundaoxd/base:latest
+FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 

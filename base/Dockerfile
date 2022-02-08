@@ -1,4 +1,5 @@
-FROM nvidia/cudagl:11.4.2-devel-ubuntu20.04
+ARG BASE_IMAGE=nvidia/cudagl:11.4.2-devel-ubuntu20.04
+FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
