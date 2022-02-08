@@ -10,5 +10,3 @@ RUN apt update \
     && useradd -m -s /bin/bash xundaoxd
 
 USER xundaoxd
-
-CMD ["onedrive", "-m"]

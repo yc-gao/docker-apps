@@ -11,5 +11,5 @@ RUN apt update \
     && rm -rf /var/lib/apt/lists/*
 
 USER xundaoxd
-ENV PATH="/opt/go/bin:$PATH"
 
+ENV PATH="/opt/go/bin:$PATH"

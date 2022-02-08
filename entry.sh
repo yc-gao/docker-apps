@@ -30,7 +30,8 @@ app-docker() {
         -v $HOME/Documents:/home/xundaoxd/Documents:ro \
         -v $HOME/Desktop:/home/xundaoxd/Desktop:ro \
         --gpus all \
-        -d xundaoxd/obsidian:latest"
+        -d xundaoxd/obsidian:latest \
+        /opt/obsidian/obsidian --no-sandbox"
     alias octave="home-docker \
         --gpus all \
         -d xundaoxd/octave:latest \
@@ -38,9 +39,11 @@ app-docker() {
     alias vlc="home-docker \
         -e PULSE_SERVER=unix:/run/user/1000/pulse/native \
         -v /run/user/1000/pulse:/run/user/1000/pulse \
-        -d xundaoxd/vlc:latest"
+        -d xundaoxd/vlc:latest \
+        vlc"
     alias gimp="home-docker \
-        -d xundaoxd/gimp:latest"
+        -d xundaoxd/gimp:latest \
+        gimp"
 
     alias xelatex="home-docker \
         -ti texlive/texlive:latest \
@@ -51,8 +54,6 @@ app-docker() {
     alias you-get="home-docker \
         -ti xundaoxd/you-get:latest \
         you-get"
-
 }
 
 app-docker
-
