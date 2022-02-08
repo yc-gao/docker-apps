@@ -5,6 +5,10 @@ home-docker() {
         -h $(hostname) \
         -v $(pwd):/Home -w /Home \
         -v $HOME/Workdir/docker-apps/.home:/home/xundaoxd \
+        -v $HOME/Downloads:/home/xundaoxd/Downloads:ro \
+        -v $HOME/Pictures:/home/xundaoxd/Pictures:ro \
+        -v $HOME/Documents:/home/xundaoxd/Documents:ro \
+        -v $HOME/Desktop:/home/xundaoxd/Desktop:ro \
         -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
         -e LANG=C.UTF-8 -e GTK_IM_MODULE=xim -e XMODIFIERS \
         "$@"
@@ -25,10 +29,6 @@ app-docker() {
     alias cuda-cmake="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest cmake"
 
     alias obsidian="home-docker \
-        -v $HOME/Downloads:/home/xundaoxd/Downloads:ro \
-        -v $HOME/Pictures:/home/xundaoxd/Pictures:ro \
-        -v $HOME/Documents:/home/xundaoxd/Documents:ro \
-        -v $HOME/Desktop:/home/xundaoxd/Desktop:ro \
         --gpus all \
         -d xundaoxd/obsidian:latest \
         /opt/obsidian/obsidian --no-sandbox"
