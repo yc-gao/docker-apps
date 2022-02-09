@@ -1,19 +1,12 @@
-ARG BASE_IMAGE=nvidia/cudagl:11.4.2-devel-ubuntu20.04
+ARG BASE_IMAGE=ubuntu:20.04
 FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt update \
-    && apt install -y --no-install-recommends libcudnn8=8.2.4.15-1+cuda11.4 libcudnn8-dev=8.2.4.15-1+cuda11.4 \
-    && apt-mark hold libcudnn8 \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN apt update \
+    && apt install -y software-properties-common graphviz \
+    && apt install -y fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto-cjk fonts-noto-cjk-extra xfonts-base yaru-theme-* \
+    && apt install -y python3-pip ffmpeg \
     && apt install -y wget firefox \
-    && apt install -y fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto-cjk fonts-noto-cjk-extra xfonts-base \
-    && apt install -y yaru-theme-* \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN apt update \
     && apt install -y libgtk2.0-0 libxshmfence-dev libnss3-dev libatk-bridge2.0-dev libdrm-dev libgtk-3-dev libasound2-dev libcanberra-gtk-module libcanberra-gtk3-module \
     && rm -rf /var/lib/apt/lists/*
