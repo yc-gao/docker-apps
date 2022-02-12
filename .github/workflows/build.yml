@@ -54,6 +54,7 @@ jobs:
           - obsidian
           - octave
           - genymotion
+          - blender
     needs: [base]
     steps:
       - uses: docker/setup-qemu-action@v1
