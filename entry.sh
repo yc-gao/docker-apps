@@ -38,7 +38,6 @@ alias-docker() {
         -d xundaoxd/obsidian:latest \
         /opt/obsidian/obsidian --no-sandbox"
     alias octave="home-docker \
-        --gpus all \
         -d xundaoxd/octave:latest \
         octave --gui"
     alias vlc="home-docker \
