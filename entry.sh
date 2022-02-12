@@ -1,9 +1,8 @@
 #!/bin/bash
 
-home-docker() {
+base-docker() {
     docker run --rm -u $(id -u):$(id -g) \
         -h $(hostname) \
-        -v $(pwd):/Home -w /Home \
         -v $HOME/Workdir/docker-apps/.home:/home/xundaoxd \
         -v $HOME/Downloads:/home/xundaoxd/Downloads:ro \
         -v $HOME/Pictures:/home/xundaoxd/Pictures:ro \
@@ -14,7 +13,12 @@ home-docker() {
         "$@"
 }
 
-app-docker() {
+home-docker() {
+    base-docker -v $(pwd):/Home -w /Home \
+    "$@"
+}
+
+alias-docker() {
     alias node="home-docker --network host -ti node:latest node"
     alias npx="home-docker --network host -ti node:latest npx"
     alias npm="home-docker --network host -ti node:latest npm"
@@ -45,6 +49,10 @@ app-docker() {
         -d xundaoxd/gimp:latest \
         gimp"
 
+    alias manim="base-docker \
+        -v \$(pwd):/manim \
+        -ti manimcommunity/manim:latest \
+        manim"
     alias xelatex="home-docker \
         -ti texlive/texlive:latest \
         xelatex"
@@ -56,4 +64,4 @@ app-docker() {
         you-get"
 }
 
-app-docker
+alias-docker
