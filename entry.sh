@@ -30,7 +30,7 @@ alias-docker() {
     alias java="home-docker -ti openjdk:latest java"
 
     alias nvcc="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest nvcc"
-    alias cuda-cmake="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest cmake"
+    alias cmake="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest cmake"
 
     alias obsidian="home-docker \
         --gpus all \
