@@ -10,7 +10,6 @@ base-docker() {
         -v $HOME/Desktop:/home/xundaoxd/Desktop:ro \
         -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
         -e LANG=en_US.UTF-8 -e GTK_IM_MODULE=xim -e XMODIFIERS \
-        --network host \
         "$@"
 }
 
