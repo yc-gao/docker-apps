@@ -29,6 +29,8 @@ alias-docker() {
     alias javac="home-docker -ti openjdk:latest javac"
     alias java="home-docker -ti openjdk:latest java"
 
+    alias nvdisasm="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest nvdisasm"
+    alias cuobjdump="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest cuobjdump"
     alias nvcc="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest nvcc"
     alias cmake="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest cmake"
 
