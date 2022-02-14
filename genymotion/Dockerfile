@@ -9,7 +9,6 @@ RUN wget https://dl.genymotion.com/releases/genymotion-${VERSION}/genymotion-${V
     && chmod +x genymotion-${VERSION}-linux_x64.bin \
     && ./genymotion-${VERSION}-linux_x64.bin -y \
     && rm -rf genymotion-${VERSION}-linux_x64.bin \
-    && useradd -m -s /bin/bash xundaoxd \
-    && rm -rf /var/lib/apt/lists/*
+    && useradd -m -s /bin/bash xundaoxd
 
 USER xundaoxd

@@ -9,7 +9,6 @@ RUN wget https://github.com/obsidianmd/obsidian-releases/releases/download/v${VE
     && tar -C /opt -xvf obsidian-${VERSION}.tar.gz \
     && mv /opt/obsidian-${VERSION} /opt/obsidian \
     && rm -rf obsidian-${VERSION}.tar.gz \
-    && useradd -m -s /bin/bash xundaoxd \
-    && rm -rf /var/lib/apt/lists/*
+    && useradd -m -s /bin/bash xundaoxd
 
 USER xundaoxd
