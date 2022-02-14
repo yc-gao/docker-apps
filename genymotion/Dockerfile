@@ -5,8 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ARG VERSION=3.2.1
 
-RUN apt update \
-    && wget https://dl.genymotion.com/releases/genymotion-${VERSION}/genymotion-${VERSION}-linux_x64.bin \
+RUN wget https://dl.genymotion.com/releases/genymotion-${VERSION}/genymotion-${VERSION}-linux_x64.bin \
     && chmod +x genymotion-${VERSION}-linux_x64.bin \
     && ./genymotion-${VERSION}-linux_x64.bin -y \
     && rm -rf genymotion-${VERSION}-linux_x64.bin \
