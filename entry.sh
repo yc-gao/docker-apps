@@ -4,9 +4,10 @@ base-docker() {
     docker run --rm -u $(id -u):$(id -g) \
         -h $(hostname) \
         -v $HOME/Workdir/docker-apps/.home:/home/xundaoxd \
+        -v $HOME/.Xauthority:/home/xundaoxd/.Xauthority:ro \
+        -v $HOME/Documents:/home/xundaoxd/Documents:ro \
         -v $HOME/Downloads:/home/xundaoxd/Downloads:ro \
         -v $HOME/Pictures:/home/xundaoxd/Pictures:ro \
-        -v $HOME/Documents:/home/xundaoxd/Documents:ro \
         -v $HOME/Desktop:/home/xundaoxd/Desktop:ro \
         -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
         -e LANG="C.UTF-8" -e GTK_IM_MODULE="xim" -e QT_IM_MODULE="xim" -e XMODIFIERS \
