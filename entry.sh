@@ -4,7 +4,6 @@ base-docker() {
     docker run --rm -u $(id -u):$(id -g) \
         -h $(hostname) \
         -v $HOME/Workdir/docker-apps/.home:/home/xundaoxd \
-        -v $HOME/.Xauthority:/home/xundaoxd/.Xauthority:ro \
         -v $HOME/Documents:/home/xundaoxd/Documents:ro \
         -v $HOME/Downloads:/home/xundaoxd/Downloads:ro \
         -v $HOME/Pictures:/home/xundaoxd/Pictures:ro \
