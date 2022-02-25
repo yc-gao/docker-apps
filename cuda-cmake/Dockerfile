@@ -9,7 +9,7 @@ RUN wget --tries=3 https://github.com/Kitware/CMake/releases/download/v${VERSION
     && tar -C /opt/ -xvf cmake-${VERSION}-linux-x86_64.tar.gz \
     && rm -rf cmake-${VERSION}-linux-x86_64.tar.gz \
     && apt update \
-    && apt install -y ninja-build \
+    && apt install -y ninja-build flex bison bison-doc info man-db manpages manpages-dev \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -m -s /bin/bash xundaoxd
 
