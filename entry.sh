@@ -32,6 +32,8 @@ alias-docker() {
     alias nvdisasm="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest nvdisasm"
     alias cuobjdump="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest cuobjdump"
     alias nvcc="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest nvcc"
+    alias flex="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest flex"
+    alias bison="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest bison"
     alias cmake="home-docker -ti --gpus all xundaoxd/cuda-cmake:latest cmake"
 
     alias obsidian="home-docker \
