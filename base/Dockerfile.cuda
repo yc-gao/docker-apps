@@ -11,7 +11,7 @@ RUN apt update \
 RUN apt update \
     && apt install -y software-properties-common xdg-utils ca-certificates \
     && apt install -y fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto xfonts-base yaru-theme-* \
-    && apt install -y python3-pip ffmpeg graphviz \
+    && apt install -y python3-pip ffmpeg graphviz neovim \
     && apt install -y wget firefox evince \
     && rm -rf /var/lib/apt/lists/*
 
