@@ -54,7 +54,6 @@ jobs:
           - obsidian
           - octave
           - blender
-          - llvm
     needs: [base]
     steps:
       - uses: docker/setup-qemu-action@v1
