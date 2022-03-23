@@ -10,6 +10,11 @@ RUN wget --tries=3 https://github.com/Kitware/CMake/releases/download/v${VERSION
     && rm -rf cmake-${VERSION}-linux-x86_64.tar.gz \
     && apt update \
     && apt install -y ninja-build flex bison bison-doc info man-db manpages manpages-dev \
+        libgflags-dev libgtest-dev \
+    && (PATH="/opt/cmake-3.22.1-linux-x86_64/bin:${PATH}" \
+        && cd /usr/src/googletest \
+        && cmake -B build \
+        && cmake --install build) \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -m -s /bin/bash xundaoxd
 
