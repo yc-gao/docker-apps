@@ -3,7 +3,7 @@ FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG VERSION=0.13.23
+ARG VERSION=0.13.31
 
 RUN wget https://github.com/obsidianmd/obsidian-releases/releases/download/v${VERSION}/obsidian-${VERSION}.tar.gz \
     && tar -C /opt -xvf obsidian-${VERSION}.tar.gz \
