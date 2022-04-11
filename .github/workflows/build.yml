@@ -43,6 +43,7 @@ jobs:
           - obsidian
           - octave
           - blender
+          - ml
     needs: [base]
     steps:
       - uses: docker/setup-qemu-action@v1
