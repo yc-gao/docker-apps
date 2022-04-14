@@ -15,10 +15,9 @@ USER xundaoxd
 
 ENV PATH="/opt/miniconda3/bin:${PATH}"
 
-RUN conda install -y ipython \
-    && conda install -y -c pytorch numpy matplotlib pandas seaborn scipy scikit-learn \
+RUN conda install -y -c pytorch \
+    ipython \
+    numpy matplotlib pandas seaborn scipy scikit-learn \
     cudatoolkit=11.3 \
     pytorch torchvision torchaudio \
-    tensorflow-gpu \
-    && python3 -m pip install --find-links https://release.oneflow.info oneflow==0.7.0+cu112 \
     && conda clean -a -y
