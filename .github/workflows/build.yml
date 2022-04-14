@@ -16,6 +16,7 @@ jobs:
           - tag: xundaoxd/base-cuda:latest
             docker: base/Dockerfile.cuda
     steps:
+      - uses: actions/checkout@v3
       - uses: docker/setup-qemu-action@v1
       - uses: docker/setup-buildx-action@v1
       - uses: docker/login-action@v1
@@ -26,6 +27,7 @@ jobs:
           cat dockerfiles/base/Dockerfile.common >> dockerfiles/${{ matrix.docker }}
       - uses: docker/build-push-action@v2
         with:
+          context: dockerfiles
           file: dockerfiles/${{ matrix.docker }}
           tags: ${{ matrix.tag }}
           push: true
@@ -48,6 +50,7 @@ jobs:
           - ml
     needs: [base]
     steps:
+      - uses: actions/checkout@v3
       - uses: docker/setup-qemu-action@v1
       - uses: docker/setup-buildx-action@v1
       - uses: docker/login-action@v1
@@ -56,6 +59,7 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
       - uses: docker/build-push-action@v2
         with:
+          context: dockerfiles
           file: dockerfiles/${{ matrix.context }}/Dockerfile
           tags: xundaoxd/${{ matrix.context }}:latest
           push: true
