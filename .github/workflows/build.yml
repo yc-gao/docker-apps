@@ -24,7 +24,7 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
       - uses: docker/build-push-action@v2
         with:
-          file: ${{ matrix.docker }}
+          file: dockerfiles/${{ matrix.docker }}
           tags: ${{ matrix.tag }}
           push: true
 
@@ -54,6 +54,6 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
       - uses: docker/build-push-action@v2
         with:
-          file: ${{ matrix.context }}/Dockerfile
+          file: dockerfiles/${{ matrix.context }}/Dockerfile
           tags: xundaoxd/${{ matrix.context }}:latest
           push: true
