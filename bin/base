@@ -17,6 +17,9 @@ home_opt="-v $HOME/Documents:$HOME/Documents:ro \
     -v $HOME/Pictures:$HOME/Pictures:ro \
     -v $HOME/Desktop:$HOME/Desktop:ro"
 
+pulse_opt="-e PULSE_SERVER=unix:/run/user/1000/pulse/native \
+    -v /run/user/1000/pulse:/run/user/1000/pulse"
+
 # nodejs
 node() {
     docker run $cwd_opt $base_opt -ti node:latest node "$@"
@@ -69,8 +72,7 @@ octave() {
         octave --gui "$@"
 }
 vlc() {
-    docker run $cwd_opt $base_opt -e PULSE_SERVER=unix:/run/user/1000/pulse/native \
-        -v /run/user/1000/pulse:/run/user/1000/pulse \
+    docker run $cwd_opt $base_opt $pulse_opt \
         -d xundaoxd/vlc:latest \
         vlc "$@"
 }
@@ -96,9 +98,7 @@ you-get() {
         you-get "$@"
 }
 blender() {
-    docker run $base_opt $cwd_opt --gpus all \
-        -e PULSE_SERVER=unix:/run/user/1000/pulse/native \
-        -v /run/user/1000/pulse:/run/user/1000/pulse \
+    docker run $base_opt $cwd_opt $pulse_opt --gpus all \
         -d xundaoxd/blender:latest /usr/bin/blender
 }
 
