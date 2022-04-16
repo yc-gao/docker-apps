@@ -3,10 +3,9 @@ FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN wget -O /tmp/code.deb https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64 \
-    && apt update \
-    && apt install -y /tmp/code.deb \
-    && rm -rf /tmp/code.deb \
+RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add - \
+    && add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" \
+    && apt install -y code \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -m -s /bin/bash xundaoxd
 
