@@ -60,6 +60,11 @@ cuobjdump() {
 cmake() {
     docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/cuda-cmake:latest cmake "$@"
 }
+vscode() {
+    docker run $cwd_opt $base_opt --gpus all \
+        -d xundaoxd/vscode:latest \
+        code --no-sandbox "$@"
+}
 
 # others
 obsidian() {

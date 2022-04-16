@@ -54,6 +54,7 @@ jobs:
           - octave
           - blender
           - ml
+          - vscode
     needs: [base]
     steps:
       - uses: actions/checkout@v3
