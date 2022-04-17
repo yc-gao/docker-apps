@@ -49,19 +49,19 @@ go() {
 
 # cuda
 nvcc() {
-    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/cuda-cmake:latest nvcc "$@"
+    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest nvcc "$@"
 }
 nvdisasm() {
-    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/cuda-cmake:latest nvdisasm "$@"
+    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest nvdisasm "$@"
 }
 cuobjdump() {
-    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/cuda-cmake:latest cuobjdump "$@"
+    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest cuobjdump "$@"
 }
 cmake() {
-    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/cuda-cmake:latest cmake "$@"
+    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest cmake "$@"
 }
 bazel() {
-    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/cuda-cmake:latest bazel "$@"
+    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest bazel "$@"
 }
 vscode() {
     docker run $cwd_opt $base_opt --gpus all \
