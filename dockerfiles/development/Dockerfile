@@ -21,7 +21,7 @@ RUN apt update \
         && cmake --build build \
         && cmake --install build \
         && rm -rf build) \
-    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi \
     && chown xundaoxd -R /opt/miniconda3
