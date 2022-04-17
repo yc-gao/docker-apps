@@ -10,7 +10,9 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh
 ENV PATH="/opt/miniconda3/bin:${PATH}"
 
-RUN conda install -c conda-forge -y cmake bazel buildifier autopep8 pylint \
+RUN conda install -y ipython \
+    numpy matplotlib pandas seaborn scipy scikit-learn \
+    && conda install -c conda-forge -y cmake bazel buildifier autopep8 pylint \
     && conda clean -a -y
 
 RUN apt update \

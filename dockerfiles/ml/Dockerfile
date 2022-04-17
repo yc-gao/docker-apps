@@ -3,10 +3,6 @@ FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN conda install -y ipython \
-    numpy matplotlib pandas seaborn scipy scikit-learn \
-    && conda clean -a -y
-
 RUN conda install -y -c pytorch \
     cudatoolkit=11.3 \
     pytorch torchvision torchaudio \
