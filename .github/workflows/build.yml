@@ -50,7 +50,7 @@ jobs:
           - vlc
           - gimp
           - onedrive
-          - cuda-cmake
+          - development
           - obsidian
           - octave
           - blender
