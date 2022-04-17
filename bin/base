@@ -60,6 +60,9 @@ cuobjdump() {
 cmake() {
     docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/cuda-cmake:latest cmake "$@"
 }
+bazel() {
+    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/cuda-cmake:latest bazel "$@"
+}
 vscode() {
     docker run $cwd_opt $base_opt --gpus all \
         -d xundaoxd/vscode:latest \
