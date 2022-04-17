@@ -1,6 +1,7 @@
 RUN apt update \
     && apt install -y software-properties-common xdg-utils ca-certificates \
-    && apt install -y fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto xfonts-base \
+    && apt install -y language-pack-en* language-pack-zh* language-pack-gnome-en* language-pack-gnome-zh* \
+    && apt install -y fonts-firacode fonts-wqy-microhei ttf-wqy-zenhei fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto xfonts-base \
     && apt install -y yaru-theme-* \
     && apt install -y python3-pip ffmpeg graphviz neovim git ninja-build ccache \
     && apt install -y wget firefox evince \
