@@ -15,12 +15,12 @@ RUN conda install -c conda-forge -y cmake bazel buildifier autopep8 pylint \
 
 RUN apt update \
     && apt install -y clang-format ninja-build flex bison bison-doc info man-db manpages manpages-dev \
-    libgflags-dev libgtest-dev \
+        libgflags-dev libgtest-dev \
     && (cd /usr/src/googletest \
-    && cmake -B build \
-    && cmake --build build \
-    && cmake --install build \
-    && rm -rf build) \
+        && cmake -B build \
+        && cmake --build build \
+        && cmake --install build \
+        && rm -rf build) \
     && rm -rf /var/lib/apt/lists/*
 
 RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi \

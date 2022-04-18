@@ -4,97 +4,110 @@ self_path=$(realpath $0)
 bin_path=$(dirname $self_path)
 docker_path=$(dirname $bin_path)
 
-base() {
-    docker run --rm -u $(id -u):$(id -g) \
-        -h $(hostname) \
-        -v $docker_path/.home:$HOME \
-        -v $HOME/Documents:$HOME/Documents:ro \
-        -v $HOME/Downloads:$HOME/Downloads:ro \
-        -v $HOME/Pictures:$HOME/Pictures:ro \
-        -v $HOME/Desktop:$HOME/Desktop:ro \
-        -v $(pwd):/Home -w /Home \
-        -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
-        -e LANG="C.UTF-8" -e GTK_IM_MODULE="xim" -e QT_IM_MODULE="xim" -e XMODIFIERS \
-        "$@"
-}
+base_opt="--rm -u $(id -u):$(id -g) \
+    -h $(hostname) \
+    -v $docker_path/.home:$HOME \
+    -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e LANG -e GTK_IM_MODULE -e QT_IM_MODULE -e XMODIFIERS"
+
+cwd_opt="-v $PWD:$PWD -w $PWD"
+
+home_opt="-v $HOME/Documents:$HOME/Documents:ro \
+    -v $HOME/Downloads:$HOME/Downloads:ro \
+    -v $HOME/Pictures:$HOME/Pictures:ro \
+    -v $HOME/Desktop:$HOME/Desktop:ro"
+
+pulse_opt="-e PULSE_SERVER=unix:/run/user/1000/pulse/native \
+    -v /run/user/1000/pulse:/run/user/1000/pulse"
 
 # nodejs
 node() {
-    base -ti node:latest node "$@"
+    docker run $cwd_opt $base_opt -ti node:latest node "$@"
 }
 npm() {
-    base -ti node:latest npm "$@"
+    docker run $cwd_opt $base_opt -ti node:latest npm "$@"
 }
 yarn() {
-    base -ti node:latest yarn "$@"
+    docker run $cwd_opt $base_opt -ti node:latest yarn "$@"
 }
 npx() {
-    base -ti node:latest npx "$@"
+    docker run $cwd_opt $base_opt -ti node:latest npx "$@"
 }
 
 # java
 java() {
-    base -ti openjdk:latest java "$@"
+    docker run $cwd_opt $base_opt -ti openjdk:latest java "$@"
 }
 javac() {
-    base -ti openjdk:latest javac "$@"
+    docker run $cwd_opt $base_opt -ti openjdk:latest javac "$@"
 }
 
 # go
 go() {
-    base -ti xundaoxd/go:latest go "$@"
+    docker run $cwd_opt $base_opt -ti xundaoxd/go:latest go "$@"
 }
 
 # cuda
 nvcc() {
-    base -ti --gpus all xundaoxd/cuda-cmake:latest nvcc "$@"
+    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest nvcc "$@"
 }
 nvdisasm() {
-    base -ti --gpus all xundaoxd/cuda-cmake:latest nvdisasm "$@"
+    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest nvdisasm "$@"
 }
 cuobjdump() {
-    base -ti --gpus all xundaoxd/cuda-cmake:latest cuobjdump "$@"
+    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest cuobjdump "$@"
 }
 cmake() {
-    base -ti --gpus all xundaoxd/cuda-cmake:latest cmake "$@"
+    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest cmake "$@"
+}
+bazel() {
+    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest bazel "$@"
+}
+vscode() {
+    docker run $cwd_opt $base_opt --gpus all \
+        -d xundaoxd/vscode:latest \
+        code --no-sandbox -w "$@"
 }
 
 # others
 obsidian() {
-    base --gpus all \
+    docker run $cwd_opt $home_opt $base_opt --gpus all \
         -d xundaoxd/obsidian:latest \
         /opt/obsidian/obsidian --no-sandbox "$@"
 }
 octave() {
-    base -d xundaoxd/octave:latest \
+    docker run $cwd_opt $base_opt -d xundaoxd/octave:latest \
         octave --gui "$@"
 }
 vlc() {
-    base -e PULSE_SERVER=unix:/run/user/1000/pulse/native \
-        -v /run/user/1000/pulse:/run/user/1000/pulse \
+    docker run $cwd_opt $base_opt $pulse_opt \
         -d xundaoxd/vlc:latest \
         vlc "$@"
 }
 gimp() {
-    base -d xundaoxd/gimp:latest \
+    docker run $cwd_opt $base_opt -d xundaoxd/gimp:latest \
         gimp "$@"
 }
 manim() {
-    base -v $(pwd):/manim \
+    docker run $cwd_opt $base_opt -v $(pwd):/manim \
         -ti manimcommunity/manim:latest \
         manim "$@"
 }
 xelatex() {
-    base -ti texlive/texlive:latest \
+    docker run $cwd_opt $base_opt -ti texlive/texlive:latest \
         xelatex "$@"
 }
 doxygen() {
-    base -ti xundaoxd/doxygen:latest \
+    docker run $cwd_opt $base_opt -ti xundaoxd/doxygen:latest \
         doxygen "$@"
 }
 you-get() {
-    base -ti xundaoxd/you-get:latest \
+    docker run $cwd_opt $base_opt -ti xundaoxd/you-get:latest \
         you-get "$@"
+}
+blender() {
+    docker run $base_opt $cwd_opt $pulse_opt --gpus all \
+        -d xundaoxd/blender:latest /usr/bin/blender
 }
 
 main() {

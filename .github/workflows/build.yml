@@ -82,6 +82,7 @@ jobs:
       matrix:
         context:
           - ml
+          - vscode
     needs: [build]
     steps:
       - uses: actions/checkout@v3
