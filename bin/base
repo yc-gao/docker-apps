@@ -8,7 +8,7 @@ base_opt="--rm -u $(id -u):$(id -g) \
     -h $(hostname) \
     -v $docker_path/.home:$HOME \
     -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -e LANG -e GTK_IM_MODULE -e QT_IM_MODULE -e XMODIFIERS"
+    -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
 
 cwd_opt="-v $PWD:$PWD -w $PWD"
 
