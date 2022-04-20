@@ -10,3 +10,6 @@ RUN conda install -y ipython \
 
 RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.8.0-cp37-cp37m-manylinux2010_x86_64.whl \
     && pip cache purge
+
+RUN pip install onnxruntime-gpu=1.10 \
+    && pip cache purge
