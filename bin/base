@@ -20,6 +20,10 @@ home_opt="-v $HOME/Documents:$HOME/Documents:ro \
 pulse_opt="-e PULSE_SERVER=unix:/run/user/1000/pulse/native \
     -v /run/user/1000/pulse:/run/user/1000/pulse"
 
+base() {
+    docker run $base_opt $cwd_opt "$@"
+}
+
 # nodejs
 node() {
     docker run $cwd_opt $base_opt -ti node:latest node "$@"
