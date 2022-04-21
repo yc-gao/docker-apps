@@ -14,7 +14,7 @@ RUN conda install -c conda-forge -y cmake bazel buildifier autopep8 pylint \
     && conda clean -a -y
 
 RUN apt update \
-    && apt install -y clang-format ninja-build flex bison bison-doc info man-db manpages manpages-dev \
+    && apt install -y clang-format ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
         libgflags-dev libgtest-dev \
     && (cd /usr/src/googletest \
         && cmake -B build \
