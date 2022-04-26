@@ -9,6 +9,7 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p /opt/miniconda3 \
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh
 ENV PATH="/opt/miniconda3/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/opt/miniconda3/lib:$LD_LIBRARY_PATH"
 
 RUN conda install -c conda-forge -y cmake bazel buildifier autopep8 pylint \
     && conda clean -a -y
