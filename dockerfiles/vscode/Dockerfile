@@ -12,3 +12,6 @@ RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add 
 
 RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
 USER xundaoxd
+
+RUN conda install -y autopep8 pylint \
+    && conda clean -a -y
