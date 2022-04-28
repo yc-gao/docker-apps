@@ -4,24 +4,47 @@ self_path=$(realpath $0)
 bin_path=$(dirname $self_path)
 docker_path=$(dirname $bin_path)
 
-base_opt="-u $(id -u):$(id -g) \
+base_opt() {
+    echo "-u $(id -u):$(id -g) \
     -h $(hostname) \
     -v $docker_path/.home:$HOME \
     -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
+}
 
-cwd_opt="-v $PWD:$PWD -w $PWD"
+cwd_opt() {
+    echo "-v $PWD:$PWD -w $PWD"
+}
 
-home_opt="-v $HOME/Documents:$HOME/Documents:ro \
-    -v $HOME/Downloads:$HOME/Downloads:ro \
-    -v $HOME/Pictures:$HOME/Pictures:ro \
-    -v $HOME/Desktop:$HOME/Desktop:ro"
+home_opt() {
+    for f in $HOME/*; do
+        ret="$ret -v $f:$f:ro"
+    done
+    echo $ret
+}
 
-pulse_opt="-e PULSE_SERVER=unix:/run/user/1000/pulse/native \
+home_nocwd_opt() {
+    home_dir=$(home_opt)
+    for tmp in $home_dir; do
+        if [ $tmp='-v' ]; then
+            continue
+        fi
+        dr=$(echo $tmp | cut -d ':' -f1)
+        if [ $(realpath $dr)=$(realpath $PWD) ]; then
+            continue
+        fi
+        ret="$ret -v $tmp"
+    done
+    echo $ret
+}
+
+pulse_opt() {
+    echo "-e PULSE_SERVER=unix:/run/user/1000/pulse/native \
     -v /run/user/1000/pulse:/run/user/1000/pulse"
+}
 
 base() {
-    docker run $base_opt $cwd_opt "$@"
+    docker run $(base_opt) $(cwd_opt) "$@"
 }
 
 # nodejs
@@ -75,7 +98,7 @@ vscode() {
 
 # others
 obsidian() {
-    base $home_opt --gpus all \
+    base $(home_nocwd_opt) --gpus all \
         -d --rm xundaoxd/obsidian:latest \
         /opt/obsidian/obsidian --no-sandbox "$@"
 }
@@ -84,7 +107,7 @@ octave() {
         octave --gui "$@"
 }
 vlc() {
-    base $pulse_opt \
+    base $(pulse_opt) \
         -d --rm xundaoxd/vlc:latest \
         vlc "$@"
 }
@@ -110,7 +133,7 @@ you-get() {
         you-get "$@"
 }
 blender() {
-    base $pulse_opt --gpus all \
+    base $(pulse_opt) --gpus all \
         -d --rm xundaoxd/blender:latest /usr/bin/blender
 }
 
