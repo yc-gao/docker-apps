@@ -3,6 +3,11 @@ FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+RUN apt update \
+    && apt install -y clang-format ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
+    && apt install -y libgflags-dev libgtest-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 ARG CONDA_VERSION=py37_4.11.0
 RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && chmod +x /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
@@ -10,20 +15,17 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh
 ENV PATH="/opt/miniconda3/bin:${PATH}"
 
-RUN wget -O /tmp/cmake-3.23.1-linux-x86_64.tar.gz https://github.com/Kitware/CMake/releases/download/v3.23.1/cmake-3.23.1-linux-x86_64.tar.gz \
-    && tar -C /opt -xvf /tmp/cmake-3.23.1-linux-x86_64.tar.gz \
-    && rm -rf /tmp/cmake-3.23.1-linux-x86_64.tar.gz
-ENV PATH="/opt/cmake-3.23.1-linux-x86_64/bin:${PATH}"
+ARG CMAKE_VERSION=3.23.1
+RUN wget -O /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz \
+    && tar -C /opt -xvf /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz \
+    && rm -rf /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
+ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
 
-RUN apt update \
-    && apt install -y clang-format ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
-    libgflags-dev libgtest-dev \
-    && (cd /usr/src/googletest \
+RUN (cd /usr/src/googletest \
     && cmake -B build \
     && cmake --build build \
     && cmake --install build \
-    && rm -rf build) \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf build)
 
 RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi \
     && chown xundaoxd -R /opt/miniconda3
