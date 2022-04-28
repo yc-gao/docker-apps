@@ -1,4 +1,9 @@
 #!/bin/bash
 
 rm -rf .home
-mkdir -p .home/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos,OneDrive}
+for f in $HOME/*; do
+    if [ -d $f ]; then
+        mkdir -p .home/$(basename $f)
+    fi
+done
+
