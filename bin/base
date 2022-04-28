@@ -4,7 +4,7 @@ self_path=$(realpath $0)
 bin_path=$(dirname $self_path)
 docker_path=$(dirname $bin_path)
 
-base_opt="--rm -u $(id -u):$(id -g) \
+base_opt="-u $(id -u):$(id -g) \
     -h $(hostname) \
     -v $docker_path/.home:$HOME \
     -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
@@ -26,92 +26,92 @@ base() {
 
 # nodejs
 node() {
-    docker run $cwd_opt $base_opt -ti node:latest node "$@"
+    base -ti --rm node:latest node "$@"
 }
 npm() {
-    docker run $cwd_opt $base_opt -ti node:latest npm "$@"
+    base -ti --rm node:latest npm "$@"
 }
 yarn() {
-    docker run $cwd_opt $base_opt -ti node:latest yarn "$@"
+    base -ti --rm node:latest yarn "$@"
 }
 npx() {
-    docker run $cwd_opt $base_opt -ti node:latest npx "$@"
+    base -ti --rm node:latest npx "$@"
 }
 
 # java
 java() {
-    docker run $cwd_opt $base_opt -ti openjdk:latest java "$@"
+    base -ti --rm openjdk:latest java "$@"
 }
 javac() {
-    docker run $cwd_opt $base_opt -ti openjdk:latest javac "$@"
+    base -ti --rm openjdk:latest javac "$@"
 }
 
 # go
 go() {
-    docker run $cwd_opt $base_opt -ti xundaoxd/go:latest go "$@"
+    base -ti --rm xundaoxd/go:latest go "$@"
 }
 
 # cuda
 nvcc() {
-    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest nvcc "$@"
+    base -ti --rm --gpus all xundaoxd/development:latest nvcc "$@"
 }
 nvdisasm() {
-    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest nvdisasm "$@"
+    base -ti --rm --gpus all xundaoxd/development:latest nvdisasm "$@"
 }
 cuobjdump() {
-    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest cuobjdump "$@"
+    base -ti --rm --gpus all xundaoxd/development:latest cuobjdump "$@"
 }
 cmake() {
-    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest cmake "$@"
+    base -ti --rm --gpus all xundaoxd/development:latest cmake "$@"
 }
 bazel() {
-    docker run $cwd_opt $base_opt -ti --gpus all xundaoxd/development:latest bazel "$@"
+    base -ti --rm --gpus all xundaoxd/development:latest bazel "$@"
 }
 vscode() {
-    docker run $cwd_opt $base_opt --gpus all \
-        -d xundaoxd/vscode:latest \
+    base --gpus all \
+        -d --rm xundaoxd/vscode:latest \
         code --no-sandbox -w "$@"
 }
 
 # others
 obsidian() {
-    docker run $cwd_opt $home_opt $base_opt --gpus all \
-        -d xundaoxd/obsidian:latest \
+    base $home_opt --gpus all \
+        -d --rm xundaoxd/obsidian:latest \
         /opt/obsidian/obsidian --no-sandbox "$@"
 }
 octave() {
-    docker run $cwd_opt $base_opt -d xundaoxd/octave:latest \
+    base -d --rm xundaoxd/octave:latest \
         octave --gui "$@"
 }
 vlc() {
-    docker run $cwd_opt $base_opt $pulse_opt \
-        -d xundaoxd/vlc:latest \
+    base $pulse_opt \
+        -d --rm xundaoxd/vlc:latest \
         vlc "$@"
 }
 gimp() {
-    docker run $cwd_opt $base_opt -d xundaoxd/gimp:latest \
+    base -d --rm xundaoxd/gimp:latest \
         gimp "$@"
 }
 manim() {
-    docker run $cwd_opt $base_opt -v $(pwd):/manim \
-        -ti manimcommunity/manim:latest \
+    base -v $(pwd):/manim \
+        -ti --rm manimcommunity/manim:latest \
         manim "$@"
 }
 xelatex() {
-    docker run $cwd_opt $base_opt -ti texlive/texlive:latest \
+    base -ti --rm texlive/texlive:latest \
         xelatex "$@"
 }
 doxygen() {
-    docker run $cwd_opt $base_opt -ti xundaoxd/doxygen:latest \
+    base -ti --rm xundaoxd/doxygen:latest \
         doxygen "$@"
 }
 you-get() {
-    docker run $cwd_opt $base_opt -ti xundaoxd/you-get:latest \
+    base -ti --rm xundaoxd/you-get:latest \
         you-get "$@"
 }
 blender() {
-    docker run $base_opt $cwd_opt $pulse_opt --gpus all \
-        -d xundaoxd/blender:latest /usr/bin/blender
+    base $pulse_opt --gpus all \
+        -d --rm xundaoxd/blender:latest /usr/bin/blender
 }
 
 main() {
