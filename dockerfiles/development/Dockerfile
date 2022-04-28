@@ -21,12 +21,6 @@ RUN wget -O /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz https://github.com/K
     && rm -rf /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
 ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
 
-RUN (cd /usr/src/googletest \
-    && cmake -B build \
-    && cmake --build build \
-    && cmake --install build \
-    && rm -rf build)
-
 RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi \
     && chown xundaoxd -R /opt/miniconda3
 
