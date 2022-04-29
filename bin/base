@@ -103,6 +103,10 @@ obsidian() {
         /opt/obsidian/obsidian --no-sandbox "$@"
 }
 octave() {
+    base -ti --rm xundaoxd/octave:latest \
+        octave --no-gui "$@"
+}
+octave-gui() {
     base -d --rm xundaoxd/octave:latest \
         octave --gui "$@"
 }
