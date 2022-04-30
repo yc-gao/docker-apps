@@ -15,6 +15,12 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh
 ENV PATH="/opt/miniconda3/bin:${PATH}"
 
+RUN conda install -y autopep8 pylint \
+    ipython \
+    numpy matplotlib pandas seaborn scipy scikit-learn \
+    opencv \
+    && conda clean -a -y
+
 ARG CMAKE_VERSION=3.23.1
 RUN wget -O /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz \
     && tar -C /opt -xvf /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz \
