@@ -19,6 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: technote-space/get-diff-action@v6
+        if: ${{ github.ref != 'refs/heads/force_run' }}
         with:
           PATTERNS: |
             dockerfiles/${{ matrix.docker }}
@@ -58,6 +59,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: technote-space/get-diff-action@v6
+        if: ${{ github.ref != 'refs/heads/force_run' }}
         with:
           PATTERNS: |
             dockerfiles/${{ matrix.context }}/Dockerfile
@@ -89,6 +91,7 @@ jobs:
           curl -L https://raw.githubusercontent.com/apache/flink/master/tools/azure-pipelines/free_disk_space.sh | bash
       - uses: actions/checkout@v3
       - uses: technote-space/get-diff-action@v6
+        if: ${{ github.ref != 'refs/heads/force_run' }}
         with:
           PATTERNS: |
             dockerfiles/${{ matrix.context }}/Dockerfile
