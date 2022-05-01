@@ -138,7 +138,7 @@ you-get() {
 }
 blender() {
     base $(pulse_opt) --gpus all \
-        -d --rm xundaoxd/blender:latest /usr/bin/blender
+        -d --rm xundaoxd/blender:latest blender
 }
 
 main() {
