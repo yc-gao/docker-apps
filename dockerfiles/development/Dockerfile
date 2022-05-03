@@ -20,7 +20,7 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
         autopep8 pylint \
         numpy matplotlib pandas seaborn scipy scikit-learn \
         opencv \
-    && conda clean -a -y
+    && /opt/miniconda3/bin/conda clean -a -y
 ENV PATH="/opt/miniconda3/bin:${PATH}"
 
 ARG CMAKE_VERSION=3.23.1
