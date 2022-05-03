@@ -5,6 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt update \
     && apt install -y clang-format ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
+    && apt install -y gdb strace ltrace \
     && apt install -y libgflags-dev libgtest-dev \
     && rm -rf /var/lib/apt/lists/*
 
