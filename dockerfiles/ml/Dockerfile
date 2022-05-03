@@ -15,3 +15,6 @@ RUN pip install paddlepaddle-gpu==2.2.2.post112 -f https://www.paddlepaddle.org.
 
 RUN pip install onnxruntime-gpu==1.10 \
     && pip cache purge
+
+RUN pip install gym \
+    && pip cache purge
