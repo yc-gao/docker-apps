@@ -71,7 +71,7 @@ javac() {
 
 # go
 go() {
-    base -ti --rm xundaoxd/go:latest go "$@"
+    base -ti --rm --gpus all xundaoxd/development:latest go "$@"
 }
 
 # cuda
@@ -103,20 +103,20 @@ obsidian() {
         /opt/obsidian/obsidian --no-sandbox "$@"
 }
 octave() {
-    base -ti --rm xundaoxd/octave:latest \
+    base -ti --rm --gpus all xundaoxd/development:latest \
         octave --no-gui "$@"
 }
 octave-gui() {
-    base -d --rm xundaoxd/octave:latest \
+    base -d --rm --gpus all  xundaoxd/development:latest \
         octave --gui "$@"
 }
 vlc() {
     base $(pulse_opt) \
-        -d --rm xundaoxd/vlc:latest \
+        -d --rm xundaoxd/tools:latest \
         vlc "$@"
 }
 gimp() {
-    base -d --rm xundaoxd/gimp:latest \
+    base -d --rm xundaoxd/tools:latest \
         gimp "$@"
 }
 manim() {
@@ -129,16 +129,12 @@ xelatex() {
         xelatex "$@"
 }
 doxygen() {
-    base -ti --rm xundaoxd/doxygen:latest \
+    base -ti --rm xundaoxd/tools:latest \
         doxygen "$@"
 }
 you-get() {
-    base -ti --rm xundaoxd/you-get:latest \
+    base -ti --rm xundaoxd/tools:latest \
         you-get "$@"
-}
-blender() {
-    base $(pulse_opt) --gpus all \
-        -d --rm xundaoxd/blender:latest blender
 }
 
 main() {

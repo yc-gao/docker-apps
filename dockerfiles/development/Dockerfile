@@ -3,6 +3,8 @@ FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+USER root
+
 RUN apt update \
     && apt install -y clang-format ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
     && apt install -y gdb strace ltrace \
@@ -29,7 +31,11 @@ RUN wget -O /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz https://github.com/K
     && rm -rf /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
 ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
 
-RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi \
-    && chown xundaoxd -R /opt/miniconda3
+RUN wget -O /tmp/go1.17.6.linux-amd64.tar.gz https://golang.google.cn/dl/go1.17.6.linux-amd64.tar.gz \
+    && tar -C /opt -xvf /tmp/go1.17.6.linux-amd64.tar.gz \
+    && rm -rf /tmp/go1.17.6.linux-amd64.tar.gz
+ENV PATH="/opt/go/bin:$PATH"
+
+RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
 
 USER xundaoxd

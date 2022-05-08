@@ -45,16 +45,9 @@ jobs:
     strategy:
       matrix:
         context:
-          - doxygen
-          - you-get
-          - go
-          - vlc
-          - gimp
-          - onedrive
           - development
           - obsidian
-          - octave
-          - blender
+          - tools
     needs: [base]
     steps:
       - uses: actions/checkout@v3
