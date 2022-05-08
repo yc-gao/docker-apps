@@ -103,11 +103,11 @@ obsidian() {
         /opt/obsidian/obsidian --no-sandbox "$@"
 }
 octave() {
-    base -ti --rm --gpus all xundaoxd/development:latest \
+    base -ti --rm --gpus all xundaoxd/ml:latest \
         octave --no-gui "$@"
 }
 octave-gui() {
-    base -d --rm --gpus all  xundaoxd/development:latest \
+    base -d --rm --gpus all  xundaoxd/ml:latest \
         octave --gui "$@"
 }
 vlc() {
