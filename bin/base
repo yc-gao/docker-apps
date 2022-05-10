@@ -112,11 +112,11 @@ octave-gui() {
 }
 vlc() {
     base $(pulse_opt) \
-        -d --rm xundaoxd/tools:latest \
+        -d --rm --gpus all xundaoxd/tools:latest \
         vlc "$@"
 }
 gimp() {
-    base -d --rm xundaoxd/tools:latest \
+    base -d --rm --gpus all xundaoxd/tools:latest \
         gimp "$@"
 }
 manim() {
@@ -129,11 +129,11 @@ xelatex() {
         xelatex "$@"
 }
 doxygen() {
-    base -ti --rm xundaoxd/tools:latest \
+    base -ti --rm --gpus all xundaoxd/tools:latest \
         doxygen "$@"
 }
 you-get() {
-    base -ti --rm xundaoxd/tools:latest \
+    base -ti --rm --gpus all xundaoxd/tools:latest \
         you-get "$@"
 }
 
