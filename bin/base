@@ -49,16 +49,16 @@ base() {
 
 # nodejs
 node() {
-    base -ti --rm node:latest node "$@"
+    base -ti --rm --network host node:latest node "$@"
 }
 npm() {
-    base -ti --rm node:latest npm "$@"
+    base -ti --rm --network host node:latest npm "$@"
 }
 yarn() {
-    base -ti --rm node:latest yarn "$@"
+    base -ti --rm --network host node:latest yarn "$@"
 }
 npx() {
-    base -ti --rm node:latest npx "$@"
+    base -ti --rm --network host node:latest npx "$@"
 }
 
 # java
