@@ -97,6 +97,11 @@ vscode() {
 }
 
 # others
+xmind() {
+    base --gpus all \
+        -d --rm xundaoxd/tools:latest \
+        xmind --no-sandbox "$@"
+}
 obsidian() {
     base $(home_nocwd_opt) --gpus all \
         -d --rm xundaoxd/obsidian:latest \
