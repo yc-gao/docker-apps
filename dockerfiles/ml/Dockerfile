@@ -3,8 +3,6 @@ FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-USER root
-
 RUN conda install -y pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch \
     && conda install -y pillow=6.2 \
     && conda clean -a -y
