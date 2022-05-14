@@ -5,10 +5,12 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ARG VERSION=0.14.6
 
-RUN wget https://github.com/obsidianmd/obsidian-releases/releases/download/v${VERSION}/obsidian-${VERSION}.tar.gz \
-    && tar -C /opt -xvf obsidian-${VERSION}.tar.gz \
-    && mv /opt/obsidian-${VERSION} /opt/obsidian \
-    && rm -rf obsidian-${VERSION}.tar.gz \
-    && useradd -m -s /bin/bash xundaoxd
+RUN apt update \
+    && wget -O /tmp/obsidian_${VERSION}_amd64.deb https://github.com/obsidianmd/obsidian-releases/releases/download/v${VERSION}/obsidian_${VERSION}_amd64.deb \
+    && apt install -y /tmp/obsidian_${VERSION}_amd64.deb \
+    && rm -rf /tmp/obsidian_${VERSION}_amd64.deb \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
 
 USER xundaoxd
