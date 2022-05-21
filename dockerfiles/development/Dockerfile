@@ -26,15 +26,11 @@ ENV PATH="/opt/miniconda3/bin:${PATH}"
 
 #install cmake
 ARG CMAKE_VERSION=3.23.1
-RUN wget -O /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz \
-    && tar -C /opt -xvf /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz \
-    && rm -rf /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
+RUN sh -c "wget -qO - https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz | tar -C /opt -xzv"
 ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
 
 # install go
-RUN wget -O /tmp/go1.17.6.linux-amd64.tar.gz https://golang.google.cn/dl/go1.17.6.linux-amd64.tar.gz \
-    && tar -C /opt -xvf /tmp/go1.17.6.linux-amd64.tar.gz \
-    && rm -rf /tmp/go1.17.6.linux-amd64.tar.gz
+RUN sh -c "wget -qO - https://golang.google.cn/dl/go1.17.6.linux-amd64.tar.gz | tar -C /opt -xzv" \
 ENV PATH="/opt/go/bin:$PATH"
 
 # install bazel
