@@ -35,7 +35,10 @@ ENV PATH="/opt/go/bin:$PATH"
 
 # install bazel
 ARG BAZEL_VERSION=5.1.1
-RUN sh -c "wget -qO - https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh | bash"
+RUN wget -qO /tmp/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh \
+    && chmod +x /tmp/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh \
+    && /tmp/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh \
+    && rm -rf /tmp/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh
 
 RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
 
