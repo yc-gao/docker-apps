@@ -1,6 +1,8 @@
 ARG BASE_IMAGE=xundaoxd/base-cuda:latest
 FROM ${BASE_IMAGE}
 
+USER root
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 ARG VERSION=0.14.6

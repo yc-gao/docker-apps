@@ -39,3 +39,7 @@ ENV PATH="/opt/go/bin:$PATH"
 
 # install bazel
 RUN go install github.com/bazelbuild/bazelisk@latest
+
+RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
+
+USER xundaoxd

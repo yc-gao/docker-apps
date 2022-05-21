@@ -1,6 +1,8 @@
 ARG BASE_IMAGE=xundaoxd/base-cuda:latest
 FROM ${BASE_IMAGE}
 
+USER root
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN add-apt-repository -y ppa:yann1ck/onedrive \

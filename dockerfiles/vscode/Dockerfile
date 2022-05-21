@@ -1,6 +1,8 @@
 ARG BASE_IMAGE=xundaoxd/development:latest
 FROM ${BASE_IMAGE}
 
+USER root
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add - \
