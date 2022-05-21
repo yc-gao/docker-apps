@@ -38,7 +38,7 @@ RUN wget -O /tmp/go1.17.6.linux-amd64.tar.gz https://golang.google.cn/dl/go1.17.
 ENV PATH="/opt/go/bin:$PATH"
 
 # install bazel
-RUN "wget -qO - https://github.com/bazelbuild/bazel/releases/download/5.1.1/bazel-5.1.1-linux-x86_64 | bash"
+RUN sh -c "wget -qO - https://github.com/bazelbuild/bazel/releases/download/5.1.1/bazel-5.1.1-linux-x86_64 | bash"
 
 RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
 
