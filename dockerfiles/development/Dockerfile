@@ -38,8 +38,4 @@ RUN wget -O /tmp/go1.17.6.linux-amd64.tar.gz https://golang.google.cn/dl/go1.17.
 ENV PATH="/opt/go/bin:$PATH"
 
 # install bazel
-RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor | tee /usr/share/keyrings/bazel-archive-keyring.gpg \
-    && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list \
-    && apt update \
-    && apt install bazel \
-    && rm -rf /var/lib/apt/lists/*
+RUN go install github.com/bazelbuild/bazelisk@latest
