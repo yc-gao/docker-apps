@@ -9,6 +9,7 @@ RUN apt update \
     && apt install -y libgflags-dev libgtest-dev \
     && rm -rf /var/lib/apt/lists/*
 
+#install miniconda3
 ARG CONDA_VERSION=py37_4.11.0
 RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && chmod +x /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
@@ -23,13 +24,22 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && /opt/miniconda3/bin/conda clean -a -y
 ENV PATH="/opt/miniconda3/bin:${PATH}"
 
+#install cmake
 ARG CMAKE_VERSION=3.23.1
 RUN wget -O /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz \
     && tar -C /opt -xvf /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz \
     && rm -rf /tmp/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
 ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
 
+# install go
 RUN wget -O /tmp/go1.17.6.linux-amd64.tar.gz https://golang.google.cn/dl/go1.17.6.linux-amd64.tar.gz \
     && tar -C /opt -xvf /tmp/go1.17.6.linux-amd64.tar.gz \
     && rm -rf /tmp/go1.17.6.linux-amd64.tar.gz
 ENV PATH="/opt/go/bin:$PATH"
+
+# install bazel
+RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor | tee /usr/share/keyrings \
+    && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list \
+    && apt update \
+    && apt install bazel \
+    && rm -rf /var/lib/apt/lists/*
