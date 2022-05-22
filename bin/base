@@ -25,15 +25,11 @@ home_opt() {
 
 home_nocwd_opt() {
     home_dir=$(home_opt)
-    for tmp in $home_dir; do
-        if [ $tmp='-v' ]; then
+    for tmp in $HOME/*; do
+        if test $(realpath $tmp) = $(realpath $PWD); then
             continue
         fi
-        dr=$(echo $tmp | cut -d ':' -f1)
-        if [ $(realpath $dr)=$(realpath $PWD) ]; then
-            continue
-        fi
-        ret="$ret -v $tmp"
+        ret="$ret -v $tmp:$tmp:ro"
     done
     echo $ret
 }
