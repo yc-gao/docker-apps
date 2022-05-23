@@ -137,6 +137,10 @@ you-get() {
     base -ti --rm --gpus all xundaoxd/tools:latest \
         you-get "$@"
 }
+tldr() {
+    base -ti --rm xundaoxd/tools:latest \
+        tldr "$@"
+}
 
 main() {
     self=$(basename $0)
