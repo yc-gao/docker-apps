@@ -13,7 +13,9 @@ base_opt() {
 }
 
 cwd_opt() {
-    echo "-v $PWD:$PWD -w $PWD"
+    if [[ $PWD == $HOME/* ]]; then
+        echo "-v $PWD:$PWD -w $PWD"
+    fi
 }
 
 home_opt() {
