@@ -8,6 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN conda install -y pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch \
     && conda install -y pillow=6.2 \
     && pip install --pre torch-mlir -f https://github.com/llvm/torch-mlir/releases \
+    && pip cache purge \
     && conda clean -a -y
 
 RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.8.0-cp37-cp37m-manylinux2010_x86_64.whl \
