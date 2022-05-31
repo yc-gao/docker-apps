@@ -28,7 +28,7 @@ home_opt() {
 home_nocwd_opt() {
     home_dir=$(home_opt)
     for tmp in $HOME/*; do
-        if test $(realpath $tmp) = $(realpath $PWD); then
+        if [[ $(realpath $tmp) == $(realpath $PWD) ]]; then
             continue
         fi
         ret="$ret -v $tmp:$tmp:ro"
@@ -116,11 +116,6 @@ vlc() {
 gimp() {
     base -d --rm --gpus all xundaoxd/tools:latest \
         gimp "$@"
-}
-manim() {
-    base -v $(pwd):/manim \
-        -ti --rm manimcommunity/manim:latest \
-        manim "$@"
 }
 xelatex() {
     base -ti --rm texlive/texlive:latest \
