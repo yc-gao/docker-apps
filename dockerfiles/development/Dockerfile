@@ -30,7 +30,7 @@ RUN sh -c "wget -qO - https://github.com/Kitware/CMake/releases/download/v${CMAK
 ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
 
 # install go
-RUN sh -c "wget -qO - https://golang.google.cn/dl/go1.17.6.linux-amd64.tar.gz | tar -C /opt -xzv" \
+RUN sh -c "wget -qO - https://golang.google.cn/dl/go1.17.6.linux-amd64.tar.gz | tar -C /opt -xzv"
 ENV PATH="/opt/go/bin:${PATH}"
 
 # install bazel
