@@ -31,14 +31,12 @@ ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
 
 # install go
 RUN sh -c "wget -qO - https://golang.google.cn/dl/go1.17.6.linux-amd64.tar.gz | tar -C /opt -xzv" \
-ENV PATH="/opt/go/bin:$PATH"
+ENV PATH="/opt/go/bin:${PATH}"
 
 # install bazel
 ARG BAZEL_VERSION=5.1.1
-RUN wget -qO /tmp/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh \
-    && chmod +x /tmp/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh \
-    && /tmp/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh \
-    && rm -rf /tmp/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh
+RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-linux-x86_64 \
+    && chmod +x /usr/local/bin/bazel
 
 RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
 
