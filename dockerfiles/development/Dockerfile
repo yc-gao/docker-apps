@@ -3,6 +3,8 @@ FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
+
 RUN apt update \
     && apt install -y clang-format ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
     && apt install -y gdb strace ltrace \
@@ -21,7 +23,8 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
         autopep8 pylint \
         numpy matplotlib pandas seaborn scipy scikit-learn \
         opencv \
-    && /opt/miniconda3/bin/conda clean -a -y
+    && /opt/miniconda3/bin/conda clean -a -y \
+    && chown xundaoxd:xundaoxd -R /opt/miniconda3
 ENV PATH="/opt/miniconda3/bin:${PATH}"
 
 #install cmake
@@ -37,7 +40,5 @@ ENV PATH="/opt/go/bin:${PATH}"
 ARG BAZEL_VERSION=5.1.1
 RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-linux-x86_64 \
     && chmod +x /usr/local/bin/bazel
-
-RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
 
 USER xundaoxd

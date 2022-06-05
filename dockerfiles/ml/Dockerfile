@@ -5,6 +5,14 @@ USER root
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+RUN apt update \
+    && apt install -y octave \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
+
+USER xundaoxd
+
 RUN conda install -y pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch \
     && conda install -y pillow=6.2 \
     && pip install --pre torch-mlir -f https://github.com/llvm/torch-mlir/releases \
@@ -20,12 +28,4 @@ RUN pip install paddlepaddle-gpu==2.2.2.post112 -f https://www.paddlepaddle.org.
 
 RUN pip install onnxruntime-gpu==1.10 \
     && pip cache purge
-
-RUN apt update \
-    && apt install -y octave \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
-
-USER xundaoxd
 
