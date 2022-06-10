@@ -21,7 +21,7 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && /opt/miniconda3/bin/conda install -y \
         ipython \
         autopep8 pylint \
-        numpy matplotlib pandas seaborn scipy scikit-learn \
+        numpy matplotlib pandas seaborn scipy scikit-learn python-graphviz \
         opencv \
     && /opt/miniconda3/bin/conda clean -a -y \
     && chown xundaoxd:xundaoxd -R /opt/miniconda3
