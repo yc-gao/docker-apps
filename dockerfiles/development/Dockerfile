@@ -9,6 +9,7 @@ RUN apt update \
     && apt install -y clang-format ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
     && apt install -y gdb strace ltrace \
     && apt install -y libgflags-dev libgtest-dev \
+    && apt install -y linux-generic-hwe-20.04 \
     && rm -rf /var/lib/apt/lists/*
 
 #install miniconda3
