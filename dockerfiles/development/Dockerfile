@@ -19,6 +19,7 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p /opt/miniconda3 \
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && /opt/miniconda3/bin/conda update --all -y \
+    && /opt/miniconda3/bin/conda install -y -c conda-forge ffmpeg \
     && /opt/miniconda3/bin/conda install -y \
         ipython \
         autopep8 pylint \
@@ -26,7 +27,7 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
         opencv \
     && /opt/miniconda3/bin/conda clean -a -y \
     && chown xundaoxd:xundaoxd -R /opt/miniconda3
-ENV PATH="${PATH}:/opt/miniconda3/bin"
+ENV PATH="/opt/miniconda3/bin:${PATH}"
 
 #install cmake
 ARG CMAKE_VERSION=3.23.1
