@@ -25,7 +25,7 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
         opencv \
     && /opt/miniconda3/bin/conda clean -a -y \
     && chown xundaoxd:xundaoxd -R /opt/miniconda3
-ENV PATH="/opt/miniconda3/bin:${PATH}"
+ENV PATH="${PATH}:/opt/miniconda3/bin"
 
 #install cmake
 ARG CMAKE_VERSION=3.23.1
