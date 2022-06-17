@@ -19,9 +19,11 @@ RUN conda install -y pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch 
     && pip cache purge \
     && conda clean -a -y
 
-RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.8.0-cp37-cp37m-manylinux2010_x86_64.whl \
+RUN conda install -y protobuf=3.20 \
+    && pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.8.0-cp37-cp37m-manylinux2010_x86_64.whl \
     && pip install --upgrade tensorflow_hub \
-    && pip cache purge
+    && pip cache purge \
+    && conda clean -a -y
 
 RUN pip install paddlepaddle-gpu==2.2.2.post112 -f https://www.paddlepaddle.org.cn/whl/linux/mkl/avx/stable.html \
     && pip cache purge
