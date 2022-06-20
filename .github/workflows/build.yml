@@ -72,7 +72,6 @@ jobs:
       matrix:
         context:
           - ml
-          - vscode
     needs: [build]
     steps:
       - run: |

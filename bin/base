@@ -90,7 +90,7 @@ bazel() {
 }
 vscode() {
     base --gpus all \
-        -d --rm xundaoxd/vscode:latest \
+        -d --rm xundaoxd/tools:latest \
         code --no-sandbox -w "$@"
 }
 
