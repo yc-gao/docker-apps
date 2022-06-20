@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
 
 RUN apt update \
-    && apt install -y clang-format ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
+    && apt install -y autoconf automake libtool clang-format ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
     && apt install -y gdb strace ltrace \
     && apt install -y libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler \
     && apt install -y linux-generic-hwe-20.04 \
@@ -21,10 +21,10 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && /opt/miniconda3/bin/conda update --all -y \
     && /opt/miniconda3/bin/conda install -y -c conda-forge ffmpeg \
     && /opt/miniconda3/bin/conda install -y \
-        ipython \
-        autopep8 pylint \
-        numpy matplotlib pandas seaborn scipy scikit-learn python-graphviz \
-        opencv \
+    ipython \
+    autopep8 pylint \
+    numpy matplotlib pandas seaborn scipy scikit-learn python-graphviz \
+    opencv \
     && /opt/miniconda3/bin/conda clean -a -y \
     && chown xundaoxd:xundaoxd -R /opt/miniconda3
 ENV PATH="/opt/miniconda3/bin:${PATH}"
