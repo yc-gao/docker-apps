@@ -10,6 +10,9 @@ RUN apt update \
     && apt install -y gdb strace ltrace \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler \
     && apt install -y linux-generic-hwe-20.04 \
+    && apt install -y clang-format clang-tidy clang-tools clang clangd \
+    libc++-dev libc++1 libc++abi-dev libc++abi1 libclang-dev libclang1 liblldb-dev libllvm-ocaml-dev libomp-dev libomp5 \
+    lld lldb llvm-dev llvm-runtime llvm python3-clang \
     && rm -rf /var/lib/apt/lists/*
 
 #install miniconda3
