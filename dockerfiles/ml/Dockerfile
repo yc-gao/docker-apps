@@ -24,6 +24,6 @@ RUN conda install -y protobuf=3.20 \
     && pip cache purge \
     && conda clean -a -y
 
-RUN pip install onnxruntime-gpu==1.10 \
+RUN pip install onnxruntime-gpu tf2onnx skl2onnx \
     && pip cache purge
 
