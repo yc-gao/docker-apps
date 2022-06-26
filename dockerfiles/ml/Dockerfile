@@ -13,8 +13,8 @@ RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xun
 
 USER xundaoxd
 
-RUN conda install -y pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch \
-    && conda install -y pillow=6.2 \
+RUN conda install -y pillow=6.2 \
+    && pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 \
     && pip install --pre torch-mlir -f https://github.com/llvm/torch-mlir/releases \
     && pip cache purge \
     && conda clean -a -y
