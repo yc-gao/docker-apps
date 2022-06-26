@@ -86,7 +86,7 @@ cmake() {
     base -ti --rm --gpus all xundaoxd/development:latest cmake "$@"
 }
 bazel() {
-    base -ti --rm --gpus all xundaoxd/development:latest bazel "$@"
+    base -ti --rm --gpus all xundaoxd/development:latest bazel --output_user_root=$PWD/.cache "$@"
 }
 vscode() {
     base --gpus all \
