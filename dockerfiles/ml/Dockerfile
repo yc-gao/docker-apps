@@ -8,7 +8,6 @@ RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xun
 USER xundaoxd
 
 RUN pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 \
-    && conda install -y pillow=6.2 \
     && pip cache purge \
     && conda clean -a -y
 
