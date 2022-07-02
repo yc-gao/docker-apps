@@ -10,9 +10,6 @@ RUN apt update \
     && apt install -y gdb strace ltrace \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler libboost-all-dev \
     && apt install -y linux-generic-hwe-20.04 \
-    && apt install -y clang-format clang-tidy clang-tools clang clangd \
-    libc++-dev libc++1 libc++abi-dev libc++abi1 libclang-dev libclang1 liblldb-dev libllvm-ocaml-dev libomp-dev libomp5 \
-    lld lldb llvm-dev llvm-runtime llvm python3-clang \
     && rm -rf /var/lib/apt/lists/*
 
 #install miniconda3
@@ -23,11 +20,14 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && /opt/miniconda3/bin/conda update --all -y \
     && /opt/miniconda3/bin/conda install -y -c conda-forge ffmpeg \
+    && /opt/miniconda3/bin/conda install -y -c conda-forge pybind11 \
     && /opt/miniconda3/bin/conda install -y \
     ipython \
     autopep8 pylint \
     numpy matplotlib pandas seaborn scipy scikit-learn python-graphviz \
     opencv \
+    protobuf=3.20 \
+    pillow=6.2 \
     && /opt/miniconda3/bin/conda clean -a -y \
     && chown xundaoxd:xundaoxd -R /opt/miniconda3
 ENV PATH="/opt/miniconda3/bin:${PATH}"
