@@ -97,7 +97,7 @@ vscode() {
 # others
 obsidian() {
     base $(home_nocwd_opt) --gpus all \
-        -d --rm xundaoxd/obsidian:latest \
+        -d --rm xundaoxd/tools:latest \
         obsidian --no-sandbox "$@"
 }
 octave() {
