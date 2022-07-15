@@ -5,6 +5,8 @@ USER root
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+RUN curl -sSL https://get.docker.com/ | sh
+
 ARG OBSIDIAN_VERSION=0.14.15
 RUN apt update \
     && wget -O /tmp/obsidian_${OBSIDIAN_VERSION}_amd64.deb https://github.com/obsidianmd/obsidian-releases/releases/download/v${OBSIDIAN_VERSION}/obsidian_${OBSIDIAN_VERSION}_amd64.deb \
