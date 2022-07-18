@@ -14,9 +14,7 @@ base_opt() {
 }
 
 cwd_opt() {
-    if [[ $PWD == $HOME/* ]]; then
-        echo "-v $PWD:$PWD -w $PWD"
-    fi
+    echo "-v $PWD:$PWD -w $PWD"
 }
 
 home_opt() {
@@ -27,9 +25,8 @@ home_opt() {
 }
 
 home_nocwd_opt() {
-    home_dir=$(home_opt)
     for tmp in $HOME/*; do
-        if [[ $(realpath $tmp) == $(realpath $PWD) ]]; then
+        if [[ $(realpath $tmp) == $(realpath $PWD)/* ]]; then
             continue
         fi
         ret="$ret -v $tmp:$tmp:ro"
@@ -125,6 +122,11 @@ you-get() {
 tldr() {
     base -ti --rm xundaoxd/tools:latest \
         tldr "$@"
+}
+
+ipython() {
+    base -ti --rm --gpus all xundaoxd/ml:latest \
+        ipython "$@"
 }
 
 main() {
