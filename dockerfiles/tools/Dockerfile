@@ -19,7 +19,6 @@ RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add 
     && apt install -y code ctags \
     && apt install -y doxygen gimp onedrive vlc python3-pip ffmpeg \
     && apt install -y poppler-utils \
-    && pip3 install you-get tldr \
     && rm -rf /var/lib/apt/lists/*
 
 RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
