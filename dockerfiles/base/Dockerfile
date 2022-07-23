@@ -20,8 +20,9 @@ RUN apt update \
 
 RUN apt update \
     && apt install -y autoconf automake libtool clang-format ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
-    && apt install -y gdb strace ltrace \
+    && apt install -y gdb strace ltrace bc \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler libboost-all-dev libgsl-dev \
+    && apt install -y libelf-dev libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
 #install miniconda3
