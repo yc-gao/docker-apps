@@ -130,6 +130,10 @@ ipython() {
     base -ti --rm --gpus all xundaoxd/ml:latest \
         ipython "$@"
 }
+octave() {
+    base -ti --rm --gpus all xundaoxd/ml:latest \
+        octave "$@"
+}
 
 main() {
     self=$(basename $0)
