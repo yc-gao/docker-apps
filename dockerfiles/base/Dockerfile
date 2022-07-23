@@ -3,6 +3,10 @@ FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+USER root
+
+RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
+
 RUN apt update \
     && apt install -y apt-transport-https curl gnupg \
     && apt install -y software-properties-common xdg-utils ca-certificates \
@@ -53,7 +57,5 @@ ENV PATH="/opt/go/bin:${PATH}"
 ARG BAZEL_VERSION=5.1.1
 RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-linux-x86_64 \
     && chmod +x /usr/local/bin/bazel
-
-RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
 
 USER xundaoxd
