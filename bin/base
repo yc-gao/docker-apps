@@ -134,6 +134,10 @@ octave() {
     base -ti --rm --gpus all xundaoxd/ml:latest \
         octave "$@"
 }
+mllab() {
+    base -ti --rm --gpus all xundaoxd/ml:latest \
+        bash "$@"
+}
 
 main() {
     self=$(basename $0)
