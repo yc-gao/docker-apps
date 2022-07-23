@@ -8,7 +8,7 @@ USER root
 RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
 
 RUN apt update \
-    && apt install -y octave \
+    && apt install -y octave liboctave-dev \
     && rm -rf /var/lib/apt/lists/*
 
 USER xundaoxd
