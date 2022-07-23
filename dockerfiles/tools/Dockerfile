@@ -1,9 +1,9 @@
-ARG BASE_IMAGE=xundaoxd/development:latest
+ARG BASE_IMAGE=xundaoxd/base:latest
 FROM ${BASE_IMAGE}
 
-USER root
-
 ARG DEBIAN_FRONTEND=noninteractive
+
+USER root
 
 RUN curl -sSL https://get.docker.com/ | sh
 
