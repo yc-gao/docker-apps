@@ -14,6 +14,8 @@ RUN apt update \
 USER xundaoxd
 
 RUN conda install -c conda-forge -y jupyterlab \
+    && pip install ipywidgets \
+    && pip cache purge \
     && conda clean -a -y
 
 RUN pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 \
