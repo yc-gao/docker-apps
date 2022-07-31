@@ -42,21 +42,21 @@ pulse_opt() {
 }
 
 base() {
-    docker run $(base_opt) $(cwd_opt) "$@"
+    docker run --network host $(base_opt) $(cwd_opt) "$@"
 }
 
 # nodejs
 node() {
-    base -ti --rm --network host node:latest node "$@"
+    base -ti --rm node:latest node "$@"
 }
 npm() {
-    base -ti --rm --network host node:latest npm "$@"
+    base -ti --rm node:latest npm "$@"
 }
 yarn() {
-    base -ti --rm --network host node:latest yarn "$@"
+    base -ti --rm node:latest yarn "$@"
 }
 npx() {
-    base -ti --rm --network host node:latest npx "$@"
+    base -ti --rm node:latest npx "$@"
 }
 
 # java
@@ -137,6 +137,10 @@ octave() {
 mllab() {
     base -ti --rm --gpus all xundaoxd/ml:latest \
         bash "$@"
+}
+jupyter() {
+    base -ti --rm --gpus all xundaoxd/ml:latest \
+        jupyter lab --no-browser
 }
 
 main() {
