@@ -13,6 +13,9 @@ RUN apt update \
 
 USER xundaoxd
 
+RUN conda install -c conda-forge -y jupyterlab \
+    && conda clean -a -y
+
 RUN pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 \
     && pip install pfrl \
     && pip cache purge \
