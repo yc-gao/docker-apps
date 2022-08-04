@@ -37,6 +37,7 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && /opt/miniconda3/bin/conda install -y \
     ipython \
     autopep8 pylint \
+    cython \
     numpy matplotlib pandas seaborn scipy scikit-learn python-graphviz \
     opencv \
     protobuf=3.20 \
