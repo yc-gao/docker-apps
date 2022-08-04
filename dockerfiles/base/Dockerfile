@@ -25,6 +25,8 @@ RUN apt update \
     && apt install -y libelf-dev libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
+RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+
 #install miniconda3
 ARG CONDA_VERSION=py37_4.11.0
 RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
