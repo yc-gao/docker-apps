@@ -18,6 +18,15 @@ RUN conda install -c conda-forge -y jupyterlab \
     && pip cache purge \
     && conda clean -a -y
 
+ARG TVM_VERSION=0.9.0
+RUN wget -O- https://dlcdn.apache.org/tvm/tvm-v${TVM_VERSION}/apache-tvm-src-v${TVM_VERSION}.tar.gz | tar -C /tmp -xvz \
+    && cd /tmp/apache-tvm-src-v${TVM_VERSION} \
+    && mkdir build && cp cmake/config.cmake build \
+    && sed -i 's/set(USE_CUDA OFF)/set(USE_CUDA ON)/;s/set(USE_CUDNN OFF)/set(USE_CUDNN ON)/' build/config.cmake \
+    && cmake -B build && cmake --build build -j 16 \
+    && cd python && python setup.py install \
+    && cd /tmp && rm -rf apache-tvm-src-v${TVM_VERSION}
+
 RUN pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 \
     && pip install pfrl \
     && pip cache purge \
