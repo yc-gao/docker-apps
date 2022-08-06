@@ -45,25 +45,25 @@ javac() {
 
 # go
 go() {
-    base -ti --rm --gpus all xundaoxd/base:latest go "$@"
+    base -ti --rm --gpus all xundaoxd/ml:latest go "$@"
 }
 
 # cuda
 nvcc() {
-    base -ti --rm --gpus all xundaoxd/base:latest nvcc "$@"
+    base -ti --rm --gpus all xundaoxd/ml:latest nvcc "$@"
 }
 nvdisasm() {
-    base -ti --rm --gpus all xundaoxd/base:latest nvdisasm "$@"
+    base -ti --rm --gpus all xundaoxd/ml:latest nvdisasm "$@"
 }
 cuobjdump() {
-    base -ti --rm --gpus all xundaoxd/base:latest cuobjdump "$@"
+    base -ti --rm --gpus all xundaoxd/ml:latest cuobjdump "$@"
 }
 
 cmake() {
-    base -ti --rm --gpus all xundaoxd/base:latest cmake "$@"
+    base -ti --rm --gpus all xundaoxd/ml:latest cmake "$@"
 }
 bazel() {
-    base -ti --rm --gpus all xundaoxd/base:latest bazel --output_user_root=$PWD/.cache "$@"
+    base -ti --rm --gpus all xundaoxd/ml:latest bazel --output_user_root=$PWD/.cache "$@"
 }
 ipython() {
     base -ti --rm --gpus all xundaoxd/ml:latest \
