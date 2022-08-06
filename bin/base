@@ -7,14 +7,14 @@ docker_path=$(dirname $bin_path)
 base_opt() {
     echo "-u $(id -u):$(id -g) \
     -h $(hostname) \
-    -v $docker_path/.home:$HOME \
-    -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
+    -v $docker_path/.home:$HOME"
 }
 
 cwd_opt() {
     if [[ $PWD != $HOME ]]; then
         echo "-v $PWD:$PWD -w $PWD"
     fi
+    echo "-w $PWD"
 }
 
 base() {
