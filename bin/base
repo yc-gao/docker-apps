@@ -69,10 +69,6 @@ ipython() {
     base -ti --rm --gpus all xundaoxd/ml:latest \
         ipython "$@"
 }
-octave() {
-    base -ti --rm --gpus all xundaoxd/ml:latest \
-        octave "$@"
-}
 mllab() {
     base -ti --rm --gpus all xundaoxd/ml:latest \
         bash "$@"
