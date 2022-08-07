@@ -49,6 +49,10 @@ go() {
 }
 
 # cuda
+mllab() {
+    base -ti --rm --gpus all xundaoxd/ml:latest \
+        bash "$@"
+}
 nvcc() {
     base -ti --rm --gpus all xundaoxd/ml:latest nvcc "$@"
 }
@@ -58,7 +62,6 @@ nvdisasm() {
 cuobjdump() {
     base -ti --rm --gpus all xundaoxd/ml:latest cuobjdump "$@"
 }
-
 cmake() {
     base -ti --rm --gpus all xundaoxd/ml:latest cmake "$@"
 }
@@ -68,10 +71,6 @@ bazel() {
 ipython() {
     base -ti --rm --gpus all xundaoxd/ml:latest \
         ipython "$@"
-}
-mllab() {
-    base -ti --rm --gpus all xundaoxd/ml:latest \
-        bash "$@"
 }
 jupyter() {
     base -ti --rm --gpus all xundaoxd/ml:latest \
