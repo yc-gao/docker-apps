@@ -13,8 +13,9 @@ base_opt() {
 cwd_opt() {
     if [[ $PWD != $HOME ]]; then
         echo "-v $PWD:$PWD -w $PWD"
+    else
+        echo "-w $PWD"
     fi
-    echo "-w $PWD"
 }
 
 base() {

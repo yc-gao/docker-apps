@@ -60,7 +60,7 @@ RUN sh -c "wget -qO - https://golang.google.cn/dl/go1.17.6.linux-amd64.tar.gz | 
 ENV PATH="/opt/go/bin:${PATH}"
 
 # install bazel
-ARG BAZEL_VERSION=5.1.1
+ARG BAZEL_VERSION=5.2.0
 RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-linux-x86_64 \
     && chmod +x /usr/local/bin/bazel
 
