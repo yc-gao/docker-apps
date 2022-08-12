@@ -67,7 +67,7 @@ cmake() {
     base -ti --rm --gpus all xundaoxd/ml:latest cmake "$@"
 }
 bazel() {
-    base -ti --rm --gpus all xundaoxd/ml:latest bazel --output_user_root=$PWD/.cache "$@"
+    base -ti --rm --gpus all xundaoxd/ml:latest bazel "$@"
 }
 ipython() {
     base -ti --rm --gpus all xundaoxd/ml:latest \
