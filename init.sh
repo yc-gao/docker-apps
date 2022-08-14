@@ -7,3 +7,5 @@ for f in $HOME/*; do
     fi
 done
 
+mkdir -p .home/.config
+
