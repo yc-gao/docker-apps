@@ -18,6 +18,12 @@ RUN conda install -c conda-forge -y jupyterlab \
     && pip cache purge \
     && conda clean -a -y
 
+RUN pip install --upgrade "jax[cuda]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html \
+    && pip cache purge
+
+RUN conda install -y numba \
+    && conda clean -a -y
+
 ARG TVM_VERSION=0.9.0
 RUN wget -O- https://dlcdn.apache.org/tvm/tvm-v${TVM_VERSION}/apache-tvm-src-v${TVM_VERSION}.tar.gz | tar -C /tmp -xvz \
     && cd /tmp/apache-tvm-src-v${TVM_VERSION} \
@@ -40,8 +46,7 @@ RUN pip install megengine -f https://megengine.org.cn/whl/mge.html \
     && pip cache purge \
     && conda clean -a -y
 
-RUN pip install --upgrade "jax[cuda]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html \
-    && pip cache purge
+
 
 RUN pip install onnxruntime-gpu tf2onnx skl2onnx \
     && pip cache purge
