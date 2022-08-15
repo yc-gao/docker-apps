@@ -36,8 +36,12 @@ RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_g
     && pip cache purge \
     && conda clean -a -y
 
-RUN pip install onnxruntime-gpu tf2onnx skl2onnx \
-    && pip cache purge
+RUN pip install megengine -f https://megengine.org.cn/whl/mge.html \
+    && pip cache purge \
+    && conda clean -a -y
 
 RUN pip install --upgrade "jax[cuda]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html \
+    && pip cache purge
+
+RUN pip install onnxruntime-gpu tf2onnx skl2onnx \
     && pip cache purge
