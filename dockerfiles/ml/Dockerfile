@@ -46,7 +46,5 @@ RUN pip install megengine -f https://megengine.org.cn/whl/mge.html \
     && pip cache purge \
     && conda clean -a -y
 
-
-
 RUN pip install onnxruntime-gpu tf2onnx skl2onnx \
     && pip cache purge
