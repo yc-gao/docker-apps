@@ -35,15 +35,13 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p /opt/miniconda3 \
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && /opt/miniconda3/bin/conda update --all -y \
-    && /opt/miniconda3/bin/conda install -y -c conda-forge ffmpeg \
-    && /opt/miniconda3/bin/conda install -y -c conda-forge pybind11 \
+    && /opt/miniconda3/bin/conda install -y -c conda-forge ffmpeg pybind11 opencv=4.0.0 \
     && /opt/miniconda3/bin/conda install -y \
     ipython \
     autopep8 pylint \
     cython \
     pytest \
     numpy matplotlib pandas seaborn scipy scikit-learn python-graphviz pydot \
-    opencv=4.0 \
     protobuf=3.20 \
     pillow=6.2 \
     && /opt/miniconda3/bin/conda clean -a -y \
