@@ -43,7 +43,7 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     cython \
     pytest \
     numpy matplotlib pandas seaborn scipy scikit-learn python-graphviz pydot \
-    opencv \
+    opencv=4.0 \
     protobuf=3.20 \
     pillow=6.2 \
     && /opt/miniconda3/bin/conda clean -a -y \
