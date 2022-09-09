@@ -7,7 +7,10 @@ docker_path=$(dirname $bin_path)
 base_opt() {
     echo "-u $(id -u):$(id -g) \
     -h $(hostname) \
-    -v $docker_path/.home:$HOME"
+    -v $docker_path/.home:$HOME \
+    -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e XDG_RUNTIME_DIR -v $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR \
+    -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
 }
 
 cwd_opt() {
