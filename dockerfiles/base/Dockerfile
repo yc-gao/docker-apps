@@ -35,7 +35,7 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p /opt/miniconda3 \
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && /opt/miniconda3/bin/conda update --all -y \
-    && /opt/miniconda3/bin/conda install -y -c conda-forge ffmpeg pybind11 opencv=4.5.0 \
+    && /opt/miniconda3/bin/conda install -y -c conda-forge ffmpeg pybind11 opencv \
     && /opt/miniconda3/bin/conda install -y \
     ipython \
     autopep8 pylint \
