@@ -6,21 +6,20 @@ docker_path=$(dirname $bin_path)
 
 base_opt() {
     opt="-u $(id -u):$(id -g) \
-	    -h $(hostname) \
-	    -v $docker_path/.home:$HOME \
-	    -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
-	    -e XDG_RUNTIME_DIR -v $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR \
-	    -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
-	if [ -e $HOME/.Xauthority ]; then
-		opt="$opt \
-			-v $HOME/.Xauthority:$HOME/.Xauthority:ro"
-	fi
-	echo $opt
+        -v $docker_path/.home:$HOME \
+        -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
+        -e XDG_RUNTIME_DIR -v $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR \
+        -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
+    if [ -e $HOME/.Xauthority ]; then
+        opt="$opt \
+        -v $HOME/.Xauthority:$HOME/.Xauthority:ro"
+    fi
+    echo $opt
 }
 
 cwd_opt() {
     if [[ $PWD == $HOME/* ]]; then
-		echo "-v $PWD:$PWD -w $PWD"
+        echo "-v $PWD:$PWD -w $PWD"
     fi
 }
 
