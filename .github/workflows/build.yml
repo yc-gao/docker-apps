@@ -28,7 +28,7 @@ jobs:
           file: dockerfiles/${{ matrix.docker }}
           tags: ${{ matrix.tag }}
           push: true
-  
+
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -52,3 +52,4 @@ jobs:
           file: dockerfiles/${{ matrix.context }}/Dockerfile
           tags: xundaoxd/${{ matrix.context }}:latest
           push: true
+
