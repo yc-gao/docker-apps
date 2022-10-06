@@ -8,6 +8,7 @@ USER root
 RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
 
 RUN apt update \
+    && apt install -y software-properties-common \
     && add-apt-repository -y ppa:neovim-ppa/stable \
     && apt install -y apt-transport-https curl gnupg \
     && apt install -y software-properties-common xdg-utils ca-certificates \
