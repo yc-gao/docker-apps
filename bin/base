@@ -56,7 +56,7 @@ go() {
 
 # cuda
 mllab() {
-    base -ti --rm --name mllab --gpus all xundaoxd/ml:latest "$@"
+    base -ti --rm --gpus all xundaoxd/ml:latest "$@"
 }
 nvcc() {
     base -ti --rm --gpus all xundaoxd/ml:latest nvcc "$@"
