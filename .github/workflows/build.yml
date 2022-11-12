@@ -51,7 +51,6 @@ jobs:
         with:
           context: .
           file: dockerfiles/${{ matrix.context }}/Dockerfile
-          tags:
-            - registry.cn-hangzhou.aliyuncs.com/xundaoxd/ml:latest
+          tags: registry.cn-hangzhou.aliyuncs.com/xundaoxd/ml:latest
           push: true
 
