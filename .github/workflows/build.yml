@@ -3,7 +3,7 @@ name: ci
 on: push
 
 jobs:
-  build:
+  sync:
     runs-on: ubuntu-latest
     steps:
       - name: Sync ml
