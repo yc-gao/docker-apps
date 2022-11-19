@@ -10,25 +10,23 @@ RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xun
 RUN apt update \
     && apt install -y software-properties-common \
     && add-apt-repository -y ppa:neovim-ppa/stable \
-    && apt install -y apt-transport-https curl gnupg \
-    && apt install -y software-properties-common xdg-utils ca-certificates \
+    && add-apt-repository -y ppa:git-core/ppa \
+    && apt install -y apt-transport-https software-properties-common xdg-utils ca-certificates \
+    && apt install -y curl gnupg wget \
     && apt install -y language-pack-en* language-pack-zh* language-pack-gnome-en* language-pack-gnome-zh* \
     && apt install -y fonts-firacode fonts-wqy-microhei ttf-wqy-zenhei fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto xfonts-base \
     && apt install -y libgtk2.0-0 libxshmfence-dev libnss3-dev libatk-bridge2.0-dev libdrm-dev libgtk-3-dev libasound2-dev libcanberra-gtk-module libcanberra-gtk3-module \
     && apt install -y yaru-theme-* \
-    && apt install -y python3-pip python3-venv ffmpeg graphviz neovim git ninja-build ccache unzip \
-    && apt install -y wget firefox evince \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt update \
-    && apt install -y autoconf automake libtool clang-format ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
-    && apt install -y clang \
+    && apt install -y python3-pip python3-venv ffmpeg graphviz neovim git ninja-build ccache unzip firefox evince \
+    && apt install -y autoconf automake libtool clang-format ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev clang \
     && apt install -y gdb strace ltrace bc \
+    && bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler libboost-all-dev libgsl-dev \
     && apt install -y libelf-dev libssl-dev \
     && rm -rf /var/lib/apt/lists/*
-
-RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 
 #install miniconda3
 ARG CONDA_VERSION=py37_4.11.0
@@ -37,7 +35,7 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p /opt/miniconda3 \
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && /opt/miniconda3/bin/conda update --all -y \
-    && /opt/miniconda3/bin/conda install -y -c conda-forge ffmpeg ffmpeg-python pybind11 opencv \
+    && /opt/miniconda3/bin/conda install -y -c conda-forge ffmpeg-python pybind11 opencv \
     && /opt/miniconda3/bin/conda install -y \
     pyyaml \
     ipython \
