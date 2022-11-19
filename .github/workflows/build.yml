@@ -1,18 +1,10 @@
 name: ci
 
-on:
-  push:
-    branches:
-      - master
-      - force_run
+on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        context:
-          - ml
     steps:
       - name: Sync ml
         uses: onichandame/docker-registry-sync-action@master
