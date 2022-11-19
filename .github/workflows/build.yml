@@ -24,7 +24,7 @@ jobs:
           tags: xundaoxd/base:latest
           push: true
 
-  build:
+  ml:
     runs-on: ubuntu-latest
     needs: base
     steps:
