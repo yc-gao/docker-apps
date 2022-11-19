@@ -9,11 +9,6 @@ on:
 jobs:
   base:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - tag: xundaoxd/base:latest
-            docker: base/Dockerfile
     steps:
       - uses: actions/checkout@v3
       - uses: docker/setup-qemu-action@v1
@@ -25,17 +20,13 @@ jobs:
       - uses: docker/build-push-action@v3
         with:
           context: .
-          file: dockerfiles/${{ matrix.docker }}
-          tags: ${{ matrix.tag }}
+          file: dockerfiles/base/Dockerfile
+          tags: xundaoxd/base:latest
           push: true
 
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        context:
-          - ml
-    needs: [base]
+    needs: base
     steps:
       - run: |
           curl -L https://raw.githubusercontent.com/apache/flink/master/tools/azure-pipelines/free_disk_space.sh | bash
@@ -49,7 +40,7 @@ jobs:
       - uses: docker/build-push-action@v3
         with:
           context: .
-          file: dockerfiles/${{ matrix.context }}/Dockerfile
-          tags: xundaoxd/${{ matrix.context }}:latest
+          file: dockerfiles/ml/Dockerfile
+          tags: xundaoxd/ml:latest
           push: true
 
