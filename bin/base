@@ -90,6 +90,9 @@ xelatex() {
     base -ti --rm texlive/texlive:latest \
         xelatex "$@"
 }
+obsidian() {
+    base -ti --rm xundaoxd/obsidian obsidian --no-sandbox
+}
 
 main() {
     self=$(basename $0)
