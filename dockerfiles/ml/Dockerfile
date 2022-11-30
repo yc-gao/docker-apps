@@ -34,6 +34,7 @@ RUN wget -O- https://dlcdn.apache.org/tvm/tvm-v${TVM_VERSION}/apache-tvm-src-v${
     && cd /tmp && rm -rf apache-tvm-src-v${TVM_VERSION}
 
 RUN pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 \
+    && pip install --pre torch-mlir -f https://llvm.github.io/torch-mlir/package-index/ --extra-index-url https://download.pytorch.org/whl/nightly/cpu \
     && pip install spconv-cu114 \
     && pip cache purge \
     && conda clean -a -y
