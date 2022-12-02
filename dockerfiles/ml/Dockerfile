@@ -40,7 +40,6 @@ RUN pip install torch torchvision torchaudio --extra-index-url https://download.
     && conda clean -a -y
 
 RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.8.0-cp37-cp37m-manylinux2010_x86_64.whl \
-    && pip install --upgrade tensorflow_hub \
     && pip cache purge \
     && conda clean -a -y
 
@@ -50,3 +49,4 @@ RUN pip install megengine -f https://megengine.org.cn/whl/mge.html \
 
 RUN pip install onnxruntime-gpu tf2onnx skl2onnx \
     && pip cache purge
+
