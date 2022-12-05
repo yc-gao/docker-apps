@@ -81,7 +81,7 @@ ipython() {
 }
 jupyter() {
     base -ti --rm --gpus all xundaoxd/ml:latest \
-        jupyter lab --no-browser
+        jupyter lab --no-browser "$@"
 }
 
 
@@ -91,7 +91,7 @@ xelatex() {
         xelatex "$@"
 }
 obsidian() {
-    base -d --rm xundaoxd/obsidian obsidian --no-sandbox
+    base -d --rm xundaoxd/obsidian obsidian --no-sandbox "$@"
 }
 
 main() {
