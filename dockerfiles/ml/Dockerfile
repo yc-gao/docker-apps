@@ -18,9 +18,7 @@ RUN conda install -c conda-forge -y jupyterlab \
     && pip cache purge \
     && conda clean -a -y
 
-RUN conda install --yes pytorch torchvision torchaudio pytorch-cuda=11.6 -c pytorch -c nvidia \
-    && pip install -f https://llvm.github.io/torch-mlir/package-index/ torch-mlir \
-    && pip install git+https://github.com/iree-org/iree-torch.git \
+RUN pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116 \
     && pip cache purge \
     && conda clean -a -y
 
