@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=nvidia/cuda:11.4.2-cudnn8-devel-ubuntu20.04
+ARG BASE_IMAGE=nvidia/cuda:11.6.2-cudnn8-devel-ubuntu20.04
 FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -24,6 +24,20 @@ RUN apt update \
     && apt install -y libelf-dev libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
+#install cmake
+ARG CMAKE_VERSION=3.23.1
+RUN sh -c "wget -qO - https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz | tar -C /opt -xzv"
+ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
+
+# install go
+RUN sh -c "wget -qO - https://golang.google.cn/dl/go1.17.6.linux-amd64.tar.gz | tar -C /opt -xzv"
+ENV PATH="/opt/go/bin:${PATH}"
+
+# install bazel
+ARG BAZEL_VERSION=5.2.0
+RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-linux-x86_64 \
+    && chmod +x /usr/local/bin/bazel
+
 #install miniconda3
 ARG CONDA_VERSION=py37_4.11.0
 RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
@@ -44,19 +58,5 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && /opt/miniconda3/bin/conda clean -a -y \
     && chown xundaoxd:xundaoxd -R /opt/miniconda3
 ENV PATH="/opt/miniconda3/bin:${PATH}"
-
-#install cmake
-ARG CMAKE_VERSION=3.23.1
-RUN sh -c "wget -qO - https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz | tar -C /opt -xzv"
-ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
-
-# install go
-RUN sh -c "wget -qO - https://golang.google.cn/dl/go1.17.6.linux-amd64.tar.gz | tar -C /opt -xzv"
-ENV PATH="/opt/go/bin:${PATH}"
-
-# install bazel
-ARG BAZEL_VERSION=5.2.0
-RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-linux-x86_64 \
-    && chmod +x /usr/local/bin/bazel
 
 USER xundaoxd
