@@ -18,32 +18,14 @@ RUN conda install -c conda-forge -y jupyterlab \
     && pip cache purge \
     && conda clean -a -y
 
-RUN pip install --upgrade "jax[cuda]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html \
-    && pip cache purge
-
-RUN conda install -y numba \
-    && conda clean -a -y
-
-ARG TVM_VERSION=0.9.0
-RUN wget -O- https://dlcdn.apache.org/tvm/tvm-v${TVM_VERSION}/apache-tvm-src-v${TVM_VERSION}.tar.gz | tar -C /tmp -xvz \
-    && cd /tmp/apache-tvm-src-v${TVM_VERSION} \
-    && mkdir build && cp cmake/config.cmake build \
-    && sed -i 's/set(USE_CUDA OFF)/set(USE_CUDA ON)/;s/set(USE_CUDNN OFF)/set(USE_CUDNN ON)/;s/set(USE_LLVM OFF)/set(USE_LLVM ON)/' build/config.cmake \
-    && cmake -B build && cmake --build build -j 16 \
-    && cd python && python setup.py install \
-    && cd /tmp && rm -rf apache-tvm-src-v${TVM_VERSION}
-
-RUN pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 \
-    && pip install --pre torch-mlir -f https://llvm.github.io/torch-mlir/package-index/ --extra-index-url https://download.pytorch.org/whl/nightly/cpu \
-    && pip install spconv-cu114 \
+RUN conda install --yes pytorch torchvision torchaudio pytorch-cuda=11.6 -c pytorch -c nvidia \
+    && pip install -f https://llvm.github.io/torch-mlir/package-index/ torch-mlir \
+    && pip install git+https://github.com/iree-org/iree-torch.git \
     && pip cache purge \
     && conda clean -a -y
 
 RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.8.0-cp37-cp37m-manylinux2010_x86_64.whl \
-    && pip cache purge \
-    && conda clean -a -y
-
-RUN pip install megengine -f https://megengine.org.cn/whl/mge.html \
+    && pip install --upgrade tensorflow-hub \
     && pip cache purge \
     && conda clean -a -y
 
