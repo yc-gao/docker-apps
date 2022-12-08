@@ -9,8 +9,6 @@ RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xun
 
 RUN apt update \
     && apt install -y software-properties-common \
-    && add-apt-repository -y ppa:neovim-ppa/stable \
-    && add-apt-repository -y ppa:git-core/ppa \
     && apt install -y apt-transport-https software-properties-common xdg-utils ca-certificates \
     && apt install -y curl gnupg wget \
     && apt install -y language-pack-en* language-pack-zh* language-pack-gnome-en* language-pack-gnome-zh* \
