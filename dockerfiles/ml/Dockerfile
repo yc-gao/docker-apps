@@ -30,3 +30,6 @@ RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_g
 RUN pip install onnxruntime-gpu tf2onnx skl2onnx \
     && pip cache purge
 
+RUN pip install iree-compiler iree-runtime \
+        iree-tools-tf
+
