@@ -44,18 +44,20 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && chmod +x /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p /opt/miniconda3 \
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
-    && /opt/miniconda3/bin/conda update --all -y \
-    && /opt/miniconda3/bin/conda install -y -c conda-forge ffmpeg-python pybind11 opencv \
+    && /opt/miniconda3/bin/conda install -y -c conda-forge \
+    jupyterlab ipywidgets \
+    opencv ffmpeg \
     && /opt/miniconda3/bin/conda install -y \
-    pyyaml \
     ipython \
-    autopep8 pylint \
     cython \
-    pytest \
+    pytest autopep8 pylint \
+    pyyaml \
     numpy matplotlib pandas seaborn scipy scikit-learn python-graphviz pydot \
     protobuf=3.20 \
     pillow=6.2 \
+    && /opt/miniconda3/bin/pip install pybind11==2.10 \
     && /opt/miniconda3/bin/conda clean -a -y \
+    && /opt/miniconda3/bin/pip cache purge \
     && chown xundaoxd:xundaoxd -R /opt/miniconda3
 ENV PATH="/opt/miniconda3/bin:${PATH}"
 
