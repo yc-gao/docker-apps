@@ -17,7 +17,7 @@ RUN apt update \
 
 RUN apt update \
     && apt install -y python3-pip python3-venv ffmpeg graphviz neovim git unzip firefox evince curl wget \
-    && apt install -y build-essential autoconf automake libtool ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
+    && apt install -y build-essential clang autoconf automake libtool ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
     && apt install -y gdb strace ltrace bc \
     && bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
     && apt install -y libelf-dev libssl-dev \
