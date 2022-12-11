@@ -20,8 +20,8 @@ RUN apt update \
     && apt install -y build-essential autoconf automake libtool ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
     && apt install -y gdb strace ltrace bc \
     && bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
-    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler libboost-all-dev libgsl-dev \
     && apt install -y libelf-dev libssl-dev \
+    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler libboost-all-dev libgsl-dev libopencv-dev \
     && rm -rf /var/lib/apt/lists/*
 
 #install cmake
@@ -46,7 +46,6 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && /opt/miniconda3/bin/conda install -y -c conda-forge \
     jupyterlab ipywidgets \
-    opencv ffmpeg \
     && /opt/miniconda3/bin/conda install -y \
     ipython \
     cython \
