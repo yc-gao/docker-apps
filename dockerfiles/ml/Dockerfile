@@ -22,6 +22,10 @@ RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_g
     && pip cache purge \
     && conda clean -a -y
 
+ARG TVM_VERSION=0.9.0
+RUN pip install https://github.com/xundaoxd/tvm-builder/releases/download/v${TVM_VERSION}/tvm-${TVM_VERSION}-cp37-cp37m-linux_x86_64.whl \
+    && pip cache purge
+
 RUN pip install onnxruntime-gpu tf2onnx skl2onnx \
     && pip cache purge
 
