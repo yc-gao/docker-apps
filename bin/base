@@ -4,6 +4,7 @@ self_path=$(realpath $0)
 bin_path=$(dirname $self_path)
 docker_path=$(dirname $bin_path)
 
+docker_opt=""
 base_opt() {
     opt="-u $(id -u):$(id -g) \
         -v $docker_path/.home:$HOME \
@@ -14,19 +15,23 @@ base_opt() {
         opt="$opt \
         -v $HOME/.Xauthority:$HOME/.Xauthority:ro"
     fi
-    echo $opt
+    docker_opt="$docker_opt \
+        $opt"
 }
 
 cwd_opt() {
     if [[ $PWD == $HOME/* ]]; then
-        echo "-v $(realpath $PWD):$PWD -w $PWD"
+        docker_opt="$docker_opt \
+            -v $(realpath $PWD):$PWD -w $PWD"
     else
         exit -1
     fi
 }
 
 base() {
-    docker run --network host $(base_opt) $(cwd_opt) "$@"
+    base_opt
+    cwd_opt
+    docker run --network host $docker_opt "$@"
 }
 
 # nodejs
