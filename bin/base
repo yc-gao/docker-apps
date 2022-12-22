@@ -96,7 +96,7 @@ xelatex() {
         xelatex "$@"
 }
 obsidian() {
-    base -d --rm xundaoxd/obsidian obsidian --no-sandbox "$@"
+    base -d --rm --gpus all xundaoxd/obsidian obsidian --no-sandbox "$@"
 }
 
 main() {
