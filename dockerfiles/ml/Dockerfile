@@ -30,5 +30,7 @@ RUN pip install onnxruntime-gpu tf2onnx skl2onnx \
     && pip cache purge
 
 RUN pip install iree-compiler iree-runtime \
-        iree-tools-tf
+    && pip install https://github.com/xundaoxd/torch-mlir-builder/releases/download/snapshot-20221222.695/torch_mlir-0.0.1-cp37-cp37m-linux_x86_64.whl \
+    && pip install git+https://github.com/iree-org/iree-torch.git \
+    && pip install iree-tools-tf
 
