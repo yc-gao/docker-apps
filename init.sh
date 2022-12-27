@@ -2,10 +2,6 @@
 
 rm -rf .home
 for f in $HOME/*; do
-    if [ -d $f ]; then
-        mkdir -p .home/$(basename $f)
-    fi
+    mkdir -p .home/$(basename $f)
 done
-
-mkdir -p .home/.config
 
