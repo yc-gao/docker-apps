@@ -1,0 +1,31 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - master
+      - force_run
+
+jobs:
+  base:
+    uses: xundaoxd/docker-apps/.github/workflows/build.yml@master
+    with:
+      dockerfile: dockerfiles/base/Dockerfile
+      tag: xundaoxd/base:latest
+    secrets: inherit
+
+  ml:
+    needs: base
+    uses: xundaoxd/docker-apps/.github/workflows/build.yml@master
+    with:
+      dockerfile: dockerfiles/ml/Dockerfile
+      tag: xundaoxd/ml:latest
+    secrets: inherit
+
+  obsidian:
+    uses: xundaoxd/docker-apps/.github/workflows/build.yml@master
+    with:
+      dockerfile: dockerfiles/obsidian/Dockerfile
+      tag: xundaoxd/obsidian:latest
+    secrets: inherit
+
