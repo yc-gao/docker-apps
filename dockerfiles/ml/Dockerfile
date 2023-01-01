@@ -23,14 +23,14 @@ RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_g
     && conda clean -a -y
 
 ARG TVM_VERSION=0.10.0
-RUN pip install https://github.com/xundaoxd/tvm-builder/releases/download/v${TVM_VERSION}/tvm-${TVM_VERSION}-cp37-cp37m-linux_x86_64.whl \
+RUN pip install https://github.com/sw-builder/tvm-builder/releases/download/v${TVM_VERSION}/tvm-${TVM_VERSION}-cp37-cp37m-linux_x86_64.whl \
     && pip cache purge
 
 RUN pip install onnxruntime-gpu tf2onnx skl2onnx \
     && pip cache purge
 
 RUN pip install iree-compiler iree-runtime \
-    && pip install https://github.com/xundaoxd/torch-mlir-builder/releases/download/snapshot-20221222.695/torch_mlir-0.0.1-cp37-cp37m-linux_x86_64.whl \
+    && pip install https://github.com/sw-builder/torch-mlir-builder/releases/download/snapshot-20221222.695/torch_mlir-0.0.1-cp37-cp37m-linux_x86_64.whl \
     && pip install git+https://github.com/iree-org/iree-torch.git \
     && pip install iree-tools-tf
 
