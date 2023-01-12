@@ -4,32 +4,20 @@ self_path=$(realpath ${BASH_SOURCE[0]:-$0})
 self_dir=`dirname $self_path`
 proj_dir=`dirname $self_dir`
 
-docker_opt=""
-base_opt() {
+base() {
     opt="-u $(id -u):$(id -g) \
         -v $proj_dir/.home:$HOME \
         -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
-        -e XDG_RUNTIME_DIR -v $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR \
         -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
     if [ -e $HOME/.Xauthority ]; then
         opt="$opt \
         -v $HOME/.Xauthority:$HOME/.Xauthority:ro"
     fi
-    docker_opt="$docker_opt \
-        $opt"
-}
-
-cwd_opt() {
     if [[ $PWD == $HOME/* ]]; then
-        docker_opt="$docker_opt \
+        opt="$opt \
             -v $(realpath $PWD):$PWD -w $PWD"
     fi
-}
-
-base() {
-    base_opt
-    cwd_opt
-    docker run --network host $docker_opt "$@"
+    docker run --network host $opt "$@"
 }
 
 # nodejs
@@ -95,6 +83,10 @@ xelatex() {
 }
 obsidian() {
     base -d --rm --gpus all xundaoxd/obsidian obsidian --no-sandbox "$@"
+}
+octave() {
+    base -d --rm --gpus all xundaoxd/ml:latest \
+        octave --gui "$@"
 }
 
 main() {
