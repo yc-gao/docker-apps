@@ -53,7 +53,7 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     pyyaml \
     numpy matplotlib pandas seaborn scipy scikit-learn python-graphviz pydot \
     protobuf=3.20 \
-    pillow=6.2 \
+    pillow \
     && /opt/miniconda3/bin/pip install pybind11==2.10 \
     && /opt/miniconda3/bin/conda clean -a -y \
     && /opt/miniconda3/bin/pip cache purge \
