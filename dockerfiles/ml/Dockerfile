@@ -13,7 +13,7 @@ RUN apt update \
 
 USER xundaoxd
 
-RUN pip install torch==2.0.0.dev20221222+cu116 torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu116 \
+RUN pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116 \
     && pip cache purge \
     && conda clean -a -y
 
