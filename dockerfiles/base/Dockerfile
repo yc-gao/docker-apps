@@ -16,6 +16,8 @@ RUN apt update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt update \
+    && add-apt-repository -y ppa:neovim-ppa/stable \
+    && add-apt-repository -y ppa:git-core/ppa \
     && apt install -y python3-pip python3-venv ffmpeg graphviz neovim git unzip firefox evince curl wget \
     && apt install -y build-essential clang lld autoconf automake libtool ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
     && apt install -y gdb strace ltrace bc \
