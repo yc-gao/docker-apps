@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 USER root
 
-RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
+RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi
 
 RUN apt update \
     && apt install -y software-properties-common \

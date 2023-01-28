@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 USER root
 
-RUN if [ ! `cat /etc/passwd | grep xundaoxd` ]; then useradd -m -s /bin/bash xundaoxd; fi
+RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi
 
 RUN apt update \
     && apt install -y software-properties-common apt-transport-https gnupg xdg-utils ca-certificates \
@@ -51,7 +51,7 @@ RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anacon
     cython \
     pytest autopep8 pylint \
     pyyaml \
-    numpy matplotlib pandas seaborn scipy scikit-learn python-graphviz pydot \
+    numpy matplotlib pandas seaborn scipy scikit-learn \
     protobuf=3.20 \
     pillow \
     && /opt/miniconda3/bin/pip install pybind11==2.10 \
