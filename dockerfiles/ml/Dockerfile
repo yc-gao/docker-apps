@@ -13,10 +13,6 @@ RUN apt update \
 
 USER xundaoxd
 
-RUN conda install -y -c conda-forge xeus-lua xeus-octave \
-    && pip cache purge \
-    && conda clean -a -y
-
 RUN pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116 \
     && pip cache purge \
     && conda clean -a -y
