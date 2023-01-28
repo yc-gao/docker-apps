@@ -15,16 +15,16 @@ USER xundaoxd
 
 RUN mamba install -y -c conda-forge xeus-lua xeus-octave \
     && pip cache purge \
-    && conda clean -a -y
+    && mamba clean -a -y
 
 RUN pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116 \
     && pip cache purge \
-    && conda clean -a -y
+    && mamba clean -a -y
 
 RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.8.0-cp37-cp37m-manylinux2010_x86_64.whl \
     && pip install --upgrade tensorflow-hub \
     && pip cache purge \
-    && conda clean -a -y
+    && mamba clean -a -y
 
 ARG TVM_VERSION=0.10.0
 RUN pip install https://github.com/sw-builder/tvm-builder/releases/download/v${TVM_VERSION}/tvm-${TVM_VERSION}-cp37-cp37m-linux_x86_64.whl \
