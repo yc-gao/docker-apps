@@ -8,13 +8,12 @@ USER root
 RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi
 
 RUN apt update \
-    && apt install -y software-properties-common \
-    && apt install -y apt-transport-https software-properties-common xdg-utils ca-certificates \
-    && apt install -y curl gnupg wget \
+    && apt install -y software-properties-common apt-transport-https gnupg xdg-utils ca-certificates \
     && apt install -y language-pack-en* language-pack-zh* language-pack-gnome-en* language-pack-gnome-zh* \
     && apt install -y fonts-firacode fonts-wqy-microhei ttf-wqy-zenhei fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto xfonts-base \
     && apt install -y libgtk2.0-0 libxshmfence-dev libnss3-dev libatk-bridge2.0-dev libdrm-dev libgtk-3-dev libasound2-dev libcanberra-gtk-module libcanberra-gtk3-module \
     && apt install -y yaru-theme-* \
+    && apt install -y curl wget breeze \
     && rm -rf /var/lib/apt/lists/*
 
 ARG OBSIDIAN_VERSION=1.1.9
