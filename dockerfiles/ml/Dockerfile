@@ -22,7 +22,7 @@ RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_g
     && pip cache purge \
     && conda clean -a -y
 
-RUN pip install --upgrade tensorrt \
+RUN pip install --upgrade tensorrt pycuda \
     && pip cache purge \
     && conda clean -a -y
 
