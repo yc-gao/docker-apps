@@ -22,7 +22,7 @@ RUN apt update \
 
 ARG OBSIDIAN_VERSION=1.1.9
 RUN apt update \
-    && wget -O /tmp/obsidian_${OBSIDIAN_VERSION}_amd64.deb https://github.com/obsidianmd/obsidian-releases/releases/download/v${OBSIDIAN_VERSION}/obsidian_${OBSIDIAN_VERSION}_amd64.deb \
+    && wget -qO /tmp/obsidian_${OBSIDIAN_VERSION}_amd64.deb https://github.com/obsidianmd/obsidian-releases/releases/download/v${OBSIDIAN_VERSION}/obsidian_${OBSIDIAN_VERSION}_amd64.deb \
     && apt install -y /tmp/obsidian_${OBSIDIAN_VERSION}_amd64.deb \
     && rm -rf /tmp/obsidian_${OBSIDIAN_VERSION}_amd64.deb \
     && rm -rf /var/lib/apt/lists/*

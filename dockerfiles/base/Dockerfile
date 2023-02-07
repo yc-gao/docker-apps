@@ -23,7 +23,7 @@ RUN apt update \
     && apt install -y python3-pip python3-venv ffmpeg graphviz neovim git unzip firefox evince curl wget \
     && apt install -y build-essential clang lld autoconf automake libtool ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
     && apt install -y gdb strace ltrace bc \
-    && bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
+    && bash -c "$(wget -qO - https://apt.llvm.org/llvm.sh)" \
     && apt install -y libelf-dev libssl-dev \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler libboost-all-dev libgsl-dev libopencv-dev \
     && rm -rf /var/lib/apt/lists/*
@@ -44,7 +44,7 @@ RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/d
 
 #install miniconda3
 ARG CONDA_VERSION=py37_4.11.0
-RUN wget -O /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
+RUN wget -qO /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && chmod +x /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p /opt/miniconda3 \
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
