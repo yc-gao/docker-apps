@@ -49,7 +49,7 @@ RUN wget -qO /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaco
     && /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p /opt/miniconda3 \
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && /opt/miniconda3/bin/conda install -y -c conda-forge \
-    jupyterlab ipywidgets \
+    jupyterlab ipywidgets xeus-cling xeus-lua xeus-octave \
     && /opt/miniconda3/bin/conda install -y \
     ipython \
     cython \
