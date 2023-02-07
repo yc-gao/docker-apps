@@ -43,7 +43,7 @@ RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/d
     && chmod +x /usr/local/bin/bazel
 
 #install miniconda3
-ARG CONDA_VERSION=py37_4.11.0
+ARG CONDA_VERSION=py37_22.11.1-1
 RUN wget -qO /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && chmod +x /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p /opt/miniconda3 \
