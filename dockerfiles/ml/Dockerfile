@@ -3,6 +3,7 @@ FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+WORKDIR /workdir
 USER root
 
 RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi
@@ -11,26 +12,40 @@ RUN apt update \
     && apt install -y octave liboctave-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# tensorrt
+RUN wget -O tensorrt.deb https://github.com/sw-builder/tensorrt/releases/download/tensorrt-8.5.3/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb \
+    && dpkg -i tensorrt.deb \
+    && find /var/nv-tensorrt-local-repo-* -type f -name *-keyring.gpg -exec cp {} /usr/share/keyrings/ \; \
+    && apt update \
+    && apt install -y tensorrt python3-libnvinfer-dev \
+    && rm -rf tensorrt.deb \
+    && rm -rf /var/lib/apt/lists/*
+
 USER xundaoxd
 
-RUN pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116 \
-    && pip cache purge \
-    && conda clean -a -y
-
-RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.8.0-cp37-cp37m-manylinux2010_x86_64.whl \
-    && pip install --upgrade tensorflow-hub \
-    && pip cache purge \
-    && conda clean -a -y
-
+# tensorrt
 RUN pip install --upgrade tensorrt pycuda \
     && pip cache purge \
     && conda clean -a -y
 
+# tvm
+ARG TVM_VERSION=0.10.0
+RUN pip install https://github.com/sw-builder/tvm-builder/releases/download/v${TVM_VERSION}/tvm-${TVM_VERSION}-cp37-cp37m-linux_x86_64.whl \
+    && pip cache purge
+
+# onnx
 RUN pip install onnxruntime-gpu tf2onnx skl2onnx \
     && pip install --upgrade transformers \
     && pip cache purge
 
-ARG TVM_VERSION=0.10.0
-RUN pip install https://github.com/sw-builder/tvm-builder/releases/download/v${TVM_VERSION}/tvm-${TVM_VERSION}-cp37-cp37m-linux_x86_64.whl \
-    && pip cache purge
+# pytorch
+RUN pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116 \
+    && pip cache purge \
+    && conda clean -a -y
+
+# tensorflow
+RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.8.0-cp37-cp37m-manylinux2010_x86_64.whl \
+    && pip install --upgrade tensorflow-hub keras2onnx tf2onnx \
+    && pip cache purge \
+    && conda clean -a -y
 
