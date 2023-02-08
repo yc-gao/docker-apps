@@ -48,19 +48,14 @@ RUN wget -qO /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaco
     && chmod +x /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p /opt/miniconda3 \
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
-    && /opt/miniconda3/bin/conda install -y -c conda-forge \
-    jupyterlab ipywidgets xeus-cling xeus-lua xeus-octave \
     && /opt/miniconda3/bin/conda install -y \
-    ipython \
-    cython \
+    jupyterlab ipywidgets ipython \
     pytest autopep8 pylint \
-    pyyaml \
     numpy matplotlib pandas seaborn scipy scikit-learn \
-    protobuf=3.20 \
-    pillow \
-    && /opt/miniconda3/bin/pip install pybind11==2.10 \
+    protobuf=3.20 pillow pyyaml \
+    pybind11 cython \
+    && /opt/miniconda3/bin/conda install -y -c conda-forge xeus-cling \
     && /opt/miniconda3/bin/conda clean -a -y \
-    && /opt/miniconda3/bin/pip cache purge \
     && chown xundaoxd:xundaoxd -R /opt/miniconda3
 ENV PATH="/opt/miniconda3/bin:${PATH}"
 
