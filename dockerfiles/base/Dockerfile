@@ -51,7 +51,7 @@ RUN wget -qO /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaco
     && /opt/miniconda3/bin/conda install -y \
     jupyterlab ipywidgets ipython \
     pytest autopep8 pylint \
-    numpy matplotlib pandas seaborn scipy scikit-learn \
+    numpy matplotlib pandas seaborn scipy scikit-learn pydot \
     protobuf=3.20 pillow pyyaml \
     pybind11 cython \
     && /opt/miniconda3/bin/conda install -y -c conda-forge xeus-cling \
