@@ -34,7 +34,7 @@ RUN pip install https://github.com/sw-builder/tvm-builder/releases/download/v${T
     && pip cache purge
 
 # onnx
-RUN pip install onnxruntime-gpu tf2onnx skl2onnx \
+RUN pip install onnxruntime-gpu onnxruntime-tools skl2onnx \
     && pip install --upgrade transformers \
     && pip cache purge
 
