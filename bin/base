@@ -21,7 +21,7 @@ base() {
         die "Please run docker app in home dir!!!"
     fi
 
-    if [[ $current_dir != "$home_dir" ]]; then
+    if [[ $current_dir == $home_dir/* ]]; then
         opt="$opt -v $proj_dir/.home:$HOME"
         for f in "$home_dir"/*; do
             [[ $current_dir != "$f" ]] && opt="$opt -v $f:$HOME/$(basename "$f"):ro"
