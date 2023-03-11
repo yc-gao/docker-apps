@@ -1,27 +1,37 @@
 #!/usr/bin/env bash
 
-self_path=$(realpath ${BASH_SOURCE[0]:-$0})
-self_dir=`dirname $self_path`
-proj_dir=`dirname $self_dir`
-current_dir="$(realpath $PWD)"
-home_dir="$(realpath $HOME)"
+self_path=$(realpath "${BASH_SOURCE[0]:-$0}")
+self_dir=$(dirname "$self_path")
+proj_dir=$(dirname "$self_dir")
+current_dir="$(realpath "$PWD")"
+home_dir="$(realpath "$HOME")"
+
+die() {
+    echo "$@"
+    exit 255
+}
 
 base() {
-    opt="-u $(id -u):$(id -g) \
-        -v $proj_dir/.home:$HOME \
+    opt="--network host \
+        -u $(id -u):$(id -g) \
         -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
         -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
-    [[ -e $HOME/.Xauthority && $home_dir != ${current_dir}* ]] && opt="$opt -v $home_dir/.Xauthority:$HOME/.Xauthority:ro"
 
-    for f in $home_dir/*; do
-        [[ $current_dir == $f || $current_dir == $home_dir ]] || opt="$opt -v $f:$HOME/$(basename $f):ro"
-    done
+    if [[ $current_dir != $home_dir* ]]; then
+        die "Please run docker app in home dir!!!"
+    fi
 
-    [[ $PWD == ${HOME}* ]] && opt="$opt -v $current_dir:$PWD"
-    opt="$opt -w $PWD"
+    if [[ $current_dir != "$home_dir" ]]; then
+        opt="$opt -v $proj_dir/.home:$HOME"
+        for f in "$home_dir"/*; do
+            [[ $current_dir != "$f" ]] && opt="$opt -v $f:$HOME/$(basename "$f"):ro"
+        done
+    fi
 
-    echo docker run --network host $opt "$@"
-    docker run --network host $opt "$@"
+    opt="$opt -v $current_dir:$PWD -w $PWD"
+
+    echo docker run $opt "$@"
+    docker run $opt "$@"
 }
 
 # nodejs
