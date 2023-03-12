@@ -92,7 +92,7 @@ jupyter() {
 
 # others
 xelatex() {
-    base -ti --rm texlive/texlive:latest \
+    base -ti --rm xundaoxd/texlive:latest \
         xelatex "$@"
 }
 obsidian() {

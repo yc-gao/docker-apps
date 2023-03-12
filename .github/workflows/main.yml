@@ -29,3 +29,10 @@ jobs:
       tag: xundaoxd/obsidian:latest
     secrets: inherit
 
+  texlive:
+    uses: xundaoxd/docker-apps/.github/workflows/build.yml@master
+    with:
+      dockerfile: dockerfiles/texlive/Dockerfile
+      tag: xundaoxd/texlive:latest
+    secrets: inherit
+
