@@ -17,6 +17,8 @@ base() {
         -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
         -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
 
+    [[ -e $home_dir/.Xauthority && $current_dir != "$home_dir" ]] && opt="$opt -v $home_dir/.Xauthority:$HOME/.Xauthority:ro"
+
     if [[ $current_dir != $home_dir* ]]; then
         die "Please run docker app in home dir!!!"
     fi
