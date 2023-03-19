@@ -23,11 +23,6 @@ RUN wget -qO tensorrt.deb https://github.com/sw-builder/tensorrt/releases/downlo
 
 USER xundaoxd
 
-# tensorrt
-RUN pip install --upgrade tensorrt pycuda \
-    && pip cache purge \
-    && conda clean -a -y
-
 # tvm
 ARG TVM_VERSION=0.10.0
 RUN pip install https://github.com/sw-builder/tvm-builder/releases/download/v${TVM_VERSION}/tvm-${TVM_VERSION}-cp37-cp37m-linux_x86_64.whl \
