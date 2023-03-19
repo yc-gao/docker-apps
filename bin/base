@@ -88,7 +88,7 @@ ipython() {
 }
 jupyter() {
     base -ti --rm --gpus all xundaoxd/ml:latest \
-        jupyter lab --no-browser "$@"
+        jupyter lab --no-browser --NotebookApp.token='' "$@"
 }
 
 
