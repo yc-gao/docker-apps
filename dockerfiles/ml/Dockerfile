@@ -45,7 +45,7 @@ RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_g
     && conda clean -a -y
 
 # Hugging face
-RUN pip install datasets tokenizers diffusers[torch] transformers[torch] \
+RUN pip install datasets tokenizers diffusers[torch] transformers[torch] timm \
     && pip cache purge \
     && conda clean -a -y
 
