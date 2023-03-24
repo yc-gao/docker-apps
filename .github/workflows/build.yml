@@ -10,7 +10,7 @@ jobs:
     uses: xundaoxd/docker-apps/.github/workflows/script.yml@master
     with:
       dockerfile: dockerfiles/base/Dockerfile
-      tag: xundaoxd/base:latest
+      tag: xundaoxd/base:11.6.2-cudnn8-devel-ubuntu20.04-py3.7
       build-args: 'BASE_IMAGE=nvidia/cuda:11.6.2-cudnn8-devel-ubuntu20.04'
     secrets: inherit
 
