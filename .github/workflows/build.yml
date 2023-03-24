@@ -11,6 +11,7 @@ jobs:
     with:
       dockerfile: dockerfiles/base/Dockerfile
       tag: xundaoxd/base:latest
+      build-args: 'BASE_IMAGE=nvidia/cuda:11.6.2-cudnn8-devel-ubuntu20.04'
     secrets: inherit
 
   ml:
