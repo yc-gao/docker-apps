@@ -14,11 +14,6 @@ RUN apt update \
 
 USER xundaoxd
 
-# tvm
-ARG TVM_VERSION=0.10.0
-RUN pip install https://github.com/sw-builder/tvm-builder/releases/download/v${TVM_VERSION}/tvm-${TVM_VERSION}-cp37-cp37m-linux_x86_64.whl \
-    && pip cache purge
-
 # onnx
 RUN pip install onnxruntime-gpu onnxruntime-tools skl2onnx \
     && pip install --upgrade transformers \
@@ -30,7 +25,7 @@ RUN pip install torch torchvision --extra-index-url https://download.pytorch.org
     && conda clean -a -y
 
 # tensorflow
-RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.8.0-cp37-cp37m-manylinux2010_x86_64.whl \
+RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.11.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl \
     && pip install --upgrade tensorflow-hub keras2onnx tf2onnx \
     && pip cache purge \
     && conda clean -a -y
