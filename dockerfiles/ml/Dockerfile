@@ -12,15 +12,6 @@ RUN apt update \
     && apt install -y octave liboctave-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# tensorrt
-RUN wget -qO tensorrt.deb https://github.com/sw-builder/tensorrt/releases/download/tensorrt-8.5.3/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb \
-    && dpkg -i tensorrt.deb \
-    && find /var/nv-tensorrt-local-repo-* -type f -name *-keyring.gpg -exec cp {} /usr/share/keyrings/ \; \
-    && apt update \
-    && apt install -y tensorrt python3-libnvinfer-dev \
-    && rm -rf tensorrt.deb \
-    && rm -rf /var/lib/apt/lists/*
-
 USER xundaoxd
 
 # tvm
