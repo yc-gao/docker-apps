@@ -16,7 +16,6 @@ USER xundaoxd
 
 # onnx
 RUN pip install onnxruntime-gpu onnxruntime-tools skl2onnx \
-    && pip install --upgrade transformers \
     && pip cache purge
 
 # pytorch
@@ -31,7 +30,7 @@ RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_g
     && conda clean -a -y
 
 # Hugging face
-RUN pip install datasets tokenizers diffusers[torch] transformers[torch] timm \
+RUN pip install datasets tokenizers diffusers["torch"] transformers timm \
     && pip cache purge \
     && conda clean -a -y
 
