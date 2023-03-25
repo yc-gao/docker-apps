@@ -35,7 +35,7 @@ ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
 
 # install nodejs
 ARG NODE_VERSION=18.15.0
-RUN sh -c "wget -qO - https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz | tar -C /opt -xjv"
+RUN sh -c "wget -qO - https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz | tar -C /opt -xJv"
 ENV PATH="/opt/node-v${NODE_VERSION}-linux-x64/bin:${PATH}"
 
 # install go
