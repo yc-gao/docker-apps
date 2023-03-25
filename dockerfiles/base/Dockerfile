@@ -9,7 +9,7 @@ USER root
 RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi
 
 RUN apt update \
-    && apt install -y software-properties-common apt-transport-https gnupg xdg-utils ca-certificates \
+    && apt install -y software-properties-common apt-transport-https wget curl gnupg ca-certificates \
     && apt install -y language-pack-en* language-pack-zh* language-pack-gnome-en* language-pack-gnome-zh* \
     && apt install -y fonts-firacode fonts-wqy-microhei ttf-wqy-zenhei fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto xfonts-base \
     && apt install -y libgtk2.0-0 libxshmfence-dev libnss3-dev libatk-bridge2.0-dev libdrm-dev libgtk-3-dev libasound2-dev libcanberra-gtk-module libcanberra-gtk3-module \
@@ -20,12 +20,11 @@ RUN apt update \
 RUN apt update \
     && add-apt-repository -y ppa:neovim-ppa/stable \
     && add-apt-repository -y ppa:git-core/ppa \
-    && apt install -y python3-pip python3-venv ffmpeg graphviz neovim git unzip firefox evince curl wget \
+    && apt install -y python3-pip python3-venv ffmpeg graphviz neovim git unzip firefox evince \
     && apt install -y build-essential clang lld autoconf automake libtool ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
-    && apt install -y gdb strace ltrace bc \
+    && apt install -y gdb strace ltrace \
     && bash -c "$(wget -qO - https://apt.llvm.org/llvm.sh)" \
-    && apt install -y libelf-dev libssl-dev \
-    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler libboost-all-dev libgsl-dev libopencv-dev \
+    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler libboost-all-dev libgsl-dev libopencv-dev libeigne3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 #install cmake
