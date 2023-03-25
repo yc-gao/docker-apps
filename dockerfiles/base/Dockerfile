@@ -28,10 +28,15 @@ RUN apt update \
     && apt install -y graphviz neovim git ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-#install cmake
+# install cmake
 ARG CMAKE_VERSION=3.23.1
 RUN sh -c "wget -qO - https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz | tar -C /opt -xzv"
 ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
+
+# install nodejs
+ARG NODE_VERSION=18.15.0
+RUN sh -c "wget -qO - https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz | tar -C /opt -xzv"
+ENV PATH="/opt/node-v${NODE_VERSION}-linux-x64/bin:${PATH}"
 
 # install go
 RUN sh -c "wget -qO - https://golang.google.cn/dl/go1.17.6.linux-amd64.tar.gz | tar -C /opt -xzv"
@@ -42,7 +47,7 @@ ARG BAZEL_VERSION=5.2.0
 RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-linux-x86_64 \
     && chmod +x /usr/local/bin/bazel
 
-#install miniconda3
+# install miniconda3
 ARG CONDA_VERSION=py38_23.1.0-1
 RUN wget -qO /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && chmod +x /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
