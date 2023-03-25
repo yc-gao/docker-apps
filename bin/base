@@ -12,21 +12,20 @@ die() {
 }
 
 base() {
+    if [[ $current_dir != $home_dir* ]]; then
+        die "Please run docker app in home dir!!!"
+    fi
+
     opt="--network host \
         -u $(id -u):$(id -g) \
         -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
         -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
 
-    [[ -e $home_dir/.Xauthority && $current_dir != "$home_dir" ]] && opt="$opt -v $home_dir/.Xauthority:$HOME/.Xauthority:ro"
-
-    if [[ $current_dir != $home_dir* ]]; then
-        die "Please run docker app in home dir!!!"
-    fi
-
     if [[ $current_dir == $home_dir/* ]]; then
         opt="$opt -v $proj_dir/.home:$HOME"
-        for f in "$home_dir"/*; do
-            [[ $current_dir != "$f" ]] && opt="$opt -v $f:$HOME/$(basename "$f"):ro"
+        [[ -e $home_dir/.Xauthority ]] && opt="$opt -v $home_dir/.Xauthority:$HOME/.Xauthority:ro"
+        for f in $home_dir/*; do
+            [[ $current_dir != $f ]] && opt="$opt -v $f:$HOME/$(basename $f):ro"
         done
     fi
 
