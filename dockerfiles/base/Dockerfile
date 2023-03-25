@@ -24,7 +24,7 @@ RUN apt update \
     && apt install -y build-essential clang lld autoconf automake libtool ninja-build ccache flex bison bison-doc info man-db manpages manpages-dev \
     && apt install -y gdb strace ltrace \
     && bash -c "$(wget -qO - https://apt.llvm.org/llvm.sh)" \
-    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler libboost-all-dev libgsl-dev libopencv-dev libeigne3-dev \
+    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler libboost-all-dev libgsl-dev libopencv-dev libeigen3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 #install cmake
