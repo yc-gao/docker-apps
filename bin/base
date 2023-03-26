@@ -12,7 +12,7 @@ die() {
 }
 
 base() {
-    if [[ $current_dir != $home_dir* ]]; then
+    if [[ $PWD != $HOME* ]]; then
         die "Please run docker app in home dir!!!"
     fi
 
@@ -21,7 +21,7 @@ base() {
         -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
         -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
 
-    if [[ $current_dir == $home_dir/* ]]; then
+    if [[ $PWD == $HOME/* ]]; then
         opt="$opt -v $proj_dir/.home:$HOME"
         [[ -e $home_dir/.Xauthority ]] && opt="$opt -v $home_dir/.Xauthority:$HOME/.Xauthority:ro"
         for f in $home_dir/*; do
