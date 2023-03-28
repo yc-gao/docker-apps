@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=nvidia/cuda:11.6.2-cudnn8-devel-ubuntu20.04
+ARG BASE_IMAGE=nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04
 FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -49,9 +49,10 @@ RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/d
 
 # install miniconda3
 ARG CONDA_VERSION=py38_23.1.0-1
+ARG CONDA_PREFIX="/opt/miniconda3"
 RUN wget -qO /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && chmod +x /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
-    && /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p /opt/miniconda3 \
+    && /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p ${CONDA_PREFIX} \
     && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && /opt/miniconda3/bin/conda install -y \
     jupyterlab ipywidgets ipython \

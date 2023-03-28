@@ -14,20 +14,25 @@ RUN apt update \
 
 USER xundaoxd
 
+RUN conda install -y -c conda-forge cudatoolkit=11.8.0 \
+    && pip install nvidia-cudnn-cu11==8.6.0.163 \
+    && conda clean -a -y
+
 # onnx
 RUN pip install onnxruntime-gpu onnxruntime-tools skl2onnx \
     && pip cache purge
 
 # pytorch
-RUN pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116 \
-    && pip cache purge \
+RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 \
     && conda clean -a -y
 
 # tensorflow
-RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.11.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl \
+RUN pip install tensorflow==2.12.* \
     && pip install --upgrade tensorflow-hub keras2onnx tf2onnx \
     && pip cache purge \
     && conda clean -a -y
+# ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib"
+ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/"
 
 # Hugging face
 RUN pip install datasets tokenizers diffusers["torch"] transformers timm \
