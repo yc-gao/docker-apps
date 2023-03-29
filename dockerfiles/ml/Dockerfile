@@ -17,6 +17,7 @@ USER xundaoxd
 RUN conda install -y -c conda-forge cudatoolkit=11.8.0 \
     && pip install nvidia-cudnn-cu11==8.6.0.163 \
     && conda clean -a -y
+ENV CUDNN_PATH="$CONDA_PREFIX/lib/python3.8/site-packages/nvidia/cudnn"
 
 # onnx
 RUN pip install onnxruntime-gpu onnxruntime-tools skl2onnx \
@@ -31,8 +32,7 @@ RUN pip install tensorflow==2.12.* \
     && pip install --upgrade tensorflow-hub keras2onnx tf2onnx \
     && pip cache purge \
     && conda clean -a -y
-# ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib"
-ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/"
+ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib"
 
 # Hugging face
 RUN pip install datasets tokenizers diffusers["torch"] transformers timm \
