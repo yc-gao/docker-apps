@@ -32,7 +32,7 @@ RUN pip install tensorflow==2.12.* \
     && pip install --upgrade tensorflow-hub keras2onnx tf2onnx \
     && pip cache purge \
     && conda clean -a -y
-ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib"
+ENV LD_LIBRARY_PATH="$CONDA_PREFIX/lib:$CUDNN_PATH/lib:$LD_LIBRARY_PATH"
 
 # Hugging face
 RUN pip install datasets tokenizers diffusers["torch"] transformers timm \
