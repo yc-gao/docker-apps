@@ -6,15 +6,16 @@ ARG DEBIAN_FRONTEND=noninteractive
 WORKDIR /workdir
 USER root
 
-RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi
-
 RUN apt update \
-    && apt install -y software-properties-common apt-transport-https wget curl gnupg ca-certificates \
+    && apt install -y software-properties-common apt-transport-https wget curl gnupg ca-certificates sudo \
     && apt install -y language-pack-en* language-pack-zh* language-pack-gnome-en* language-pack-gnome-zh* \
     && apt install -y fonts-firacode fonts-wqy-microhei ttf-wqy-zenhei fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto xfonts-base \
     && apt install -y libgtk2.0-0 libxshmfence-dev libnss3-dev libatk-bridge2.0-dev libdrm-dev libgtk-3-dev libasound2-dev libcanberra-gtk-module libcanberra-gtk3-module \
     && apt install -y yaru-theme-* breeze \
     && rm -rf /var/lib/apt/lists/*
+
+RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi \
+    && echo '%xundaoxd ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 RUN apt update \
     && apt install -y build-essential gdb strace ltrace \
