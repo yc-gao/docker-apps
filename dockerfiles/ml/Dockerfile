@@ -26,11 +26,9 @@ RUN pip install torch torchvision torchaudio --index-url https://download.pytorc
     && conda clean -a -y
 
 # tensorflow
-RUN pip install tensorflow==2.12.* \
-    && pip install --upgrade tensorflow-hub keras2onnx tf2onnx \
-    && pip cache purge \
+RUN conda install -y -c anaconda tensorflow-gpu tensorflow-hub \
+    && conda install -y -c conda-forge tf2onnx \
     && conda clean -a -y
-ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib"
 
 # Hugging face
 RUN pip install datasets tokenizers diffusers["torch"] transformers timm \
