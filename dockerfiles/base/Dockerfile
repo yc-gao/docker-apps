@@ -50,11 +50,10 @@ RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/d
 
 # install miniconda3
 ARG CONDA_VERSION=py38_23.1.0-1
-ENV CONDA_PREFIX="/opt/miniconda3"
-RUN wget -qO /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
-    && chmod +x /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
-    && /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -b -p ${CONDA_PREFIX} \
-    && rm -rf /tmp/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
+RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
+    && chmod +x /tmp/Miniconda3.sh \
+    && /tmp/Miniconda3.sh -b -p ${CONDA_PREFIX} \
+    && rm -rf /tmp/Miniconda3.sh \
     && /opt/miniconda3/bin/conda install -y \
     jupyterlab ipywidgets ipython \
     pytest autopep8 pylint \
