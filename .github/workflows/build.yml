@@ -7,7 +7,7 @@ on:
 
 jobs:
   base:
-    uses: xundaoxd/docker-apps/.github/workflows/script.yml@master
+    uses: xundaoxd/docker-apps/.github/workflows/action.yml@master
     with:
       dockerfile: dockerfiles/base/Dockerfile
       tag: xundaoxd/base:11.6.2-cudnn8-devel-ubuntu20.04-py3.8
@@ -16,7 +16,7 @@ jobs:
 
   ml:
     needs: base
-    uses: xundaoxd/docker-apps/.github/workflows/script.yml@master
+    uses: xundaoxd/docker-apps/.github/workflows/action.yml@master
     with:
       dockerfile: dockerfiles/ml/Dockerfile
       tag: xundaoxd/ml:latest
@@ -24,14 +24,14 @@ jobs:
     secrets: inherit
 
   obsidian:
-    uses: xundaoxd/docker-apps/.github/workflows/script.yml@master
+    uses: xundaoxd/docker-apps/.github/workflows/action.yml@master
     with:
       dockerfile: dockerfiles/obsidian/Dockerfile
       tag: xundaoxd/obsidian:latest
     secrets: inherit
 
   texlive:
-    uses: xundaoxd/docker-apps/.github/workflows/script.yml@master
+    uses: xundaoxd/docker-apps/.github/workflows/action.yml@master
     with:
       dockerfile: dockerfiles/texlive/Dockerfile
       tag: xundaoxd/texlive:latest
