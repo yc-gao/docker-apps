@@ -27,15 +27,13 @@ RUN pip install onnxruntime-gpu onnxruntime-tools skl2onnx \
 
 # pytorch
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 \
-    && conda clean -a -y
+    && pip cache purge
 
 # tensorflow
-RUN conda install -y -c anaconda tensorflow-gpu tensorflow-hub \
-    && conda install -y -c conda-forge tf2onnx \
-    && conda clean -a -y
+RUN pip install tensorflow-gpu \
+    && pip cache purge
 
 # Hugging face
 RUN pip install datasets tokenizers diffusers["torch"] transformers timm \
-    && pip cache purge \
-    && conda clean -a -y
+    && pip cache purge
 
