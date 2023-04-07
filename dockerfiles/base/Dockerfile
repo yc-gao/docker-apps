@@ -51,7 +51,7 @@ RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/d
 ARG CONDA_PREFIX=/opt/miniconda3
 RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     && chmod +x /tmp/Miniconda3.sh \
-    && /tmp/Miniconda3.sh -n -p ${CONDA_PREFIX} \
+    && /tmp/Miniconda3.sh -b -p ${CONDA_PREFIX} \
     && rm -rf /tmp/Miniconda3.sh \
     && chown xundaoxd:xundaoxd -R /opt/miniconda3
 ENV PATH="/opt/miniconda3/bin:${PATH}"
