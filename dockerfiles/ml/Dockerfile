@@ -30,7 +30,7 @@ RUN pip install torch torchvision torchaudio --index-url https://download.pytorc
     && pip cache purge
 
 # tensorflow
-RUN pip install tensorflow-gpu \
+RUN pip install tensorflow \
     && pip cache purge
 
 # Hugging face
