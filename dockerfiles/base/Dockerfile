@@ -56,12 +56,11 @@ RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-$
     && /tmp/Miniconda3.sh -b -p ${CONDA_PREFIX} \
     && rm -rf /tmp/Miniconda3.sh \
     && /opt/miniconda3/bin/conda install -y \
-    jupyterlab ipywidgets ipython \
-    pytest autopep8 pylint \
-    numpy matplotlib pandas seaborn scipy scikit-learn \
-    protobuf=3.20 pillow pyyaml \
-    pybind11 cython \
-    && /opt/miniconda3/bin/conda install -y -c conda-forge xeus-cling \
+        jupyterlab ipywidgets ipython \
+        pytest autopep8 pylint \
+        numpy matplotlib pandas seaborn scipy scikit-learn \
+        protobuf=3.20 pillow pyyaml \
+        pybind11 cython \
     && /opt/miniconda3/bin/conda clean -a -y \
     && chown xundaoxd:xundaoxd -R /opt/miniconda3
 ENV PATH="/opt/miniconda3/bin:${PATH}"
