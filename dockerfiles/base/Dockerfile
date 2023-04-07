@@ -8,7 +8,6 @@ USER root
 
 # basic setup
 RUN apt update \
-    && apt upgrade \
     && apt install -y software-properties-common apt-transport-https wget curl gnupg ca-certificates sudo \
     && rm -rf /var/lib/apt/lists/*
 
