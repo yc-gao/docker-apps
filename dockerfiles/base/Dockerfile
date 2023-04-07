@@ -52,11 +52,12 @@ ARG CONDA_PREFIX=/opt/miniconda3
 RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     && chmod +x /tmp/Miniconda3.sh \
     && /tmp/Miniconda3.sh -b -p ${CONDA_PREFIX} \
-    && rm -rf /tmp/Miniconda3.sh \
-    && chown xundaoxd:xundaoxd -R /opt/miniconda3
+    && rm -rf /tmp/Miniconda3.sh
 ENV PATH="/opt/miniconda3/bin:${PATH}"
 
 RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi \
-    && echo '%xundaoxd ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
+    && echo '%xundaoxd ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers \
+    && chown xundaoxd:xundaoxd -R /opt/miniconda3
+
 USER xundaoxd
 
