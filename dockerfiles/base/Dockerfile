@@ -50,6 +50,7 @@ RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/d
 
 # install miniconda3
 ARG CONDA_VERSION=py38_23.1.0-1
+ARG CONDA_PREFIX=/opt/miniconda3
 RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
     && chmod +x /tmp/Miniconda3.sh \
     && /tmp/Miniconda3.sh -b -p ${CONDA_PREFIX} \
