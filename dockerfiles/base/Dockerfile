@@ -6,27 +6,27 @@ ARG DEBIAN_FRONTEND=noninteractive
 WORKDIR /workdir
 USER root
 
+# basic setup
 RUN apt update \
+    && apt upgrade \
     && apt install -y software-properties-common apt-transport-https wget curl gnupg ca-certificates sudo \
+    && rm -rf /var/lib/apt/lists/*
+
+# gui support
+RUN apt update \
     && apt install -y language-pack-en* language-pack-zh* language-pack-gnome-en* language-pack-gnome-zh* \
     && apt install -y fonts-firacode fonts-wqy-microhei ttf-wqy-zenhei fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto xfonts-base \
     && apt install -y libgtk2.0-0 libxshmfence-dev libnss3-dev libatk-bridge2.0-dev libdrm-dev libgtk-3-dev libasound2-dev libcanberra-gtk-module libcanberra-gtk3-module \
     && apt install -y yaru-theme-* breeze \
     && rm -rf /var/lib/apt/lists/*
 
-RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi \
-    && echo '%xundaoxd ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
-
-RUN apt update \
-    && apt install -y build-essential gdb strace ltrace \
-    && bash -c "$(wget -qO - https://apt.llvm.org/llvm.sh)" \
-    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler libboost-all-dev libgsl-dev libopencv-dev libeigen3-dev \
-    && rm -rf /var/lib/apt/lists/*
-
+# development setup
 RUN apt update \
     && add-apt-repository -y ppa:neovim-ppa/stable \
     && add-apt-repository -y ppa:git-core/ppa \
-    && apt install -y graphviz neovim git ffmpeg \
+    && apt install -y build-essential gdb strace ltrace neovim git \
+    && bash -c "$(wget -qO - https://apt.llvm.org/llvm.sh)" \
+    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler libboost-all-dev libgsl-dev libopencv-dev libeigen3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # install cmake
@@ -49,20 +49,15 @@ RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/d
     && chmod +x /usr/local/bin/bazel
 
 # install miniconda3
-ARG CONDA_VERSION=py38_23.1.0-1
 ARG CONDA_PREFIX=/opt/miniconda3
-RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh \
+RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     && chmod +x /tmp/Miniconda3.sh \
-    && /tmp/Miniconda3.sh -b -p ${CONDA_PREFIX} \
+    && /tmp/Miniconda3.sh -n -p ${CONDA_PREFIX} \
     && rm -rf /tmp/Miniconda3.sh \
-    && /opt/miniconda3/bin/conda install -y \
-        jupyterlab ipywidgets ipython \
-        pytest autopep8 pylint \
-        numpy matplotlib pandas seaborn scipy scikit-learn \
-        protobuf=3.20 pillow pyyaml \
-        pybind11 cython \
-    && /opt/miniconda3/bin/conda clean -a -y \
     && chown xundaoxd:xundaoxd -R /opt/miniconda3
 ENV PATH="/opt/miniconda3/bin:${PATH}"
 
+RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi \
+    && echo '%xundaoxd ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 USER xundaoxd
+

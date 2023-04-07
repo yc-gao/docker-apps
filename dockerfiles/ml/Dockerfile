@@ -12,10 +12,14 @@ RUN apt update \
 
 USER xundaoxd
 
-RUN conda install -y -c conda-forge cudatoolkit=11.8.0 \
-    && pip install nvidia-cudnn-cu11==8.6.0.163 \
-    && conda clean -a -y
-ENV CUDNN_PATH="$CONDA_PREFIX/lib/python3.8/site-packages/nvidia/cudnn"
+ARG PYTHON_VERSION=3.8
+RUN conda install -y python=${PYTHON_VERSION} \
+    && conda install -y \
+        ipywidgets jupyterlab ipython \
+        numpy matplotlib pandas seaborn scipy scikit-learn \
+        pyyaml pillow protobuf \
+        pybind11 cython \
+    && /opt/miniconda3/bin/conda clean -a -y
 
 # onnx
 RUN pip install onnxruntime-gpu onnxruntime-tools skl2onnx \
