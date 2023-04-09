@@ -34,6 +34,6 @@ RUN pip install tensorflow \
     && pip cache purge
 
 # Hugging face
-RUN pip install datasets tokenizers diffusers["torch"] transformers timm \
+RUN pip install datasets tokenizers timm 'diffusers[torch]' 'transformers[torch]' \
     && pip cache purge
 
