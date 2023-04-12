@@ -23,7 +23,7 @@ RUN apt update \
 RUN apt update \
     && add-apt-repository -y ppa:neovim-ppa/stable \
     && add-apt-repository -y ppa:git-core/ppa \
-    && apt install -y build-essential gdb strace ltrace neovim git \
+    && apt install -y build-essential gdb strace ltrace neovim git ninja-build \
     && bash -c "$(wget -qO - https://apt.llvm.org/llvm.sh)" \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libprotobuf-dev protobuf-compiler libboost-all-dev libgsl-dev libopencv-dev libeigen3-dev \
     && rm -rf /var/lib/apt/lists/*
