@@ -12,7 +12,7 @@ die() {
 }
 
 base() {
-    if [[ $PWD != $HOME* ]]; then
+    if [[ $PWD != $HOME/* ]]; then
         die "Please run docker app in home dir!!!"
     fi
 
@@ -21,65 +21,20 @@ base() {
         -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
         -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
 
-    if [[ $PWD == $HOME/* ]]; then
-        opt="$opt -v $proj_dir/.home:$HOME"
-        [[ -e $home_dir/.Xauthority ]] && opt="$opt -v $home_dir/.Xauthority:$HOME/.Xauthority:ro"
-        for f in $home_dir/*; do
-            [[ $current_dir != $f ]] && opt="$opt -v $f:$HOME/$(basename $f):ro"
-        done
-    fi
-
+    [[ -e $home_dir/.Xauthority ]] && opt="$opt -v $home_dir/.Xauthority:$HOME/.Xauthority:ro"
+    opt="$opt -v $proj_dir/.home:$HOME"
+    for f in $home_dir/*; do
+        [[ $f != $current_dir* ]] && opt="$opt -v $f:$HOME/$(basename $f):ro"
+    done
     opt="$opt -v $current_dir:$PWD -w $PWD"
 
     echo docker run $opt "$@"
     docker run $opt "$@"
 }
 
-# nodejs
-node() {
-    base -ti --rm node:latest node "$@"
-}
-npm() {
-    base -ti --rm node:latest npm "$@"
-}
-yarn() {
-    base -ti --rm node:latest yarn "$@"
-}
-npx() {
-    base -ti --rm node:latest npx "$@"
-}
 
-# java
-java() {
-    base -ti --rm openjdk:latest java "$@"
-}
-javac() {
-    base -ti --rm openjdk:latest javac "$@"
-}
-
-# go
-go() {
-    base -ti --rm --gpus all xundaoxd/ml:latest go "$@"
-}
-
-# cuda
 mllab() {
     base -ti --rm --gpus all xundaoxd/ml:latest "$@"
-}
-nvcc() {
-    base -ti --rm --gpus all xundaoxd/ml:latest nvcc "$@"
-}
-nvdisasm() {
-    base -ti --rm --gpus all xundaoxd/ml:latest nvdisasm "$@"
-}
-cuobjdump() {
-    base -ti --rm --gpus all xundaoxd/ml:latest cuobjdump "$@"
-}
-cmake() {
-    base -ti --rm --gpus all xundaoxd/ml:latest cmake "$@"
-}
-bazel() {
-    base -ti --rm --gpus all xundaoxd/ml:latest bazel "$@"
 }
 ipython() {
     base -ti --rm --gpus all xundaoxd/ml:latest \
@@ -90,12 +45,6 @@ jupyter() {
         jupyter lab --no-browser --NotebookApp.token='' "$@"
 }
 
-
-# others
-xelatex() {
-    base -ti --rm xundaoxd/texlive:latest \
-        xelatex "$@"
-}
 obsidian() {
     base -d --rm --gpus all xundaoxd/obsidian obsidian --no-sandbox "$@"
 }
@@ -110,3 +59,4 @@ main() {
 }
 
 main "$@"
+
