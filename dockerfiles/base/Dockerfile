@@ -34,7 +34,12 @@ RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/d
     && chmod +x /usr/local/bin/bazel
 
 # install rclone
-RUN curl https://rclone.org/install.sh | sudo bash
+RUN wget -q https://downloads.rclone.org/rclone-current-linux-amd64.zip \
+    && unzip rclone-current-linux-amd64.zip \
+    && cp rclone-*-linux-amd64/rclone /usr/bin \
+    && chown root:root /usr/bin/rclone \
+    && chmod 755 /usr/bin/rclone \
+    && rm -rf rclone*
 
 # install miniconda3
 ARG CONDA_PREFIX=/opt/miniconda3
