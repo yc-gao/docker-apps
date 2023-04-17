@@ -9,7 +9,7 @@ USER root
 # basic setup
 RUN apt update \
     && apt install -y software-properties-common apt-transport-https wget curl gnupg ca-certificates \
-    && apt install -y sudo build-essential gdb strace ltrace neovim git ninja-build ccache \
+    && apt install -y sudo build-essential gdb strace ltrace neovim git ninja-build ccache unzip \
     && bash -c "$(wget -qO - https://apt.llvm.org/llvm.sh)" \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libopencv-dev libeigen3-dev \
     && rm -rf /var/lib/apt/lists/*
