@@ -48,9 +48,15 @@ jupyter() {
 # obsidian() {
 #     base -d --rm --gpus all xundaoxd/obsidian obsidian --no-sandbox "$@"
 # }
+
 octave() {
     base -d --rm --gpus all xundaoxd/ml:latest \
         octave --gui "$@"
+}
+
+rclone() {
+    base -ti --rm xundaoxd/ml:latest \
+        rclone "$@"
 }
 
 main() {

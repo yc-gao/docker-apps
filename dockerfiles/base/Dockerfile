@@ -33,6 +33,9 @@ ARG BAZEL_VERSION=5.2.0
 RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-linux-x86_64 \
     && chmod +x /usr/local/bin/bazel
 
+# install rclone
+RUN curl https://rclone.org/install.sh | sudo bash
+
 # install miniconda3
 ARG CONDA_PREFIX=/opt/miniconda3
 RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
