@@ -54,11 +54,6 @@ octave() {
         octave --gui "$@"
 }
 
-rclone() {
-    base -ti --rm xundaoxd/ml:latest \
-        rclone "$@"
-}
-
 main() {
     self=$(basename $0)
     $self "$@"
