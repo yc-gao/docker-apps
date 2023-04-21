@@ -12,6 +12,8 @@ RUN apt update \
     && add-apt-repository -y ppa:ubuntu-toolchain-r/test \
     && apt install -y g++-11 sudo build-essential gdb strace ltrace neovim git ninja-build ccache unzip \
     && bash -c "$(wget -qO - https://apt.llvm.org/llvm.sh)" \
+    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-15 0 \
+    && update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-15 0 \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libopencv-dev libeigen3-dev \
     && rm -rf /var/lib/apt/lists/*
 
