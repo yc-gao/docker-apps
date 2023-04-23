@@ -8,13 +8,11 @@ USER root
 
 # basic setup
 RUN apt update \
-    && apt install -y software-properties-common apt-transport-https wget curl gnupg ca-certificates \
+    && apt install -y software-properties-common apt-transport-https wget curl gnupg ca-certificates sudo \
     && add-apt-repository -y ppa:ubuntu-toolchain-r/test \
-    && apt install -y g++-11 sudo build-essential gdb strace ltrace neovim git ninja-build ccache unzip \
-    && bash -c "$(wget -qO - https://apt.llvm.org/llvm.sh)" \
-    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-15 0 \
-    && update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-15 0 \
+    && apt install -y build-essential g++-11 \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libopencv-dev libeigen3-dev \
+    && apt install -y neovim git gdb strace ltrace ninja-build ccache unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # install cmake
