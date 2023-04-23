@@ -26,7 +26,8 @@ RUN sh -c "wget -qO - https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERS
 ENV PATH="/opt/node-v${NODE_VERSION}-linux-x64/bin:${PATH}"
 
 # install go
-RUN sh -c "wget -qO - https://golang.google.cn/dl/go1.17.6.linux-amd64.tar.gz | tar -C /opt -xzv"
+ARG GO_VERSION=1.20.3
+RUN sh -c "wget -qO - https://golang.google.cn/dl/go${GO_VERSION}.linux-amd64.tar.gz | tar -C /opt -xzv"
 ENV PATH="/opt/go/bin:${PATH}"
 
 # install bazel
