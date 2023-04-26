@@ -12,7 +12,7 @@ RUN apt update \
     && add-apt-repository -y ppa:ubuntu-toolchain-r/test \
     && apt install -y build-essential g++-11 \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libopencv-dev libeigen3-dev \
-    && apt install -y neovim git gdb strace ltrace ninja-build ccache unzip iproute2 \
+    && apt install -y neovim git gdb strace ltrace ninja-build ccache unzip iproute2 socat \
     && rm -rf /var/lib/apt/lists/*
 
 # install cmake
