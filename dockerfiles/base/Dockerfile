@@ -4,7 +4,6 @@ FROM ${BASE_IMAGE}
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /workdir
-USER root
 
 # basic setup
 RUN apt update \
@@ -36,10 +35,12 @@ RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/d
     && chmod +x /usr/local/bin/bazel
 
 # install miniconda3
+ARG PYTHON_VERSION=3.8
 ARG CONDA_PREFIX=/opt/miniconda3
 RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     && chmod +x /tmp/Miniconda3.sh \
     && /tmp/Miniconda3.sh -b -p ${CONDA_PREFIX} \
+    && /opt/miniconda3/bin/conda install -y python=${PYTHON_VERSION} \
     && rm -rf /tmp/Miniconda3.sh
 ENV PATH="/opt/miniconda3/bin:${PATH}"
 
