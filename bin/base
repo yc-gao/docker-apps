@@ -8,25 +8,31 @@ home_dir="$(realpath "$HOME")"
 
 die() {
     echo "$@"
-    exit 255
+    exit 1
+}
+
+x11_opts() {
+    local opt="-e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix"
+    [[ -e $home_dir/.Xauthority ]] && opt="$opt -v $home_dir/.Xauthority:$HOME/.Xauthority:ro"
+    echo "$opt"
+}
+
+home_opts() {
+    local opt="-v $proj_dir/.home:$HOME"
+    [[ -e $home_dir/.local/share/fonts ]] && opt="$opt -v $home_dir/.local/share/fonts:$HOME/.local/share/fonts:ro"
+    echo "$opt"
 }
 
 base() {
-    if [[ $PWD != $HOME/* ]]; then
-        die "Please run docker app in home dir!!!"
-    fi
+    [[ $PWD != $HOME/* ]] && die "Please run docker app in home dir!!!"
 
     opt="--network host \
         -u $(id -u):$(id -g) \
-        -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
-        -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
-
-    [[ -e $home_dir/.Xauthority ]] && opt="$opt -v $home_dir/.Xauthority:$HOME/.Xauthority:ro"
-    opt="$opt -v $proj_dir/.home:$HOME"
-    for f in $home_dir/*; do
-        [[ $f != $current_dir* ]] && opt="$opt -v $f:$HOME/$(basename $f):ro"
-    done
-    opt="$opt -v $current_dir:$PWD -w $PWD"
+        -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS \
+        $(home_opts) \
+        $(x11_opts) \
+        -v $current_dir:$PWD \
+        -w $PWD"
 
     echo docker run $opt "$@"
     docker run $opt "$@"
@@ -48,11 +54,6 @@ jupyter() {
 # obsidian() {
 #     base -d --rm --gpus all xundaoxd/obsidian obsidian --no-sandbox "$@"
 # }
-
-octave() {
-    base -d --rm --gpus all xundaoxd/ml:latest \
-        octave --gui "$@"
-}
 
 main() {
     self=$(basename $0)
