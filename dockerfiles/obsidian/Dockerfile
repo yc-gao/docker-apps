@@ -17,7 +17,7 @@ RUN apt update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt update \
-    && apt install -y curl wget \
+    && apt install -y curl wget firefox \
     && rm -rf /var/lib/apt/lists/*
 
 ARG OBSIDIAN_VERSION=1.3.3
