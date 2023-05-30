@@ -7,7 +7,7 @@ WORKDIR /workdir
 
 # basic setup
 RUN apt update \
-    && apt install -y software-properties-common apt-transport-https wget curl gnupg ca-certificates sudo \
+    && apt install -y software-properties-common apt-transport-https ca-certificates gnupg wget curl sudo \
     && add-apt-repository -y ppa:ubuntu-toolchain-r/test \
     && apt install -y build-essential g++-11 \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libopencv-dev libeigen3-dev \
