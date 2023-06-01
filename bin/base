@@ -11,10 +11,8 @@ die() {
     exit 1
 }
 
-x11_opts() {
-    local opt="-e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix"
-    [[ -e $home_dir/.Xauthority ]] && opt="$opt -v $home_dir/.Xauthority:$HOME/.Xauthority:ro"
-    echo "$opt"
+common_opts() {
+    echo "--network host -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
 }
 
 home_opts() {
@@ -23,19 +21,22 @@ home_opts() {
     echo "$opt"
 }
 
+pwd_opts() {
+    echo "-v $current_dir:$PWD -w $PWD"
+}
+
+x11_opts() {
+    local opt="-e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix"
+    [[ -e $home_dir/.Xauthority ]] && opt="$opt -v $home_dir/.Xauthority:$HOME/.Xauthority:ro"
+    echo "$opt"
+}
+
 base() {
-    [[ $PWD != $HOME/* ]] && die "Please run docker app in home dir!!!"
+    [[ $current_dir != $home_dir/* ]] && die "Please run docker app in home dir!!!"
 
-    opt="--network host \
-        -u $(id -u):$(id -g) \
-        -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS \
-        $(home_opts) \
-        $(x11_opts) \
-        -v $current_dir:$PWD \
-        -w $PWD"
-
-    echo docker run $opt "$@"
-    docker run $opt "$@"
+    read -ra opts <<< "$(common_opts) $(home_opts) $(pwd_opts) $(x11_opts)"
+    echo docker run "${opts[@]}" "$@"
+    docker run "${opts[@]}" "$@"
 }
 
 
@@ -56,7 +57,7 @@ jupyter() {
 # }
 
 main() {
-    self=$(basename $0)
+    self=$(basename "$0")
     $self "$@"
 }
 
