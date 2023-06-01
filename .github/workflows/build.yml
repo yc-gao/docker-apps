@@ -6,16 +6,7 @@ on:
       - master
 
 jobs:
-  base:
-    uses: xundaoxd/docker-apps/.github/workflows/action.yml@master
-    with:
-      dockerfile: dockerfiles/base/Dockerfile
-      tag: xundaoxd/base:11.6.2-cudnn8-devel-ubuntu20.04-py3.8
-      build-args: 'BASE_IMAGE=nvidia/cuda:11.6.2-cudnn8-devel-ubuntu20.04'
-    secrets: inherit
-
   ml:
-    needs: base
     uses: xundaoxd/docker-apps/.github/workflows/action.yml@master
     with:
       dockerfile: dockerfiles/ml/Dockerfile
