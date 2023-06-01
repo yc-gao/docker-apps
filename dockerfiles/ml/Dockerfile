@@ -2,7 +2,6 @@ ARG BASE_IMAGE=nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04
 FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
-
 WORKDIR /workdir
 
 # basic setup
