@@ -56,12 +56,12 @@ RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-l
 ENV PATH="/opt/miniconda3/bin:${PATH}"
 
 # create user: xundaoxd
-RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi \
-    && echo '%xundaoxd ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers \
-    && chown xundaoxd:xundaoxd -R /opt/miniconda3 \
-    && apt update \
+RUN apt update \
     && apt install -y sudo \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi \
+    && echo '%xundaoxd ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers \
+    && chown xundaoxd:xundaoxd -R /opt/miniconda3
 USER xundaoxd
 
 # onnx
