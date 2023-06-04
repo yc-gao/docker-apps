@@ -9,7 +9,7 @@ RUN apt update \
     && apt install -y fonts-firacode fonts-wqy-microhei ttf-wqy-zenhei fonts-arphic-ukai fonts-arphic-uming fonts-droid-fallback fonts-noto xfonts-base \
     && apt install -y libgtk2.0-0 libxshmfence-dev libnss3-dev libatk-bridge2.0-dev libdrm-dev libgtk-3-dev libasound2-dev libcanberra-gtk-module libcanberra-gtk3-module \
     && apt install -y yaru-theme-* \
-    && apt install -y breeze firefox xdg-utils \
+    && apt install -y breeze firefox xdg-utils graphviz \
     && rm -rf /var/lib/apt/lists/*
 
 ARG OBSIDIAN_VERSION=1.3.3
