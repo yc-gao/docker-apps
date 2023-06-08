@@ -40,6 +40,11 @@ ARG BAZEL_VERSION=5.2.0
 RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-linux-x86_64 \
     && chmod +x /usr/local/bin/bazel
 
+# octave
+RUN apt update \
+    && apt install -y octave \
+    && rm -rf /var/lib/apt/lists/*
+
 # install miniconda3
 ARG PYTHON_VERSION=3.8
 ARG CONDA_PREFIX=/opt/miniconda3
