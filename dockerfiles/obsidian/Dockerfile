@@ -12,7 +12,7 @@ RUN apt update \
     && apt install -y breeze firefox xdg-utils graphviz \
     && rm -rf /var/lib/apt/lists/*
 
-ARG OBSIDIAN_VERSION=1.3.3
+ARG OBSIDIAN_VERSION=1.3.5
 RUN apt update \
     && wget -qO /tmp/obsidian_${OBSIDIAN_VERSION}_amd64.deb https://github.com/obsidianmd/obsidian-releases/releases/download/v${OBSIDIAN_VERSION}/obsidian_${OBSIDIAN_VERSION}_amd64.deb \
     && apt install -y /tmp/obsidian_${OBSIDIAN_VERSION}_amd64.deb \
