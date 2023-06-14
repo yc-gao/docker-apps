@@ -9,7 +9,6 @@ RUN apt update \
     && apt install -y software-properties-common apt-transport-https ca-certificates gnupg wget curl \
     && apt install -y build-essential \
     && bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
-    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libopencv-dev libeigen3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # utils
@@ -17,7 +16,12 @@ RUN apt update \
     && add-apt-repository -y ppa:neovim-ppa/stable \
     && add-apt-repository -y ppa:git-core/ppa \
     && apt install -y neovim git gdb strace ltrace ninja-build ccache \
-    && apt install -y unzip iproute2 socat \
+    && apt install -y unzip iproute2 socat graphviz \
+    && rm -rf /var/lib/apt/lists/*
+
+# common libs
+RUN apt update \
+    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libopencv-dev libeigen3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # install cmake
