@@ -58,9 +58,9 @@ jupyter() {
         jupyter lab --no-browser --NotebookApp.token='' "$@"
 }
 
-# obsidian() {
-#     base -d --rm --gpus all xundaoxd/obsidian obsidian --no-sandbox "$@"
-# }
+obsidian() {
+    base -d --rm --gpus all xundaoxd/x11gui obsidian --no-sandbox "$@"
+}
 
 main() {
     self=$(basename "$0")

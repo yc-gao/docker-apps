@@ -16,7 +16,7 @@ jobs:
   obsidian:
     uses: xundaoxd/docker-apps/.github/workflows/action.yml@master
     with:
-      dockerfile: dockerfiles/obsidian/Dockerfile
-      tag: xundaoxd/obsidian:latest
+      dockerfile: dockerfiles/x11gui/Dockerfile
+      tag: xundaoxd/x11gui:latest
     secrets: inherit
 
