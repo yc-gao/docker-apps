@@ -74,7 +74,7 @@ RUN apt update \
 USER xundaoxd
 
 # onnx
-RUN pip install onnxruntime-gpu onnxruntime-tools skl2onnx \
+RUN pip install onnxruntime-gpu onnxruntime-tools onnxoptimizer skl2onnx \
     && pip cache purge
 
 # pytorch
