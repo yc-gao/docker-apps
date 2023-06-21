@@ -13,7 +13,7 @@ jobs:
       tag: xundaoxd/ml:latest
     secrets: inherit
 
-  obsidian:
+  x11gui:
     uses: xundaoxd/docker-apps/.github/workflows/action.yml@master
     with:
       dockerfile: dockerfiles/x11gui/Dockerfile
