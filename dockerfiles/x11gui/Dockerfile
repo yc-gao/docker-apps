@@ -19,6 +19,13 @@ RUN apt update \
     && rm -rf /tmp/obsidian_${OBSIDIAN_VERSION}_amd64.deb \
     && rm -rf /var/lib/apt/lists/*
 
+RUN apt update \
+    && wget -qO /tmp/xmind.deb https://dl2.xmind.cn/Xmind-for-Linux-amd64bit-22.11.3771-202305311832.deb \
+    && apt install -y /tmp/xmind.deb \
+    && rm -rf /tmp/xmind.deb \
+    && rm -rf /var/lib/apt/lists/*
+
+
 RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi
 USER xundaoxd
 
