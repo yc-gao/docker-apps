@@ -85,6 +85,10 @@ RUN pip install torch torchvision torchaudio --index-url https://download.pytorc
 RUN pip install tensorflow \
     && pip cache purge
 
+# tensort
+RUN pip install --upgrade tensorrt \
+    && pip cache purge
+
 # Hugging face
 RUN pip install datasets tokenizers timm gradio 'diffusers[torch]' 'transformers[torch]' \
     && pip cache purge
