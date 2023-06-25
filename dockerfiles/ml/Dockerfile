@@ -21,7 +21,7 @@ RUN apt update \
 
 # common libs
 RUN apt update \
-    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libopencv-dev libeigen3-dev \
+    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libeigen3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # install cmake
@@ -60,6 +60,7 @@ RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-l
     numpy matplotlib pandas seaborn scipy scikit-learn \
     pyyaml pillow protobuf \
     pybind11 cython \
+    && /opt/miniconda3/bin/conda install -y -c conda-forge opencv \
     && /opt/miniconda3/bin/conda clean -a -y \
     && rm -rf *
 ENV PATH="/opt/miniconda3/bin:${PATH}"
