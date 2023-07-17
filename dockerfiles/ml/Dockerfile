@@ -55,15 +55,17 @@ ARG CONDA_PREFIX=/opt/miniconda3
 RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     && chmod +x /tmp/Miniconda3.sh \
     && /tmp/Miniconda3.sh -b -p ${CONDA_PREFIX} \
-    && /opt/miniconda3/bin/conda install -y python=${PYTHON_VERSION} \
+    && ${CONDA_PREFIX}/bin/conda install -y python=${PYTHON_VERSION} \
     ipywidgets jupyterlab ipython \
     numpy matplotlib pandas seaborn scipy scikit-learn \
-    pyyaml pillow protobuf \
+    pyyaml protobuf \
     pybind11 cython \
-    && /opt/miniconda3/bin/conda install -y -c conda-forge opencv \
-    && /opt/miniconda3/bin/conda clean -a -y \
+    && ${CONDA_PREFIX}/bin/pip install Pillow \
+    && ${CONDA_PREFIX}/bin/conda install -y -c conda-forge opencv \
+    && ${CONDA_PREFIX}/bin/conda clean -a -y \
+    && ${CONDA_PREFIX}/bin/pip cache purge \
     && rm -rf *
-ENV PATH="/opt/miniconda3/bin:${PATH}"
+ENV PATH="${CONDA_PREFIX}/bin:${PATH}"
 
 # create user: xundaoxd
 RUN apt update \
@@ -71,7 +73,7 @@ RUN apt update \
     && rm -rf /var/lib/apt/lists/* \
     && if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi \
     && echo '%xundaoxd ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers \
-    && chown xundaoxd:xundaoxd -R /opt/miniconda3
+    && chown xundaoxd:xundaoxd -R ${CONDA_PREFIX}
 USER xundaoxd
 
 # onnx
