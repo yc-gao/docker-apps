@@ -56,12 +56,10 @@ RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-l
     && chmod +x /tmp/Miniconda3.sh \
     && /tmp/Miniconda3.sh -b -p ${CONDA_PREFIX} \
     && ${CONDA_PREFIX}/bin/conda install -y python=${PYTHON_VERSION} \
-    ipywidgets jupyterlab ipython \
-    numpy matplotlib pandas seaborn scipy scikit-learn \
-    pyyaml protobuf \
-    pybind11 cython \
-    && ${CONDA_PREFIX}/bin/pip install Pillow \
-    && ${CONDA_PREFIX}/bin/conda install -y -c conda-forge opencv \
+    && ${CONDA_PREFIX}/bin/pip install ipython jupyterlab ipywidgets \
+        numpy pands Pillow matplotlib scipy scikit-learn opencv-python opencv-contrib-python \
+        PyYAML protobuf \
+        pybind11 Cython \
     && ${CONDA_PREFIX}/bin/conda clean -a -y \
     && ${CONDA_PREFIX}/bin/pip cache purge \
     && rm -rf *
