@@ -26,17 +26,17 @@ RUN apt update \
 
 # install cmake
 ARG CMAKE_VERSION=3.23.1
-RUN sh -c "wget -qO - https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz | tar -C /opt -xzv"
+RUN sh -c "wget -qO - https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz | tar -C /opt -xz"
 ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
 
 # install nodejs
 ARG NODE_VERSION=18.15.0
-RUN sh -c "wget -qO - https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz | tar -C /opt -xJv"
+RUN sh -c "wget -qO - https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz | tar -C /opt -xJ"
 ENV PATH="/opt/node-v${NODE_VERSION}-linux-x64/bin:${PATH}"
 
 # install go
 ARG GO_VERSION=1.20.3
-RUN sh -c "wget -qO - https://golang.google.cn/dl/go${GO_VERSION}.linux-amd64.tar.gz | tar -C /opt -xzv"
+RUN sh -c "wget -qO - https://golang.google.cn/dl/go${GO_VERSION}.linux-amd64.tar.gz | tar -C /opt -xz"
 ENV PATH="/opt/go/bin:${PATH}"
 
 # install bazel
@@ -57,7 +57,7 @@ RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-l
     && /tmp/Miniconda3.sh -b -p ${CONDA_PREFIX} \
     && ${CONDA_PREFIX}/bin/conda install -y python=${PYTHON_VERSION} \
     && ${CONDA_PREFIX}/bin/pip install ipython jupyterlab ipywidgets \
-        numpy pands Pillow matplotlib scipy scikit-learn opencv-python opencv-contrib-python \
+        numpy pandas Pillow matplotlib scipy scikit-learn opencv-python opencv-contrib-python \
         PyYAML protobuf \
         pybind11 Cython \
     && ${CONDA_PREFIX}/bin/conda clean -a -y \
