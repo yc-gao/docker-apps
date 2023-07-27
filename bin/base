@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-self_path=$(realpath "${BASH_SOURCE[0]:-$0}")
+self_path=$(realpath "${BASH_SOURCE[0]}")
 self_dir=$(dirname "$self_path")
 proj_dir=$(dirname "$self_dir")
 current_dir="$(realpath "$PWD")"
 home_dir="$(realpath "$HOME")"
+
+target_home="/root"
 
 die() {
     echo "$@"
@@ -16,8 +18,8 @@ common_opts() {
 }
 
 home_opts() {
-    local opt="-v $proj_dir/.home:$HOME"
-    [[ -e $home_dir/.local/share/fonts ]] && opt="$opt -v $home_dir/.local/share/fonts:$HOME/.local/share/fonts:ro"
+    local opt="-v $proj_dir/.home:$target_home"
+    [[ -e $home_dir/.local/share/fonts ]] && opt="$opt -v $home_dir/.local/share/fonts:$target_home/.local/share/fonts:ro"
     echo "$opt"
 }
 
@@ -27,7 +29,7 @@ pwd_opts() {
 
 x11_opts() {
     local opt="-e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix"
-    [[ -e $home_dir/.Xauthority ]] && opt="$opt -v $home_dir/.Xauthority:$HOME/.Xauthority:ro"
+    [[ -e $home_dir/.Xauthority ]] && opt="$opt -v $home_dir/.Xauthority:$target_home/.Xauthority:ro"
     echo "$opt"
 }
 
@@ -47,13 +49,16 @@ base() {
 
 
 mllab() {
+    target_home="/home/xundaoxd"
     base -ti --rm --gpus all xundaoxd/ml:latest "$@"
 }
 ipython() {
+    target_home="/home/xundaoxd"
     base -ti --rm --gpus all xundaoxd/ml:latest \
         ipython "$@"
 }
 jupyter() {
+    target_home="/home/xundaoxd"
     base -ti --rm --gpus all xundaoxd/ml:latest \
         jupyter lab --no-browser --NotebookApp.token='' "$@"
 }
