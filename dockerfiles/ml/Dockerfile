@@ -7,7 +7,7 @@ WORKDIR /workdir
 # basic setup
 RUN apt update \
     && apt install -y software-properties-common apt-transport-https ca-certificates gnupg wget curl \
-    && apt install -y build-essential \
+    && apt install -y cuda-11-8 build-essential \
     && bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
     && rm -rf /var/lib/apt/lists/*
 
