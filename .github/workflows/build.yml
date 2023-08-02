@@ -13,10 +13,3 @@ jobs:
       tag: xundaoxd/ml:latest
     secrets: inherit
 
-  x11gui:
-    uses: xundaoxd/docker-apps/.github/workflows/action.yml@master
-    with:
-      dockerfile: dockerfiles/x11gui/Dockerfile
-      tag: xundaoxd/x11gui:latest
-    secrets: inherit
-

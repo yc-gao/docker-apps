@@ -94,3 +94,17 @@ RUN pip install --upgrade tensorrt \
 RUN pip install datasets tokenizers timm gradio 'diffusers[torch]' 'transformers[torch]' \
     && pip cache purge
 
+FROM scratch
+COPY --from=0 / /
+
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES all
+
+ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
+ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
+
+USER xundaoxd
+
+ENTRYPOINT ["/opt/nvidia/nvidia_entrypoint.sh"]
+
