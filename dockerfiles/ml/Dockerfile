@@ -90,6 +90,10 @@ RUN pip install tensorflow \
 RUN pip install --upgrade tensorrt \
     && pip cache purge
 
+# mediapipe
+RUN pip install mediapipe \
+    && pip cache purge
+
 # Hugging face
 RUN pip install datasets tokenizers timm gradio 'diffusers[torch]' 'transformers[torch]' \
     && pip cache purge
