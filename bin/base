@@ -14,7 +14,7 @@ die() {
 }
 
 common_opts() {
-    echo "--network host -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
+    echo "-h $HOST --add-host $HOST:127.0.0.1 --network host -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
 }
 
 home_opts() {
