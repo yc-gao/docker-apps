@@ -21,7 +21,7 @@ RUN apt update \
 
 # common libs
 RUN apt update \
-    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libeigen3-dev \
+    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libeigen3-dev libelf-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # install cmake
