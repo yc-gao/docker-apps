@@ -9,6 +9,8 @@ RUN apt update \
     && apt install -y software-properties-common apt-transport-https ca-certificates gnupg wget curl \
     && apt install -y cuda-11-8 build-essential g++-aarch64-linux-gnu \
     && bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
+    && update-alternatives --install /usr/bin/clang clang $(ls /usr/bin/clang-* | grep -E 'clang-[0-9]+') 50 \
+    && update-alternatives --install /usr/bin/clang++ clang++ $(ls /usr/bin/clang++-* | grep -E 'clang\+\+-[0-9]+') 50 \
     && rm -rf /var/lib/apt/lists/*
 
 # utils
@@ -57,9 +59,9 @@ RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-l
     && /tmp/Miniconda3.sh -b -p ${CONDA_PREFIX} \
     && ${CONDA_PREFIX}/bin/conda install -y python=${PYTHON_VERSION} \
     && ${CONDA_PREFIX}/bin/pip install ipython jupyterlab ipywidgets \
-        numpy pandas Pillow matplotlib scipy scikit-learn opencv-python opencv-contrib-python \
-        PyYAML protobuf \
-        pybind11 Cython \
+    numpy pandas Pillow matplotlib scipy scikit-learn opencv-python opencv-contrib-python \
+    PyYAML protobuf \
+    pybind11 Cython \
     && ${CONDA_PREFIX}/bin/conda clean -a -y \
     && ${CONDA_PREFIX}/bin/pip cache purge \
     && rm -rf *
