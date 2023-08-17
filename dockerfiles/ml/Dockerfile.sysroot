@@ -4,6 +4,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # common libs
 RUN apt update \
-    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libeigen3-dev libelf-dev \
+    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libeigen3-dev libelf-dev zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
