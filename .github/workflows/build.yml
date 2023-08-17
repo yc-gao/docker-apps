@@ -7,7 +7,7 @@ on:
 
 jobs:
   ml:
-    uses: xundaoxd/docker-apps/.github/workflows/action.yml@master
+    uses: xundaoxd/docker-apps/.github/scripts/action.yml@master
     with:
       dockerfile: dockerfiles/ml/Dockerfile
       tag: xundaoxd/ml:latest
