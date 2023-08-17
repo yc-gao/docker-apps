@@ -1,2 +1,5 @@
-FROM ubuntu:18.04
+FROM ghcr.io/xundaoxd/ml:sysroot-latest as sysroot
+
+FROM ghcr.io/xundaoxd/ml:latest
+COPY --from=sysroot / /sysroot
 
