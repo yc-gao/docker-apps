@@ -1,0 +1,15 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  ml:
+    uses: xundaoxd/docker-apps/.github/workflows/build.yml@master
+    with:
+      dockerfile: dockerfiles/ml/Dockerfile
+      tag: xundaoxd/ml:latest
+    secrets: inherit
+
