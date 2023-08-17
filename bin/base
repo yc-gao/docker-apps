@@ -50,16 +50,16 @@ base() {
 
 mllab() {
     target_home="/home/xundaoxd"
-    base -ti --rm --gpus all xundaoxd/ml:latest "$@"
+    base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest "$@"
 }
 ipython() {
     target_home="/home/xundaoxd"
-    base -ti --rm --gpus all xundaoxd/ml:latest \
+    base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest \
         ipython "$@"
 }
 jupyter() {
     target_home="/home/xundaoxd"
-    base -ti --rm --gpus all xundaoxd/ml:latest \
+    base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest \
         jupyter lab --no-browser --NotebookApp.token='' "$@"
 }
 
