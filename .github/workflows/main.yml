@@ -12,7 +12,6 @@ jobs:
       dockerfile: dockerfiles/ml/Dockerfile
       tag: ghcr.io/xundaoxd/ml:latest
       platforms: linux/amd64
-    secrets: inherit
 
   sysroot:
     uses: ./.github/workflows/build.yml
@@ -20,7 +19,6 @@ jobs:
       dockerfile: dockerfiles/ml/Dockerfile.sysroot
       tag: ghcr.io/xundaoxd/ml:sysroot-latest
       platforms: linux/arm64
-    secrets: inherit
 
   ml-cross:
     uses: ./.github/workflows/build.yml
@@ -29,4 +27,3 @@ jobs:
       dockerfile: dockerfiles/ml/Dockerfile.cross
       tag: ghcr.io/xundaoxd/ml:cross-latest
       platforms: linux/amd64
-    secrets: inherit
