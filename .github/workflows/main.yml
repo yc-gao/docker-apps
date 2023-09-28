@@ -13,17 +13,3 @@ jobs:
       tag: ghcr.io/xundaoxd/ml:latest
       platforms: linux/amd64
 
-  sysroot:
-    uses: ./.github/workflows/build.yml
-    with:
-      dockerfile: dockerfiles/ml/Dockerfile.sysroot
-      tag: ghcr.io/xundaoxd/ml:sysroot-latest
-      platforms: linux/arm64
-
-  ml-cross:
-    uses: ./.github/workflows/build.yml
-    needs: [ml, sysroot]
-    with:
-      dockerfile: dockerfiles/ml/Dockerfile.cross
-      tag: ghcr.io/xundaoxd/ml:cross-latest
-      platforms: linux/amd64
