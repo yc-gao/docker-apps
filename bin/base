@@ -6,7 +6,7 @@ proj_dir=$(dirname "$self_dir")
 current_dir="$(realpath "$PWD")"
 home_dir="$(realpath "$HOME")"
 
-target_home="/root"
+target_home=
 
 die() {
     echo "$@"
@@ -19,7 +19,6 @@ common_opts() {
 
 home_opts() {
     local opt="-v $proj_dir/.home:$target_home"
-    [[ -e $home_dir/.local/share/fonts ]] && opt="$opt -v $home_dir/.local/share/fonts:$target_home/.local/share/fonts:ro"
     echo "$opt"
 }
 
@@ -35,6 +34,7 @@ x11_opts() {
 
 base() {
     [[ $current_dir != $home_dir/* ]] && die "Please run docker app in home dir!!!"
+    [[ -z "$target_home" ]] && target_home="${TARGET_HOME:-/root}"
 
     local opts=""
     opts="$opts $(common_opts)"
