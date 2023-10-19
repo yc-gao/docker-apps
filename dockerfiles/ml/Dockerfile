@@ -54,9 +54,9 @@ RUN apt update \
 # install miniconda3
 ARG PYTHON_VERSION=3.8
 ARG CONDA_PREFIX=/opt/miniconda3
-RUN wget -qO /tmp/Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-    && chmod +x /tmp/Miniconda3.sh \
-    && /tmp/Miniconda3.sh -b -p ${CONDA_PREFIX} \
+RUN wget -qO Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+    && chmod +x Miniconda3.sh \
+    && ./Miniconda3.sh -b -p ${CONDA_PREFIX} \
     && ${CONDA_PREFIX}/bin/conda install -y python=${PYTHON_VERSION} \
     && ${CONDA_PREFIX}/bin/pip install ipython jupyterlab ipywidgets \
     numpy pandas Pillow matplotlib scipy scikit-learn opencv-python opencv-contrib-python \
