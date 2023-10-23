@@ -97,6 +97,6 @@ RUN pip install mediapipe \
     && pip cache purge
 
 # Hugging face
-RUN pip install datasets tokenizers timm gradio 'diffusers[torch]' 'transformers[torch]' \
+RUN pip install datasets tokenizers timm gradio 'diffusers[torch]' 'transformers[torch]' sentencepiece \
     && pip cache purge
 
