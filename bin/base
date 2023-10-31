@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 
-self_path=$(realpath "${BASH_SOURCE[0]}")
-self_dir=$(dirname "$self_path")
+self_dir=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
 proj_dir=$(dirname "$self_dir")
-current_dir="$(realpath "$PWD")"
-home_dir="$(realpath "$HOME")"
 
-target_home=
+target_home=/root
 
 die() {
     echo "$@"
@@ -23,18 +20,17 @@ home_opts() {
 }
 
 pwd_opts() {
-    echo "-v $current_dir:$PWD -w $PWD"
+    echo "-v $PWD:$PWD -w $PWD"
 }
 
 x11_opts() {
     local opt="-e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix"
-    [[ -e $home_dir/.Xauthority ]] && opt="$opt -v $home_dir/.Xauthority:$target_home/.Xauthority:ro"
+    [[ -e $HOME/.Xauthority ]] && opt="$opt -v $HOME/.Xauthority:$target_home/.Xauthority:ro"
     echo "$opt"
 }
 
 base() {
-    [[ $current_dir != $home_dir/* ]] && die "Please run docker app in home dir!!!"
-    [[ -z "$target_home" ]] && target_home="${TARGET_HOME:-/root}"
+    [[ $PWD != $HOME/* ]] && die "Please run docker app in home dir!!!"
 
     local opts=""
     opts="$opts $(common_opts)"
