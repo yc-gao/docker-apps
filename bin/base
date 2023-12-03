@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-self_dir=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
-proj_dir=$(dirname "$self_dir")
+self_dir="$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
+proj_dir="$(dirname "$self_dir")"
 
-target_home=/root
+home_dir="${proj_dir}/home"
+target_home="/home/xundaoxd"
 
 die() {
     echo "$@"
@@ -15,7 +16,8 @@ common_opts() {
 }
 
 home_opts() {
-    local opt="-v $proj_dir/.home:$target_home"
+    local opt="-v ${home_dir}:${target_home}"
+    [[ -e $HOME/.local/share/fonts ]] && opt="$opt -v $HOME/.local/share/fonts:${target_home}/.local/share/fonts:ro"
     echo "$opt"
 }
 
@@ -29,8 +31,8 @@ x11_opts() {
     echo "$opt"
 }
 
-base() {
-    [[ $PWD != $HOME/* ]] && die "Please run docker app in home dir!!!"
+_base() {
+    [[ $PWD != $HOME/* ]] && die "please run docker app in home dir!!!"
 
     local opts=""
     opts="$opts $(common_opts)"
@@ -45,17 +47,14 @@ base() {
 
 
 mllab() {
-    target_home="/home/xundaoxd"
-    base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest "$@"
+    _base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest "$@"
 }
 ipython() {
-    target_home="/home/xundaoxd"
-    base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest \
+    _base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest \
         ipython "$@"
 }
 jupyter() {
-    target_home="/home/xundaoxd"
-    base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest \
+    _base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest \
         jupyter lab --no-browser --NotebookApp.token='' "$@"
 }
 
