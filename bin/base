@@ -1,24 +1,17 @@
 #!/usr/bin/env bash
 
 self_dir="$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
-proj_dir="$(dirname "$self_dir")"
 
-home_dir="${proj_dir}/home"
+home_dir="${self_dir}/home"
 target_home="/home/xundaoxd"
 
 die() {
-    echo "$@"
+    echo "$@" 1>&2
     exit 1
 }
 
 common_opts() {
     echo "-h $HOSTNAME --network host -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
-}
-
-home_opts() {
-    local opt="-v ${home_dir}:${target_home}"
-    [[ -e $HOME/.local/share/fonts ]] && opt="$opt -v $HOME/.local/share/fonts:${target_home}/.local/share/fonts:ro"
-    echo "$opt"
 }
 
 pwd_opts() {
@@ -31,16 +24,22 @@ x11_opts() {
     echo "$opt"
 }
 
+home_opts() {
+    local opt="-v ${home_dir}:${target_home}"
+    [[ -e $HOME/.local/share/fonts ]] && opt="$opt -v $HOME/.local/share/fonts:${target_home}/.local/share/fonts:ro"
+    echo "$opt"
+}
+
 _base() {
     [[ $PWD != $HOME/* ]] && die "please run docker app in home dir!!!"
 
     local opts=""
     opts="$opts $(common_opts)"
-    opts="$opts $(home_opts)"
     opts="$opts $(pwd_opts)"
     opts="$opts $(x11_opts)"
+    opts="$opts $(home_opts)"
 
-    read -ra opts <<< "${opts}"
+    read -r -a opts <<< "${opts}"
     echo docker run "${opts[@]}" "$@"
     docker run "${opts[@]}" "$@"
 }
@@ -50,12 +49,10 @@ mllab() {
     _base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest "$@"
 }
 ipython() {
-    _base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest \
-        ipython "$@"
+    _base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest ipython "$@"
 }
 jupyter() {
-    _base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest \
-        jupyter lab --no-browser --NotebookApp.token='' "$@"
+    _base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest jupyter lab --no-browser --NotebookApp.token='' "$@"
 }
 
 main() {
