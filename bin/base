@@ -30,7 +30,7 @@ home_opts() {
     echo "$opt"
 }
 
-_base() {
+base() {
     [[ $PWD != $HOME/* ]] && die "please run docker app in home dir!!!"
 
     local opts=""
@@ -46,13 +46,13 @@ _base() {
 
 
 mllab() {
-    _base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest "$@"
+    base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest "$@"
 }
 ipython() {
-    _base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest ipython "$@"
+    base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest ipython "$@"
 }
 jupyter() {
-    _base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest jupyter lab --no-browser --NotebookApp.token='' "$@"
+    base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest jupyter lab --no-browser --NotebookApp.token='' "$@"
 }
 
 main() {

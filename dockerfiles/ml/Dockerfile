@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04
+ARG BASE_IMAGE=nvidia/cuda:12.1.0-cudnn8-devel-ubuntu20.04
 FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -6,11 +6,8 @@ WORKDIR /workdir
 
 # basic setup
 RUN apt update \
-    && apt install -y software-properties-common apt-transport-https ca-certificates gnupg wget curl \
-    && apt install -y cuda-11-8 build-essential g++-aarch64-linux-gnu \
-    && bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
-    && update-alternatives --install /usr/bin/clang clang $(ls /usr/bin/clang-* | grep -E 'clang-[0-9]+') 50 \
-    && update-alternatives --install /usr/bin/clang++ clang++ $(ls /usr/bin/clang++-* | grep -E 'clang\+\+-[0-9]+') 50 \
+    && apt install -y software-properties-common apt-transport-https ca-certificates gnupg wget curl sudo \
+    && apt install -y cuda-12-1 build-essential g++-aarch64-linux-gnu \
     && rm -rf /var/lib/apt/lists/*
 
 # utils
@@ -46,11 +43,6 @@ ARG BAZEL_VERSION=5.2.0
 RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-linux-x86_64 \
     && chmod +x /usr/local/bin/bazel
 
-# octave
-RUN apt update \
-    && apt install -y octave \
-    && rm -rf /var/lib/apt/lists/*
-
 # install miniconda3
 ARG PYTHON_VERSION=3.8
 ARG CONDA_PREFIX=/opt/miniconda3
@@ -58,45 +50,41 @@ RUN wget -qO Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest
     && chmod +x Miniconda3.sh \
     && ./Miniconda3.sh -b -p ${CONDA_PREFIX} \
     && ${CONDA_PREFIX}/bin/conda install -y python=${PYTHON_VERSION} \
-    && ${CONDA_PREFIX}/bin/pip install ipython jupyterlab ipywidgets \
-    numpy pandas Pillow matplotlib scipy scikit-learn opencv-python opencv-contrib-python \
-    PyYAML protobuf \
-    pybind11 Cython \
     && ${CONDA_PREFIX}/bin/conda clean -a -y \
-    && ${CONDA_PREFIX}/bin/pip cache purge \
     && rm -rf *
 ENV PATH="${CONDA_PREFIX}/bin:${PATH}"
 
 # create user: xundaoxd
-RUN apt update \
-    && apt install -y sudo \
-    && rm -rf /var/lib/apt/lists/* \
-    && if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi \
+RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi \
     && echo '%xundaoxd ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers \
     && chown xundaoxd:xundaoxd -R ${CONDA_PREFIX}
 USER xundaoxd
+
+# common
+RUN pip install jupyterlab \
+    && pip install numpy matplotlib \
+    && pip install seaborn pandas \
+    && pip install scipy scikit-learn \
+    && pip install opencv-python opencv-contrib-python Pillow \
+    && pip install PyYAML protobuf \
+    && pip install pybind11 Cython \
+    && pip cache purge
+
+# pytorch
+RUN pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision torchaudio \
+    && pip cache purge
+
+# tensorflow
+RUN pip install --extra-index-url https://pypi.nvidia.com tensorrt-bindings==8.6.1 tensorrt-libs==8.6.1 \
+    && pip install -U tensorflow[and-cuda] \
+    && pip cache purge
 
 # onnx
 RUN pip install onnxruntime-gpu onnxruntime-tools onnxoptimizer skl2onnx \
     && pip cache purge
 
-# pytorch
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 \
-    && pip cache purge
-
-# tensorflow
-RUN pip install tensorflow \
-    && pip cache purge
-
-# tensort
-RUN pip install --upgrade tensorrt \
-    && pip cache purge
-
-# mediapipe
-RUN pip install mediapipe \
-    && pip cache purge
-
 # Hugging face
-RUN pip install datasets tokenizers timm gradio 'diffusers[torch]' 'transformers[torch]' sentencepiece \
+RUN pip install datasets tokenizers transformers 'diffusers[torch]' \
+    && pip install gradio \
     && pip cache purge
 
