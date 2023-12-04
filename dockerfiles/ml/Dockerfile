@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=nvidia/cuda:12.1.0-cudnn8-devel-ubuntu20.04
+ARG BASE_IMAGE=nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04
 FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -7,7 +7,7 @@ WORKDIR /workdir
 # basic setup
 RUN apt update \
     && apt install -y software-properties-common apt-transport-https ca-certificates gnupg wget curl sudo \
-    && apt install -y cuda-12-1 build-essential g++-aarch64-linux-gnu \
+    && apt install -y cuda-11-8 build-essential g++-aarch64-linux-gnu \
     && rm -rf /var/lib/apt/lists/*
 
 # utils
@@ -71,12 +71,7 @@ RUN pip install jupyterlab \
     && pip cache purge
 
 # pytorch
-RUN pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision torchaudio \
-    && pip cache purge
-
-# tensorflow
-RUN pip install --extra-index-url https://pypi.nvidia.com tensorrt-bindings==8.6.1 tensorrt-libs==8.6.1 \
-    && pip install -U tensorflow[and-cuda] \
+RUN pip install --index-url https://download.pytorch.org/whl/cu118 torch torchvision torchaudio \
     && pip cache purge
 
 # onnx
