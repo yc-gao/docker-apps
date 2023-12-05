@@ -55,7 +55,7 @@ RUN wget -qO Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest
 ENV PATH="${CONDA_PREFIX}/bin:${PATH}"
 
 # create user: xundaoxd
-RUN if ! grep xundaoxd /etc/passwd; then useradd -m -s /bin/bash xundaoxd; fi \
+RUN useradd -m -s /bin/bash xundaoxd \
     && echo '%xundaoxd ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers \
     && chown xundaoxd:xundaoxd -R ${CONDA_PREFIX}
 USER xundaoxd
