@@ -15,7 +15,7 @@ RUN apt update \
     && add-apt-repository -y ppa:neovim-ppa/stable \
     && add-apt-repository -y ppa:git-core/ppa \
     && apt install -y neovim git gdb strace ltrace ninja-build ccache \
-    && apt install -y unzip iproute2 socat graphviz \
+    && apt install -y unzip iproute2 socat netcat ffmpeg graphviz \
     && rm -rf /var/lib/apt/lists/*
 
 # common libs
@@ -72,6 +72,9 @@ RUN pip install jupyterlab \
 
 # pytorch
 RUN pip install --index-url https://download.pytorch.org/whl/cu118 torch torchvision torchaudio \
+    && pip cache purge
+
+RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.6.0-cp38-cp38-manylinux2010_x86_64.whl \
     && pip cache purge
 
 # onnx
