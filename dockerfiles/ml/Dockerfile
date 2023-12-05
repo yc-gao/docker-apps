@@ -7,7 +7,7 @@ WORKDIR /workdir
 # basic setup
 RUN apt update \
     && apt install -y software-properties-common apt-transport-https ca-certificates gnupg wget curl sudo \
-    && apt install -y cuda-11-8 build-essential g++-aarch64-linux-gnu \
+    && apt install -y build-essential g++-aarch64-linux-gnu \
     && rm -rf /var/lib/apt/lists/*
 
 # utils
