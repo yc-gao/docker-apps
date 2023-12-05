@@ -78,7 +78,7 @@ RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_g
     && pip cache purge
 
 # onnx
-RUN pip install onnxruntime-gpu onnxruntime-tools onnxoptimizer skl2onnx \
+RUN pip install onnxruntime-gpu onnxruntime-tools onnxoptimizer skl2onnx onnx onnxscript \
     && pip cache purge
 
 # Hugging face
