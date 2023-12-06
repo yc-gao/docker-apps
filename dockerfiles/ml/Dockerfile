@@ -6,8 +6,9 @@ WORKDIR /workdir
 
 # basic setup
 RUN apt update \
+    && apt upgrade -y \
     && apt install -y software-properties-common apt-transport-https ca-certificates gnupg wget curl sudo \
-    && apt install -y build-essential g++-aarch64-linux-gnu \
+    && apt install -y build-essential clang g++-aarch64-linux-gnu \
     && rm -rf /var/lib/apt/lists/*
 
 # utils
@@ -21,6 +22,7 @@ RUN apt update \
 # common libs
 RUN apt update \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libeigen3-dev libelf-dev libasio-dev \
+    && apt install -y libtinfo-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # install cmake
