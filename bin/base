@@ -26,7 +26,7 @@ x11_opts() {
 
 home_opts() {
     local opt="-v ${home_dir}:${target_home}"
-    [[ -e $HOME/.local/share/fonts ]] && mkdir -p ${target_home}/.local/share && opt="$opt -v $HOME/.local/share/fonts:${target_home}/.local/share/fonts:ro"
+    [[ -e $HOME/.local/share/fonts ]] && mkdir -p ${home_dir}/.local/share/fonts && opt="$opt -v $HOME/.local/share/fonts:${target_home}/.local/share/fonts:ro"
     echo "$opt"
 }
 
