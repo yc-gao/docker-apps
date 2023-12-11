@@ -10,6 +10,8 @@ RUN apt update \
     && apt install -y software-properties-common apt-transport-https ca-certificates gnupg wget curl sudo \
     && apt install -y build-essential g++-aarch64-linux-gnu \
     && bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
+    && update-alternatives --install /usr/bin/clang clang $(ls /usr/bin/clang-* | grep -E 'clang-[0-9]+') 50 \
+    && update-alternatives --install /usr/bin/clang++ clang++ $(ls /usr/bin/clang++-* | grep -E 'clang\+\+-[0-9]+') 50 \
     && rm -rf /var/lib/apt/lists/*
 
 # utils
