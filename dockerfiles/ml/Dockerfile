@@ -9,6 +9,7 @@ RUN apt update \
     && apt upgrade -y \
     && apt install -y software-properties-common apt-transport-https ca-certificates gnupg wget curl sudo \
     && apt install -y build-essential clang g++-aarch64-linux-gnu \
+    && bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" \
     && rm -rf /var/lib/apt/lists/*
 
 # utils
