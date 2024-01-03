@@ -21,6 +21,7 @@ RUN apt update \
     && add-apt-repository -y ppa:git-core/ppa \
     && apt install -y neovim git gdb strace ltrace ninja-build ccache \
     && apt install -y unzip iproute2 socat netcat ffmpeg graphviz \
+    && apt install -y nsight-systems \
     && rm -rf /var/lib/apt/lists/*
 
 # common libs
