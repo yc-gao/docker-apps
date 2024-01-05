@@ -10,54 +10,56 @@ die() {
     exit 1
 }
 
+opts=()
 common_opts() {
-    echo "-h $HOSTNAME --network host -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS"
-}
-
-pwd_opts() {
-    echo "-v $PWD:$PWD -w $PWD"
-}
-
-x11_opts() {
-    local opt="-e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix"
-    [[ -e $HOME/.Xauthority ]] && opt="$opt -v $HOME/.Xauthority:${target_home}/.Xauthority:ro"
-    echo "$opt"
+    opts+=(-h "$HOSTNAME" --network host -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS)
 }
 
 home_opts() {
-    local opt="-v ${home_dir}:${target_home}"
-    [[ -e $HOME/.local/share/fonts ]] && mkdir -p "${home_dir}/.local/share/fonts" && opt="$opt -v $HOME/.local/share/fonts:${target_home}/.local/share/fonts:ro"
-    echo "$opt"
+    opts+=(-v "${home_dir}:${target_home}")
+    if [[ -e $HOME/.local/share/fonts ]]; then
+        mkdir -p "${home_dir}/.local/share/fonts"
+        opts+=(-v "$HOME/.local/share/fonts:${target_home}/.local/share/fonts:ro")
+    fi
+}
+
+pwd_opts() {
+    opts+=(-v "$PWD:$PWD" -w "$PWD")
+}
+
+x11_opts() {
+    opts+=(-e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix)
+    if [[ -e $HOME/.Xauthority ]]; then
+        opts+=(-v "$HOME/.Xauthority:${target_home}/.Xauthority:ro")
+    fi
 }
 
 base() {
     [[ $PWD != $HOME/* ]] && die "please run docker app in home dir!!!"
 
-    local opts=""
-    opts="$opts $(common_opts)"
-    opts="$opts $(pwd_opts)"
-    opts="$opts $(x11_opts)"
-    opts="$opts $(home_opts)"
+    common_opts
+    home_opts
+    x11_opts
+    pwd_opts
 
-    read -r -a opts <<< "${opts}"
     echo docker run "${opts[@]}" "$@"
     docker run "${opts[@]}" "$@"
 }
 
 
 mllab() {
-    local opts=(-ti --rm --gpus all --cap-add SYS_ADMIN -e NVIDIA_DRIVER_CAPABILITIES=all)
+    opts+=(-ti --rm --gpus all --cap-add SYS_ADMIN -e NVIDIA_DRIVER_CAPABILITIES=all)
     if [[ -d /usr/share/vulkan/icd.d ]]; then
         opts+=(-v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d:ro)
     fi
-    base "${opts[@]}" ghcr.io/xundaoxd/ml:latest "$@"
+    base ghcr.io/xundaoxd/ml:latest "$@"
 }
 jupyter() {
-    local opts=(-ti --rm --gpus all --cap-add SYS_ADMIN -e NVIDIA_DRIVER_CAPABILITIES=all)
+    opts+=(-ti --rm --gpus all --cap-add SYS_ADMIN -e NVIDIA_DRIVER_CAPABILITIES=all)
     if [[ -d /usr/share/vulkan/icd.d ]]; then
         opts+=(-v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d:ro)
     fi
-    base "${opts[@]}" ghcr.io/xundaoxd/ml:latest jupyter lab --no-browser --NotebookApp.token='' "$@"
+    base ghcr.io/xundaoxd/ml:latest jupyter lab --no-browser --NotebookApp.token='' "$@"
 }
 
 main() {
