@@ -26,7 +26,7 @@ x11_opts() {
 
 home_opts() {
     local opt="-v ${home_dir}:${target_home}"
-    [[ -e $HOME/.local/share/fonts ]] && mkdir -p ${home_dir}/.local/share/fonts && opt="$opt -v $HOME/.local/share/fonts:${target_home}/.local/share/fonts:ro"
+    [[ -e $HOME/.local/share/fonts ]] && mkdir -p "${home_dir}/.local/share/fonts" && opt="$opt -v $HOME/.local/share/fonts:${target_home}/.local/share/fonts:ro"
     echo "$opt"
 }
 
@@ -46,13 +46,18 @@ base() {
 
 
 mllab() {
-    base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest "$@"
-}
-ipython() {
-    base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest ipython "$@"
+    local opts=(-ti --rm --gpus all --cap-add SYS_ADMIN -e NVIDIA_DRIVER_CAPABILITIES=all)
+    if [[ -d /usr/share/vulkan/icd.d ]]; then
+        opts+=(-v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d:ro)
+    fi
+    base "${opts[@]}" ghcr.io/xundaoxd/ml:latest "$@"
 }
 jupyter() {
-    base -ti --rm --gpus all ghcr.io/xundaoxd/ml:latest jupyter lab --no-browser --NotebookApp.token='' "$@"
+    local opts=(-ti --rm --gpus all --cap-add SYS_ADMIN -e NVIDIA_DRIVER_CAPABILITIES=all)
+    if [[ -d /usr/share/vulkan/icd.d ]]; then
+        opts+=(-v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d:ro)
+    fi
+    base "${opts[@]}" ghcr.io/xundaoxd/ml:latest jupyter lab --no-browser --NotebookApp.token='' "$@"
 }
 
 main() {
