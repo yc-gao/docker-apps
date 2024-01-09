@@ -68,7 +68,7 @@ RUN useradd -m -s /bin/bash xundaoxd \
 USER xundaoxd
 
 # common
-RUN pip install cffi pytest \
+RUN pip install cffi pytest build \
     && pip install jupyterlab \
     && pip install numpy matplotlib \
     && pip install seaborn pandas \
