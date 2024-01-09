@@ -68,7 +68,8 @@ RUN useradd -m -s /bin/bash xundaoxd \
 USER xundaoxd
 
 # common
-RUN pip install jupyterlab \
+RUN pip install pytest \
+    && pip install jupyterlab \
     && pip install numpy matplotlib \
     && pip install seaborn pandas \
     && pip install scipy scikit-learn \
