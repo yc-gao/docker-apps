@@ -15,16 +15,16 @@ common_opts() {
     opts+=(-h "$HOSTNAME" --network host -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS)
 }
 
+pwd_opts() {
+    opts+=(-v "$PWD:$PWD" -w "$PWD")
+}
+
 home_opts() {
     opts+=(-v "${home_dir}:${target_home}")
     if [[ -e $HOME/.local/share/fonts ]]; then
         mkdir -p "${home_dir}/.local/share/fonts"
         opts+=(-v "$HOME/.local/share/fonts:${target_home}/.local/share/fonts:ro")
     fi
-}
-
-pwd_opts() {
-    opts+=(-v "$PWD:$PWD" -w "$PWD")
 }
 
 x11_opts() {
@@ -38,9 +38,9 @@ base() {
     [[ $PWD != $HOME/* ]] && die "please run docker app in home dir!!!"
 
     common_opts
+    pwd_opts
     home_opts
     x11_opts
-    pwd_opts
 
     echo docker run "${opts[@]}" "$@"
     docker run "${opts[@]}" "$@"
