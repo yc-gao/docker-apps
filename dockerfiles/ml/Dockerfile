@@ -79,6 +79,10 @@ RUN pip install cffi pytest build \
     && pip install meson \
     && pip cache purge
 
+# onnx
+RUN pip install onnxruntime-gpu onnxruntime-tools onnxoptimizer skl2onnx onnx onnxscript \
+    && pip cache purge
+
 # pytorch
 RUN pip install --index-url https://download.pytorch.org/whl/cu118 torch torchvision torchaudio torchdata torchtext \
     && pip cache purge
@@ -88,15 +92,11 @@ RUN pip install --index-url https://download.pytorch.org/whl/cu118 torch torchvi
 #     && pip cache purge
 
 # tinygrad
-RUN pip install git+https://github.com/tinygrad/tinygrad.git \
-    && pip cache purge
-
-# onnx
-RUN pip install onnxruntime-gpu onnxruntime-tools onnxoptimizer skl2onnx onnx onnxscript \
-    && pip cache purge
+# RUN pip install git+https://github.com/tinygrad/tinygrad.git \
+#     && pip cache purge
 
 # Hugging face
-RUN pip install datasets tokenizers transformers 'diffusers[torch]' \
-    && pip install gradio \
-    && pip cache purge
+# RUN pip install datasets tokenizers transformers 'diffusers[torch]' \
+#     && pip install gradio \
+#     && pip cache purge
 
