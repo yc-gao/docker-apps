@@ -27,7 +27,7 @@ RUN apt update \
 # common libs
 RUN apt update \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libeigen3-dev libelf-dev libasio-dev libprotobuf-dev protobuf-compiler \
-    && apt install -y libtinfo-dev \
+    && apt install -y xorg-dev libtinfo-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # install cmake
