@@ -20,7 +20,7 @@ RUN apt update \
     && add-apt-repository -y ppa:neovim-ppa/stable \
     && add-apt-repository -y ppa:git-core/ppa \
     && apt install -y neovim git gdb strace ltrace ninja-build ccache \
-    && apt install -y unzip iproute2 socat netcat ffmpeg graphviz \
+    && apt install -y unzip iproute2 socat netcat ffmpeg graphviz jq \
     && apt install -y libxkbfile-dev nsight-systems-2023.3.3 \
     && rm -rf /var/lib/apt/lists/*
 
