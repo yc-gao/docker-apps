@@ -87,6 +87,9 @@ RUN pip install onnxruntime-gpu onnxruntime-tools onnxoptimizer skl2onnx onnx on
 RUN pip install --index-url https://download.pytorch.org/whl/cu118 torch torchvision torchaudio torchdata torchtext \
     && pip cache purge
 
+RUN pip install sentencepiece tiktoken \
+    && pip cache purge
+
 # tensorflow
 # RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.6.0-cp38-cp38-manylinux2010_x86_64.whl \
 #     && pip cache purge
