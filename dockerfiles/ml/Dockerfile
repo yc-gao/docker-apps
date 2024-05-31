@@ -77,6 +77,7 @@ RUN pip install cffi pytest build \
     && pip install PyYAML protobuf \
     && pip install pybind11 Cython \
     && pip install meson \
+    && pip install fire \
     && pip cache purge
 
 # onnx
@@ -90,16 +91,7 @@ RUN pip install --index-url https://download.pytorch.org/whl/cu118 torch torchvi
 RUN pip install sentencepiece tiktoken \
     && pip cache purge
 
-# tensorflow
-# RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.6.0-cp38-cp38-manylinux2010_x86_64.whl \
-#     && pip cache purge
-
 # tinygrad
 # RUN pip install git+https://github.com/tinygrad/tinygrad.git \
-#     && pip cache purge
-
-# Hugging face
-# RUN pip install datasets tokenizers transformers 'diffusers[torch]' \
-#     && pip install gradio \
 #     && pip cache purge
 
