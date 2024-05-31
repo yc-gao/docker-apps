@@ -69,13 +69,12 @@ USER xundaoxd
 
 # common
 RUN pip install cffi pytest build \
-    && pip install jupyterlab \
-    && pip install numpy matplotlib \
-    && pip install seaborn pandas \
-    && pip install scipy scikit-learn \
-    && pip install opencv-python opencv-contrib-python Pillow \
-    && pip install PyYAML protobuf \
     && pip install pybind11 Cython \
+    && pip install jupyterlab \
+    && pip install numpy matplotlib seaborn pandas \
+    && pip install scipy scikit-learn \
+    && pip install opencv-python opencv-contrib-python \
+    && pip install Pillow PyYAML protobuf \
     && pip install meson \
     && pip install fire \
     && pip cache purge
