@@ -87,7 +87,7 @@ RUN pip install onnxruntime-gpu onnxruntime-tools onnxoptimizer skl2onnx onnx on
 RUN pip install --index-url https://download.pytorch.org/whl/cu118 torch torchvision torchaudio torchdata torchtext \
     && pip cache purge
 
-RUN pip install sentencepiece tiktoken \
+RUN pip install sentencepiece tiktoken immutabledict \
     && pip cache purge
 
 # tinygrad
