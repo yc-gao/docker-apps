@@ -6,7 +6,7 @@ WORKDIR /workdir
 
 # basic setup
 RUN apt update \
-    && apt install -y software-properties-common apt-transport-https ca-certificates gnupg wget curl sudo \
+    && apt install -y software-properties-common wget curl sudo \
     && add-apt-repository -y ppa:ubuntu-toolchain-r/test \
     && apt upgrade -y \
     && apt install -y build-essential g++-aarch64-linux-gnu \
@@ -15,19 +15,19 @@ RUN apt update \
     && update-alternatives --install /usr/bin/clang++ clang++ $(ls /usr/bin/clang++-* | grep -E 'clang\+\+-[0-9]+') 50 \
     && rm -rf /var/lib/apt/lists/*
 
-# utils
+# common utils
 RUN apt update \
     && add-apt-repository -y ppa:neovim-ppa/stable \
     && add-apt-repository -y ppa:git-core/ppa \
     && apt install -y neovim git gdb strace ltrace ninja-build ccache \
     && apt install -y unzip iproute2 socat netcat ffmpeg graphviz jq \
-    && apt install -y libxkbfile-dev nsight-systems-2023.3.3 \
     && rm -rf /var/lib/apt/lists/*
 
 # common libs
 RUN apt update \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libeigen3-dev libelf-dev libasio-dev libprotobuf-dev protobuf-compiler \
     && apt install -y xorg-dev libtinfo-dev \
+    && apt install -y libxkbfile-dev nsight-systems-2023.3.3 \
     && rm -rf /var/lib/apt/lists/*
 
 # install cmake
