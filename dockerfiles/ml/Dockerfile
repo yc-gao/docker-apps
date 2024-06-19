@@ -9,7 +9,7 @@ RUN apt update \
     && apt install -y software-properties-common wget curl sudo \
     && add-apt-repository -y ppa:ubuntu-toolchain-r/test \
     && apt upgrade -y \
-    && apt install -y build-essential g++-aarch64-linux-gnu \
+    && apt install -y build-essential cargo g++-aarch64-linux-gnu \
     && bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" llvm.sh all \
     && update-alternatives --install /usr/bin/clang clang $(ls /usr/bin/clang-* | grep -E 'clang-[0-9]+') 50 \
     && update-alternatives --install /usr/bin/clang++ clang++ $(ls /usr/bin/clang++-* | grep -E 'clang\+\+-[0-9]+') 50 \
