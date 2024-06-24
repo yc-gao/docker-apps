@@ -80,7 +80,7 @@ RUN pip install cffi pytest build \
     && pip cache purge
 
 # onnx
-RUN pip install onnxruntime-gpu onnxruntime-tools onnxoptimizer skl2onnx onnx onnxscript \
+RUN pip install onnx onnxscript onnxconverter-common onnxruntime-gpu onnxruntime-tools onnxoptimizer skl2onnx \
     && pip cache purge
 
 # pytorch
