@@ -6,13 +6,13 @@ WORKDIR /workdir
 
 # basic setup
 RUN apt update \
-    && apt install -y software-properties-common wget curl sudo \
+    && apt install -y software-properties-common gnupg lsb-release sudo wget curl \
     && add-apt-repository -y ppa:ubuntu-toolchain-r/test \
     && apt upgrade -y \
     && apt install -y build-essential cargo g++-aarch64-linux-gnu \
-    && bash -c "$(curl -o - -fsSL https://apt.llvm.org/llvm.sh)" llvm.sh all \
-    && update-alternatives --install /usr/bin/clang clang $(ls /usr/bin/clang-* | grep -E 'clang-[0-9]+') 50 \
-    && update-alternatives --install /usr/bin/clang++ clang++ $(ls /usr/bin/clang++-* | grep -E 'clang\+\+-[0-9]+') 50 \
+    && bash -c "$(curl -o - -fsSL https://apt.llvm.org/llvm.sh)" llvm.sh 17 all \
+    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-17 50 \
+    && update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-17 50 \
     && rm -rf /var/lib/apt/lists/*
 
 # common utils
