@@ -25,8 +25,8 @@ home_opts() {
         mkdir -p "${home_dir}/.local/share/fonts"
         opts+=(-v "$HOME/.local/share/fonts:${target_home}/.local/share/fonts:ro")
     fi
-    if [[ -d $HOME/.cache ]]; then
-        opts+=(-v "$HOME/.cache:${target_home}/.cache")
+    if [[ -d $HOME/.cache/CPM ]]; then
+        opts+=(-v "$HOME/.cache/CPM:${target_home}/.cache/CPM")
     fi
 }
 
