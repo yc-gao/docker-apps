@@ -61,11 +61,11 @@ RUN wget -qO Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest
     && rm -rf *
 ENV PATH="${CONDA_PREFIX}/bin:${PATH}"
 
-# create user: xundaoxd
-RUN useradd -m -s /bin/bash xundaoxd \
-    && echo '%xundaoxd ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers \
-    && chown xundaoxd:xundaoxd -R ${CONDA_PREFIX}
-USER xundaoxd
+# create user: ycgao
+RUN useradd -m -s /bin/bash ycgao \
+    && echo '%ycgao ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers \
+    && chown ycgao:ycgao -R ${CONDA_PREFIX}
+USER ycgao
 
 # common
 RUN pip install cffi pytest build \

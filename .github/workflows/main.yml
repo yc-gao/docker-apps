@@ -10,6 +10,6 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       dockerfile: dockerfiles/ml/Dockerfile
-      tag: ghcr.io/xundaoxd/ml:latest
+      tag: ghcr.io/yc-gao/ml:latest
       platforms: linux/amd64
 

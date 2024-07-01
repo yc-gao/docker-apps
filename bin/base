@@ -3,7 +3,7 @@
 self_dir="$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
 
 home_dir="${self_dir}/home"
-target_home="/home/xundaoxd"
+target_home="/home/ycgao"
 
 die() {
     echo "$@" 1>&2
@@ -52,14 +52,14 @@ mllab() {
     if [[ -d /usr/share/vulkan/icd.d ]]; then
         opts+=(-v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d:ro)
     fi
-    base ghcr.io/xundaoxd/ml:latest "$@"
+    base ghcr.io/yc-gao/ml:latest "$@"
 }
 jupyter() {
     opts+=(-ti --rm --gpus all --cap-add SYS_ADMIN -e NVIDIA_DRIVER_CAPABILITIES=all)
     if [[ -d /usr/share/vulkan/icd.d ]]; then
         opts+=(-v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d:ro)
     fi
-    base ghcr.io/xundaoxd/ml:latest jupyter lab --no-browser --NotebookApp.token='' "$@"
+    base ghcr.io/yc-gao/ml:latest jupyter lab --no-browser --NotebookApp.token='' "$@"
 }
 
 main() {
