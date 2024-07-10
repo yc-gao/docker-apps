@@ -7,15 +7,18 @@ WORKDIR /workdir
 # basic setup
 RUN apt update \
     && apt install -y software-properties-common gnupg lsb-release sudo wget curl \
-    && add-apt-repository -y ppa:ubuntu-toolchain-r/test \
-    && apt upgrade -y \
-    && apt install -y build-essential cargo g++-aarch64-linux-gnu \
+    && apt upgrade \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# common utils
+RUN apt update \
+    && apt install -y build-essential cargo \
     && bash -c "$(curl -o - -fsSL https://apt.llvm.org/llvm.sh)" llvm.sh 17 all \
     && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-17 50 \
     && update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-17 50 \
     && rm -rf /var/lib/apt/lists/*
 
-# common utils
 RUN apt update \
     && add-apt-repository -y ppa:neovim-ppa/stable \
     && add-apt-repository -y ppa:git-core/ppa \
@@ -32,8 +35,13 @@ RUN apt update \
 
 # install cmake
 ARG CMAKE_VERSION=3.29.6
-RUN sh -c "wget -qO - https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz | tar -C /opt -xz"
+RUN sh -c "wget -qO - https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-$(uname -m).tar.gz | tar -C /opt -xz"
 ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
+
+# install bazel
+ARG BAZEL_VERSION=6.5.0
+RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-linux-$(uname -m) \
+    && chmod +x /usr/local/bin/bazel
 
 # install nodejs
 ARG NODE_VERSION=18.15.0
@@ -45,15 +53,10 @@ ARG GO_VERSION=1.20.3
 RUN sh -c "wget -qO - https://golang.google.cn/dl/go${GO_VERSION}.linux-amd64.tar.gz | tar -C /opt -xz"
 ENV PATH="/opt/go/bin:${PATH}"
 
-# install bazel
-ARG BAZEL_VERSION=6.5.0
-RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-linux-x86_64 \
-    && chmod +x /usr/local/bin/bazel
-
 # install miniconda3
 ARG PYTHON_VERSION=3.8
 ARG CONDA_PREFIX=/opt/miniconda3
-RUN wget -qO Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+RUN wget -qO Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(uname -m).sh \
     && chmod +x Miniconda3.sh \
     && ./Miniconda3.sh -b -p ${CONDA_PREFIX} \
     && ${CONDA_PREFIX}/bin/conda install -y python=${PYTHON_VERSION} \
