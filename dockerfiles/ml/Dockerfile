@@ -26,7 +26,7 @@ RUN apt update \
 # common libs
 RUN apt update \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libeigen3-dev libelf-dev libasio-dev libprotobuf-dev protobuf-compiler \
-    && apt install -y xorg-dev libtinfo-dev \
+    && apt install -y xorg-dev libtinfo-dev libzstd-dev libedit-dev \
     && apt install -y libxkbfile-dev nsight-systems-2023.3.3 \
     && rm -rf /var/lib/apt/lists/*
 
