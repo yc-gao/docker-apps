@@ -7,7 +7,7 @@ WORKDIR /workdir
 # basic setup
 RUN apt update \
     && apt install -y software-properties-common gnupg lsb-release sudo wget curl \
-    && apt upgrade \
+    && apt upgrade -y \
     && rm -rf /var/lib/apt/lists/*
 
 
