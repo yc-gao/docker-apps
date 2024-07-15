@@ -78,7 +78,6 @@ RUN pip install cffi pytest build \
     && pip install scipy scikit-learn \
     && pip install opencv-python opencv-contrib-python \
     && pip install Pillow PyYAML protobuf \
-    && pip install meson \
     && pip install fire \
     && pip cache purge
 
