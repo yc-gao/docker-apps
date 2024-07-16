@@ -53,21 +53,21 @@ ARG GO_VERSION=1.20.3
 RUN sh -c "wget -qO - https://golang.google.cn/dl/go${GO_VERSION}.linux-amd64.tar.gz | tar -C /opt -xz"
 ENV PATH="/opt/go/bin:${PATH}"
 
-# install miniconda3
-ARG PYTHON_VERSION=3.8
-ARG CONDA_PREFIX=/opt/miniconda3
-RUN wget -qO Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(uname -m).sh \
-    && chmod +x Miniconda3.sh \
-    && ./Miniconda3.sh -b -p ${CONDA_PREFIX} \
-    && ${CONDA_PREFIX}/bin/conda install -y python=${PYTHON_VERSION} \
-    && ${CONDA_PREFIX}/bin/conda clean -a -y \
-    && rm -rf *
-ENV PATH="${CONDA_PREFIX}/bin:${PATH}"
-
 # create user: ycgao
 RUN useradd -m -s /bin/bash ycgao \
-    && echo '%ycgao ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers \
+    && echo '%ycgao ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+# install miniconda3
+ARG PYTHON_VERSION=38
+ARG CONDA_VERSION=4.12.0
+ARG CONDA_PREFIX=/opt/miniconda3
+RUN wget -qO Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-$(uname -m).sh \
+    && chmod +x Miniconda3.sh \
+    && ./Miniconda3.sh -b -p ${CONDA_PREFIX} \
+    && rm -rf * \
     && chown ycgao:ycgao -R ${CONDA_PREFIX}
+ENV PATH="${CONDA_PREFIX}/bin:${PATH}"
+
 USER ycgao
 
 # common
@@ -91,8 +91,4 @@ RUN pip install --index-url https://download.pytorch.org/whl/cu118 torch torchvi
 
 RUN pip install sentencepiece tiktoken immutabledict \
     && pip cache purge
-
-# tinygrad
-# RUN pip install git+https://github.com/tinygrad/tinygrad.git \
-#     && pip cache purge
 
