@@ -14,9 +14,6 @@ RUN apt update \
 # common utils
 RUN apt update \
     && apt install -y build-essential cargo \
-    && bash -c "$(curl -o - -fsSL https://apt.llvm.org/llvm.sh)" llvm.sh 17 all \
-    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-17 50 \
-    && update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-17 50 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt update \
