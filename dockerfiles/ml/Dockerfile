@@ -6,20 +6,12 @@ WORKDIR /workdir
 
 # basic setup
 RUN apt update \
-    && apt install -y software-properties-common gnupg lsb-release sudo wget curl \
+    && apt install -y lsb-release software-properties-common sudo wget curl \
     && apt upgrade -y \
-    && rm -rf /var/lib/apt/lists/*
-
-
-# common utils
-RUN apt update \
-    && apt install -y build-essential cargo \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN apt update \
+    && apt install -y build-essential cargo ninja-build \
     && add-apt-repository -y ppa:neovim-ppa/stable \
     && add-apt-repository -y ppa:git-core/ppa \
-    && apt install -y neovim git gdb strace ltrace ninja-build ccache \
+    && apt install -y neovim git gdb strace ltrace ccache \
     && apt install -y unzip iproute2 socat netcat ffmpeg graphviz jq \
     && rm -rf /var/lib/apt/lists/*
 
