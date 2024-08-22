@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04
+ARG BASE_IMAGE=nvidia/cuda:12.5.1-cudnn-devel-ubuntu20.04
 FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -17,9 +17,11 @@ RUN apt update \
 
 # common libs
 RUN apt update \
-    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev libboost-all-dev libgsl-dev libeigen3-dev libelf-dev libasio-dev libprotobuf-dev protobuf-compiler \
-    && apt install -y xorg-dev libtinfo-dev libzstd-dev libedit-dev \
-    && apt install -y libxkbfile-dev nsight-systems-2023.3.3 \
+    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev \
+    libboost-all-dev libasio-dev libprotobuf-dev protobuf-compiler \
+    libgsl-dev libeigen3-dev libelf-dev libxkbfile-dev \
+    libtinfo-dev libzstd-dev libedit-dev \
+    && apt install -y xorg-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # install cmake
@@ -75,7 +77,7 @@ RUN pip install onnx onnxscript onnxconverter-common onnxruntime-gpu onnxruntime
     && pip cache purge
 
 # pytorch
-RUN pip install --index-url https://download.pytorch.org/whl/cu118 torch torchvision torchaudio torchdata torchtext \
+RUN pip install --index-url https://download.pytorch.org/whl/cu124 torch torchvision torchaudio torchdata torchtext \
     && pip cache purge
 
 RUN pip install sentencepiece tiktoken immutabledict \
