@@ -8,19 +8,18 @@ WORKDIR /workdir
 RUN apt update \
     && apt install -y lsb-release software-properties-common sudo wget curl \
     && apt upgrade -y \
-    && apt install -y build-essential cargo ninja-build \
-    && add-apt-repository -y ppa:neovim-ppa/stable \
-    && add-apt-repository -y ppa:git-core/ppa \
-    && apt install -y neovim git gdb strace ltrace ccache \
-    && apt install -y unzip iproute2 socat netcat ffmpeg graphviz jq aria2 \
+    && apt install -y build-essential cargo ninja-build ccache \
+    && apt install -y neovim git gdb strace ltrace \
+    && apt install -y iproute2 socat netcat \
+    && apt install -y unzip ffmpeg graphviz jq aria2 \
     && rm -rf /var/lib/apt/lists/*
 
 # common libs
 RUN apt update \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev \
-    libboost-all-dev libasio-dev libprotobuf-dev protobuf-compiler \
-    libgsl-dev libeigen3-dev libelf-dev libxkbfile-dev \
-    libtinfo-dev libzstd-dev libedit-dev \
+    libboost-all-dev libasio-dev libeigen3-dev \
+    libprotobuf-dev protobuf-compiler \
+    libgsl-dev libelf-dev libxkbfile-dev libtinfo-dev libzstd-dev libedit-dev \
     && apt install -y xorg-dev \
     && rm -rf /var/lib/apt/lists/*
 
