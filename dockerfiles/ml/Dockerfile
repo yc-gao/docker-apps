@@ -73,7 +73,7 @@ RUN pip install onnx onnxscript onnxconverter-common onnxruntime-gpu onnxruntime
     && pip cache purge
 
 # pytorch
-RUN pip install --index-url https://download.pytorch.org/whl/cu124 torch torchvision torchaudio torchdata torchtext \
+RUN pip install --index-url https://download.pytorch.org/whl/cu124 torch torchvision \
     && pip cache purge
 
 RUN pip install sentencepiece tiktoken immutabledict \
