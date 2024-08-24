@@ -6,12 +6,11 @@ WORKDIR /workdir
 
 # basic setup
 RUN apt update \
-    && apt install -y lsb-release software-properties-common sudo wget curl \
     && apt upgrade -y \
-    && apt install -y build-essential cargo ninja-build ccache \
-    && apt install -y neovim git gdb strace ltrace \
-    && apt install -y iproute2 socat netcat \
-    && apt install -y unzip ffmpeg graphviz jq aria2 \
+    && apt install -y build-essential cargo \
+        ninja-build ccache neovim git gdb strace ltrace \
+        sudo lsb-release wget curl iproute2 socat netcat \
+        unzip ffmpeg graphviz jq aria2 \
     && rm -rf /var/lib/apt/lists/*
 
 # common libs
@@ -19,8 +18,7 @@ RUN apt update \
     && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev \
     libboost-all-dev libasio-dev libeigen3-dev \
     libprotobuf-dev protobuf-compiler \
-    libgsl-dev libelf-dev libxkbfile-dev libtinfo-dev libzstd-dev libedit-dev \
-    && apt install -y xorg-dev \
+    libgsl-dev libelf-dev libxkbfile-dev libtinfo-dev libzstd-dev libedit-dev xorg-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # install cmake
@@ -48,10 +46,10 @@ RUN useradd -m -s /bin/bash ycgao \
     && echo '%ycgao ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # install miniconda3
-ARG PYTHON_VERSION=38
+ARG PYTHON_VERSION=310
 ARG CONDA_VERSION=4.12.0
 ARG CONDA_PREFIX=/opt/miniconda3
-RUN wget -qO Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-$(uname -m).sh \
+RUN wget -qO Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-x86_64.sh \
     && chmod +x Miniconda3.sh \
     && ./Miniconda3.sh -b -p ${CONDA_PREFIX} \
     && rm -rf * \
@@ -61,8 +59,7 @@ ENV PATH="${CONDA_PREFIX}/bin:${PATH}"
 USER ycgao
 
 # common
-RUN pip install cffi pytest build \
-    && pip install pybind11 Cython \
+RUN pip install cffi pytest build pybind11 Cython \
     && pip install jupyterlab \
     && pip install numpy matplotlib seaborn pandas \
     && pip install scipy scikit-learn \
@@ -81,4 +78,3 @@ RUN pip install --index-url https://download.pytorch.org/whl/cu124 torch torchvi
 
 RUN pip install sentencepiece tiktoken immutabledict \
     && pip cache purge
-
