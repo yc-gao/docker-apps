@@ -7,10 +7,17 @@ WORKDIR /workdir
 # basic setup
 RUN apt update \
     && apt upgrade -y \
-    && apt install -y build-essential cargo \
-        ninja-build ccache neovim git gdb strace ltrace \
-        sudo lsb-release wget curl iproute2 socat netcat \
-        unzip ffmpeg graphviz jq aria2 \
+    && apt install -y sudo lsb-release wget curl \
+    unzip ffmpeg graphviz jq aria2 \
+    && rm -rf /var/lib/apt/lists/*
+
+# dev tools
+RUN apt update \
+    && apt upgrade -y \
+    && apt install -y gcc g++ clang clang++ cargo \
+    make ninja-build ccache \
+    gdb strace ltrace \
+    iproute2 socat netcat \
     && rm -rf /var/lib/apt/lists/*
 
 # common libs
