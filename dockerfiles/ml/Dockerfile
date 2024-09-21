@@ -34,7 +34,7 @@ RUN sh -c "wget -qO - https://github.com/Kitware/CMake/releases/download/v${CMAK
 ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
 
 # install bazel
-ARG BAZEL_VERSION=6.5.0
+ARG BAZEL_VERSION=7.3.1
 RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-linux-$(uname -m) \
     && chmod +x /usr/local/bin/bazel
 
