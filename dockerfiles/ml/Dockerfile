@@ -16,7 +16,7 @@ RUN apt update \
     && apt upgrade -y \
     && apt install -y g++ clang cargo \
     make ninja-build ccache \
-    gdb strace ltrace \
+    git gdb strace ltrace \
     iproute2 socat netcat \
     && rm -rf /var/lib/apt/lists/*
 
