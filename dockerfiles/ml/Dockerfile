@@ -39,9 +39,9 @@ RUN wget -qO /usr/local/bin/bazel https://github.com/bazelbuild/bazel/releases/d
     && chmod +x /usr/local/bin/bazel
 
 # install nodejs
-ARG NODE_VERSION=18.15.0
-RUN sh -c "wget -qO - https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz | tar -C /opt -xJ"
-ENV PATH="/opt/node-v${NODE_VERSION}-linux-x64/bin:${PATH}"
+ARG NODE_VERSION=v20.18.0
+RUN sh -c "wget -qO - https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.xz | tar -C /opt -xJ"
+ENV PATH="/opt/node-${NODE_VERSION}-linux-x64/bin:${PATH}"
 
 # install go
 ARG GO_VERSION=1.20.3
