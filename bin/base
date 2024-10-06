@@ -13,7 +13,11 @@ die() {
 
 opts=()
 common_opts() {
-    opts+=(-h "$HOSTNAME" --network host -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS)
+    opts+=(-h "$HOSTNAME"
+        --network host
+        -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS
+        --add-host=localhost=127.0.0.1
+    )
 }
 
 pwd_opts() {
