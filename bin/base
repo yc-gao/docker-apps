@@ -4,7 +4,7 @@ set -e
 self_dir="$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
 
 home_dir="${self_dir}/home"
-target_home="/home/ycgao"
+target_home="/home/${USER}"
 
 die() {
     echo "$@" 1>&2
@@ -13,33 +13,32 @@ die() {
 
 opts=()
 common_opts() {
-    opts+=(-h "$HOSTNAME"
+    opts+=(-h "${HOSTNAME}"
         --network host
         -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS
-        --add-host=localhost=127.0.0.1
     )
 }
 
 pwd_opts() {
-    opts+=(-v "$PWD:$PWD" -w "$PWD")
+    opts+=(-v "${PWD}:${PWD}" -w "${PWD}")
 }
 
 home_opts() {
     opts+=(-v "${home_dir}:${target_home}")
-    if [[ -e $HOME/.local/share/fonts ]]; then
+    if [[ -e "${HOME}/.local/share/fonts" ]]; then
         mkdir -p "${home_dir}/.local/share/fonts"
-        opts+=(-v "$HOME/.local/share/fonts:${target_home}/.local/share/fonts:ro")
+        opts+=(-v "${HOME}/.local/share/fonts:${target_home}/.local/share/fonts:ro")
     fi
-    if [[ -d $HOME/.cache/CPM ]]; then
+    if [[ -d ${HOME}/.cache/CPM ]]; then
         mkdir -p "${home_dir}/.cache/CPM"
-        opts+=(-v "$HOME/.cache/CPM:${target_home}/.cache/CPM")
+        opts+=(-v "${HOME}/.cache/CPM:${target_home}/.cache/CPM")
     fi
 }
 
 x11_opts() {
     opts+=(-e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix)
-    if [[ -e $HOME/.Xauthority ]]; then
-        opts+=(-v "$HOME/.Xauthority:${target_home}/.Xauthority:ro")
+    if [[ -e "${HOME}/.Xauthority" ]]; then
+        opts+=(-v "${HOME}/.Xauthority:${target_home}/.Xauthority:ro")
     fi
 }
 
@@ -49,8 +48,8 @@ base() {
     home_opts
     x11_opts
 
-    echo docker run "${opts[@]}" "$@"
-    docker run "${opts[@]}" "$@"
+    echo podman run "${opts[@]}" "$@"
+    podman run "${opts[@]}" "$@"
 }
 
 
