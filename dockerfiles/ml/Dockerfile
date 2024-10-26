@@ -7,14 +7,14 @@ WORKDIR /workdir
 # basic setup
 RUN apt update \
     && apt upgrade -y \
-    && apt install -y sudo lsb-release wget curl \
-    unzip ffmpeg graphviz jq aria2 \
+    && apt install -y sudo lsb-release \
+    wget curl unzip ffmpeg graphviz jq aria2 \
     && rm -rf /var/lib/apt/lists/*
 
 # dev tools
 RUN apt update \
     && apt upgrade -y \
-    && apt install -y g++ clang cargo \
+    && apt install -y g++ clang llvm-dev cargo \
     make ninja-build ccache \
     git gdb strace ltrace \
     iproute2 socat netcat \
