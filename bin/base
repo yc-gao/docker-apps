@@ -3,8 +3,8 @@ set -e
 
 self_dir="$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
 
-home_dir="${self_dir}/home"
-target_home="/home/${USER}"
+overlay_home="${self_dir}/home"
+container_home="/root"
 
 die() {
     echo "$@" 1>&2
@@ -15,37 +15,33 @@ opts=()
 common_opts() {
     opts+=(-h "${HOSTNAME}"
         --network host
-        -e LANG -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS
+        -e LANG
+        -e GTK_IM_MODULE=xim -e QT_IM_MODULE=xim -e XMODIFIERS
     )
+}
+
+home_opts() {
+    opts+=(-v "${overlay_home}:${container_home}")
+    if [[ -e "${HOME}/.local/share/fonts" ]]; then
+        opts+=(-v "${HOME}/.local/share/fonts:${container_home}/.local/share/fonts:ro")
+    fi
 }
 
 pwd_opts() {
     opts+=(-v "${PWD}:${PWD}" -w "${PWD}")
 }
 
-home_opts() {
-    opts+=(-v "${home_dir}:${target_home}")
-    if [[ -e "${HOME}/.local/share/fonts" ]]; then
-        mkdir -p "${home_dir}/.local/share/fonts"
-        opts+=(-v "${HOME}/.local/share/fonts:${target_home}/.local/share/fonts:ro")
-    fi
-    if [[ -d ${HOME}/.cache/CPM ]]; then
-        mkdir -p "${home_dir}/.cache/CPM"
-        opts+=(-v "${HOME}/.cache/CPM:${target_home}/.cache/CPM")
-    fi
-}
-
 x11_opts() {
     opts+=(-e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix)
     if [[ -e "${HOME}/.Xauthority" ]]; then
-        opts+=(-v "${HOME}/.Xauthority:${target_home}/.Xauthority:ro")
+        opts+=(-v "${HOME}/.Xauthority:${container_home}/.Xauthority:ro")
     fi
 }
 
 base() {
     common_opts
-    pwd_opts
     home_opts
+    pwd_opts
     x11_opts
 
     echo podman run "${opts[@]}" "$@"
@@ -54,11 +50,11 @@ base() {
 
 
 mllab() {
-    [[ "$PWD" != "$HOME/"* ]] && die "please run docker app in home dir!!!"
+    [[ "$PWD" != "$HOME/"* ]] && die "run docker outside the home"
 
-    opts+=(-ti --rm --gpus all --cap-add SYS_ADMIN -e NVIDIA_DRIVER_CAPABILITIES=all)
-    if [[ -d /usr/share/vulkan/icd.d ]]; then
-        opts+=(-v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d:ro)
+    opts+=(-ti --rm --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all)
+    if [[ -d "/usr/share/vulkan/icd.d" ]]; then
+        opts+=(-v "/usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d:ro")
     fi
     base ghcr.io/yc-gao/ml:latest "$@"
 }
