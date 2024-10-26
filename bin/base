@@ -21,6 +21,7 @@ common_opts() {
 }
 
 home_opts() {
+    mkdir -p "${overlay_home}"
     opts+=(-v "${overlay_home}:${container_home}")
     if [[ -e "${HOME}/.local/share/fonts" ]]; then
         opts+=(-v "${HOME}/.local/share/fonts:${container_home}/.local/share/fonts:ro")
