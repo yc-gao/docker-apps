@@ -61,7 +61,7 @@ mllab() {
 }
 
 jupyter() {
-    mllab jupyter lab --no-browser --NotebookApp.token='' "$@"
+    mllab jupyter lab --allow-root --no-browser --NotebookApp.token='' "$@"
 }
 
 main() {
