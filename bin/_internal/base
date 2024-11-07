@@ -35,7 +35,7 @@ x11_opts() {
     fi
 }
 
-base() {
+container-run() {
     common_opts
     home_opts
     x11_opts
@@ -54,7 +54,7 @@ mllab() {
     if [[ -d "/usr/share/vulkan/icd.d" ]]; then
         opts+=(-v "/usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d:ro")
     fi
-    base ghcr.io/yc-gao/ml:latest "$@"
+    container-run ghcr.io/yc-gao/ml:latest "$@"
 }
 
 jupyter() {
