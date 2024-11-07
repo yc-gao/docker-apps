@@ -28,10 +28,6 @@ home_opts() {
     fi
 }
 
-pwd_opts() {
-    opts+=(-v "${PWD}:${PWD}" -w "${PWD}")
-}
-
 x11_opts() {
     opts+=(-e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix)
     if [[ -e "${HOME}/.Xauthority" ]]; then
@@ -42,7 +38,6 @@ x11_opts() {
 base() {
     common_opts
     home_opts
-    pwd_opts
     x11_opts
 
     echo podman run "${opts[@]}" "$@"
@@ -53,7 +48,9 @@ base() {
 mllab() {
     [[ "$PWD" != "$HOME/"* ]] && die "run docker outside the home"
 
+    opts+=(-v "${PWD}:${PWD}" -w "${PWD}")
     opts+=(-ti --rm --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all)
+
     if [[ -d "/usr/share/vulkan/icd.d" ]]; then
         opts+=(-v "/usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d:ro")
     fi
