@@ -4,25 +4,20 @@ FROM ${BASE_IMAGE}
 ARG DEBIAN_FRONTEND=noninteractive
 WORKDIR /workdir
 
-# basic setup
+# tools
 RUN apt update \
-    && apt upgrade -y \
-    && apt install -y sudo lsb-release \
-    wget curl unzip ffmpeg graphviz jq aria2 \
-    && rm -rf /var/lib/apt/lists/*
-
-# dev tools
-RUN apt update \
-    && apt upgrade -y \
-    && apt install -y g++ clang llvm-dev cargo \
-    make ninja-build ccache \
-    git gdb strace ltrace \
+    && apt install -y \
+    sudo lsb-release wget curl unzip ffmpeg graphviz jq aria2 \
     iproute2 socat netcat \
+    git gdb strace ltrace ccache \
+    g++ clang make ninja-build \
+    llvm-dev cargo \
     && rm -rf /var/lib/apt/lists/*
 
 # common libs
 RUN apt update \
-    && apt install -y libgoogle-glog-dev libgflags-dev libgtest-dev \
+    && apt install -y \
+    libgoogle-glog-dev libgflags-dev libgtest-dev \
     libboost-all-dev libasio-dev libeigen3-dev \
     libprotobuf-dev protobuf-compiler \
     libgsl-dev libelf-dev libxkbfile-dev libtinfo-dev libzstd-dev libedit-dev xorg-dev \
