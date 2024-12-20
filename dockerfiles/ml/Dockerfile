@@ -64,7 +64,7 @@ RUN python3 -m pip install cffi pytest build pybind11 Cython \
     && python3 -m pip cache purge
 
 # onnx
-RUN python3 -m pip install onnx onnxscript onnxconverter-common onnxruntime-gpu onnxruntime-tools onnxoptimizer skl2onnx \
+RUN python3 -m pip install onnx onnxscript onnxconverter-common onnxruntime-gpu onnxruntime-tools onnxoptimizer onnxsim skl2onnx \
     && python3 -m pip cache purge
 
 # pytorch
