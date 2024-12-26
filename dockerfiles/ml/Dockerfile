@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=nvcr.io/nvidia/cuda:12.5.1-cudnn-devel-ubuntu22.04
+ARG BASE_IMAGE=nvcr.io/nvidia/cuda:12.5.1-cudnn-devel-ubuntu20.04
 FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -16,7 +16,7 @@ RUN apt update \
     build-essential crossbuild-essential-amd64 ninja-build \
     clang clangd clang-format clang-tools libclang-dev llvm-dev \
     cargo \
-    gdb strace ltrace ccache \
+    git gdb strace ltrace ccache \
     iproute2 socat netcat jq aria2 ffmpeg graphviz \
     && rm -rf /var/lib/apt/lists/*
 
