@@ -61,7 +61,7 @@ ENV PATH="${CONDA_PREFIX}/bin:${PATH}"
 
 # common
 RUN python3 -m pip install \
-    cffi pytest build pybind11 Cython \
+    cffi pytest build pybind11 cython \
     ipython jupyterlab fire \
     numpy matplotlib seaborn pandas scipy scikit-learn \
     opencv-python opencv-contrib-python \
