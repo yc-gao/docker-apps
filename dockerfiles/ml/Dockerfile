@@ -8,7 +8,7 @@ RUN apt update \
     && apt upgrade -y \
     && apt install -y \
     sudo gnupg2 ca-certificates \
-    curl wget \
+    curl wget unzip \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt update \
