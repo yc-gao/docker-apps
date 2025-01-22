@@ -70,7 +70,8 @@ RUN python3 -m pip install \
 
 # onnx
 RUN python3 -m pip install \
-    onnx onnxscript onnxconverter-common onnxruntime-gpu onnxruntime-tools onnxoptimizer onnxsim skl2onnx \
+    onnx onnxscript onnxconverter-common onnxoptimizer onnxsim skl2onnx \
+    onnxruntime-gpu onnxruntime-extensions onnxruntime-tools \
     && python3 -m pip cache purge
 
 # pytorch
