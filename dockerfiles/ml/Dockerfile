@@ -62,6 +62,7 @@ ENV PATH="${CONDA_PREFIX}/bin:${PATH}"
 # common
 RUN python3 -m pip install \
     cffi pytest build pybind11 cython \
+    immutabledict \
     ipython jupyterlab fire \
     numpy matplotlib seaborn pandas scipy scikit-learn \
     opencv-python opencv-contrib-python \
@@ -78,5 +79,7 @@ RUN python3 -m pip install \
 RUN python3 -m pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision \
     && python3 -m pip cache purge
 
-RUN python3 -m pip install sentencepiece tiktoken immutabledict \
+RUN python3 -m pip install \
+    sentencepiece tiktoken \
+    streamlit \
     && python3 -m pip cache purge
