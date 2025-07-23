@@ -20,6 +20,12 @@ RUN apt update \
     iproute2 socat netcat jq aria2 ffmpeg graphviz \
     && rm -rf /var/lib/apt/lists/*
 
+# cuda tools
+RUN apt update \
+    && apt install -y \
+    nsight-compute-2025.2.1 nsight-systems-2025.1.3 \
+    && rm -rf /var/lib/apt/lists/*
+
 # common libs
 RUN apt update \
     && apt install -y \
