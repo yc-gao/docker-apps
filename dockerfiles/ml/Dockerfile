@@ -36,7 +36,7 @@ RUN apt update \
     && rm -rf /var/lib/apt/lists/*
 
 # install cmake
-ARG CMAKE_VERSION=3.29.6
+ARG CMAKE_VERSION=4.0.3
 RUN wget -qO - "https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz" | tar -C /opt -xz
 ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
 
