@@ -18,12 +18,14 @@ RUN apt update \
     cargo \
     git gdb strace ltrace ccache \
     iproute2 socat netcat jq aria2 ffmpeg graphviz \
+    openssh-server \
     && rm -rf /var/lib/apt/lists/*
 
 # cuda tools
 RUN apt update \
     && apt install -y \
     nsight-compute-2025.2.1 nsight-systems-2025.1.3 \
+    libnvinfer-dev libnvonnxparsers-dev libnvinfer-bin \
     && rm -rf /var/lib/apt/lists/*
 
 # common libs
@@ -73,6 +75,10 @@ RUN python3 -m pip install \
     numpy matplotlib seaborn pandas scipy scikit-learn \
     opencv-python opencv-contrib-python \
     Pillow PyYAML protobuf \
+    && python3 -m pip cache purge
+
+# tensorrt
+RUN python3 -m pip install tensorrt \
     && python3 -m pip cache purge
 
 # onnx
