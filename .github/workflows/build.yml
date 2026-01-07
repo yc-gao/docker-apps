@@ -17,6 +17,8 @@ jobs:
     steps:
       - run: |
           curl -L https://raw.githubusercontent.com/apache/flink/master/tools/azure-pipelines/free_disk_space.sh | bash
+          docker image prune --all --force
+          docker builder prune -a
       - uses: actions/checkout@v3
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
