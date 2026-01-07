@@ -24,7 +24,7 @@ RUN apt update \
 # cuda tools
 RUN apt update \
     && apt install -y \
-    nsight-compute-2025.2.1 nsight-systems-2025.1.3 \
+    nsight-compute-2025.2.1 nsight-systems-2025.1.3 nsight-dl \
     libnvinfer-dev libnvonnxparsers-dev libnvinfer-bin \
     && rm -rf /var/lib/apt/lists/*
 
