@@ -12,15 +12,15 @@ jobs:
           docker_username: GITHUB_USERNAME
           docker_password: GITHUB_TOKEN
       - docker/build:
-          image: yc-gao/ml
-          tag: latest
+          registry: ghcr.io
           dockerfile: dockerfiles/ml/Dockerfile
-          registry: ghcr.io
-      - docker/push:
-          digest_path: /tmp/digest.txt
           image: yc-gao/ml
           tag: latest
+      - docker/push:
           registry: ghcr.io
+          image: yc-gao/ml
+          tag: latest
+          digest_path: /tmp/digest.txt
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
