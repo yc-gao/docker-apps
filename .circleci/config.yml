@@ -1,21 +1,23 @@
-version: 2.1
-
+version: '2.1'
 orbs:
-  aws-ecr: circleci/aws-ecr@9.4.0
-  aws-cli: circleci/aws-cli@5.1
-
-workflows:
+  docker: circleci/docker@3.0.1
+jobs:
   build-and-push:
+    executor: docker/docker
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check
+      - docker/build:
+          dockerfile: dockerfiles/ml/Dockerfile
+          image: ghcr.io/yc-gao/ml:latest
+      - docker/push:
+          digest_path: /tmp/digest.txt
+          image: ghcr.io/yc-gao/ml:latest
+      - run:
+          command: |
+            echo "Digest is: $(</tmp/digest.txt)"
+workflows:
+  commit:
     jobs:
-      - aws-ecr/build_and_push_image:
-          account_id: "${AWS_ACCOUNT_ID}"
-          auth:
-            - aws-cli/setup:
-                profile_name: "OIDC-USER"
-                role_arn: "arn:aws:iam::123456789012:role/VALID_OIDC_ECR_ROLE"
-          create_repo: true
-          dockerfile: "Dockerfile"
-          path: "."
-          region: "${AWS_DEFAULT_REGION}"
-          repo: "myECRRepository"
-          tag: "latest"
+      - build-and-push
