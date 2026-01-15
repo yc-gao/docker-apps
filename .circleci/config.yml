@@ -7,13 +7,17 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
-      - docker/check
+      - docker/check:
+          registry: ghcr.io
+          docker_username: GITHUB_USERNAME
+          docker_password: GITHUB_TOKEN
       - docker/build:
-          dockerfile: dockerfiles/ml/Dockerfile
-          image: ghcr.io/yc-gao/ml:latest
+          image: yc-gao/ml:latest
+          registry: ghcr.io
       - docker/push:
           digest_path: /tmp/digest.txt
-          image: ghcr.io/yc-gao/ml:latest
+          image: yc-gao/ml:latest
+          registry: ghcr.io
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
