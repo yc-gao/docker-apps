@@ -1,0 +1,30 @@
+version: '2.1'
+orbs:
+  docker: circleci/docker@3.0.1
+jobs:
+  build-and-push:
+    executor: docker/docker
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check:
+          registry: ghcr.io
+          docker_username: GITHUB_USERNAME
+          docker_password: GITHUB_TOKEN
+      - docker/build:
+          registry: ghcr.io
+          dockerfile: dockerfiles/ml/Dockerfile
+          image: yc-gao/ml
+          tag: latest
+      - docker/push:
+          registry: ghcr.io
+          image: yc-gao/ml
+          tag: latest
+          digest_path: digest.txt
+      - run:
+          command: |
+            echo "Digest is: $(<digest.txt)"
+workflows:
+  commit:
+    jobs:
+      - build-and-push
