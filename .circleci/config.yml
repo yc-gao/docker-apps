@@ -18,7 +18,8 @@ jobs:
           registry: ghcr.io
       - docker/push:
           digest_path: /tmp/digest.txt
-          image: yc-gao/ml:latest
+          image: yc-gao/ml
+          tag: latest
           registry: ghcr.io
       - run:
           command: |
