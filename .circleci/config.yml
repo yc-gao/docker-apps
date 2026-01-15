@@ -20,10 +20,10 @@ jobs:
           registry: ghcr.io
           image: yc-gao/ml
           tag: latest
-          digest_path: /tmp/digest.txt
+          digest_path: digest.txt
       - run:
           command: |
-            echo "Digest is: $(</tmp/digest.txt)"
+            echo "Digest is: $(<digest.txt)"
 workflows:
   commit:
     jobs:
