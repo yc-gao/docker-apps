@@ -12,7 +12,8 @@ jobs:
           docker_username: GITHUB_USERNAME
           docker_password: GITHUB_TOKEN
       - docker/build:
-          image: yc-gao/ml:latest
+          image: yc-gao/ml
+          tag: latest
           docker_context: dockerfiles/ml
           registry: ghcr.io
       - docker/push:
