@@ -13,6 +13,7 @@ jobs:
           docker_password: GITHUB_TOKEN
       - docker/build:
           image: yc-gao/ml:latest
+          dockerfile: dockerfiles/ml/Dockerfile
           registry: ghcr.io
       - docker/push:
           digest_path: /tmp/digest.txt
