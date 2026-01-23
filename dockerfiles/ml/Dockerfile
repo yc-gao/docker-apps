@@ -96,10 +96,12 @@ RUN python3 -m pip install \
     streamlit \
     && python3 -m pip cache purge
 
+# start sshd server: /usr/sbin/sshd -D -p 8022
 ARG SSHD_PASSWD=demo.123
 ARG SSHD_PORT=8022
 RUN sed \
         -e "/PermitRootLogin/a PermitRootLogin yes" \
         -e "/Port/a Port ${SSHD_PORT}" \
         -i /etc/ssh/sshd_config \
+    && mkdir -p /run/sshd \
     && echo "root:${SSHD_PASSWD}" | chpasswd
