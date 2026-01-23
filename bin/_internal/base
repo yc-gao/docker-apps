@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-self_dir="$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
+self_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 
-overlay_home="${self_dir}/home"
+overlay_home="${self_dir}/_home"
 container_home="/root"
 
 die() {
@@ -46,19 +46,24 @@ container-run() {
 
 
 mllab() {
-    [[ "$PWD" != "$HOME/"* ]] && die "run docker outside the home"
-
     opts+=(-v "${PWD}:${PWD}" -w "${PWD}")
     opts+=(-ti --rm --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all)
-
     if [[ -d "/usr/share/vulkan/icd.d" ]]; then
         opts+=(-v "/usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d:ro")
     fi
+    
     container-run ghcr.io/yc-gao/ml:latest "$@"
 }
 
 jupyter() {
-    mllab jupyter lab --allow-root --no-browser --NotebookApp.token='' "$@"
+    opts+=(-v "${PWD}:${PWD}" -w "${PWD}")
+    opts+=(-ti --rm --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all)
+    if [[ -d "/usr/share/vulkan/icd.d" ]]; then
+        opts+=(-v "/usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d:ro")
+    fi
+
+    container-run ghcr.io/yc-gao/ml:latest \
+        jupyter lab --allow-root --no-browser --NotebookApp.token='' "$@"
 }
 
 main() {
