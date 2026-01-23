@@ -95,3 +95,11 @@ RUN python3 -m pip install \
     sentencepiece tiktoken \
     streamlit \
     && python3 -m pip cache purge
+
+ARG SSHD_PASSWD=demo.123
+ARG SSHD_PORT=8022
+RUN sed \
+        -e "/PermitRootLogin/a PermitRootLogin yes" \
+        -e "/Port/a Port ${SSHD_PORT}" \
+        -i /etc/ssh/sshd_config \
+    && echo "root:${SSHD_PASSWD}" | chpasswd
