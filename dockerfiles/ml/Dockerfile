@@ -26,7 +26,8 @@ RUN apt update \
     && apt install -y \
     nsight-compute-2025.2.1 nsight-systems-2025.1.3 nsight-dl \
     libnvinfer-dev libnvonnxparsers-dev libnvinfer-bin \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && echo "export PATH=\"/usr/local/cuda/bin:\${PATH}\"" >>/etc/profile.d/docker_env.sh
 
 # common libs
 RUN apt update \
@@ -39,8 +40,8 @@ RUN apt update \
 
 # install cmake
 ARG CMAKE_VERSION=4.0.3
-RUN wget -qO - "https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz" | tar -C /opt -xz
-ENV PATH="/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:${PATH}"
+RUN wget -qO - "https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz" | tar -C /opt -xz \
+    && echo "export PATH=\"/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin:\${PATH}\"" >>/etc/profile.d/docker_env.sh
 
 # install bazel
 ARG BAZEL_VERSION=7.3.1
@@ -49,13 +50,13 @@ RUN wget -qO /usr/local/bin/bazel "https://github.com/bazelbuild/bazel/releases/
 
 # install nodejs
 ARG NODE_VERSION=v20.18.0
-RUN wget -qO - "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.xz" | tar -C /opt -xJ
-ENV PATH="/opt/node-${NODE_VERSION}-linux-x64/bin:${PATH}"
+RUN wget -qO - "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.xz" | tar -C /opt -xJ \
+    && echo "export PATH=\"/opt/node-${NODE_VERSION}-linux-x64/bin:\${PATH}\"" >>/etc/profile.d/docker_env.sh
 
 # install go
 ARG GO_VERSION=1.23.4
-RUN sh -c "wget -qO - https://golang.google.cn/dl/go${GO_VERSION}.linux-amd64.tar.gz | tar -C /opt -xz"
-ENV PATH="/opt/go/bin:${PATH}"
+RUN sh -c "wget -qO - https://golang.google.cn/dl/go${GO_VERSION}.linux-amd64.tar.gz | tar -C /opt -xz" \
+    && echo "export PATH=\"/opt/go/bin:\${PATH}\"" >>/etc/profile.d/docker_env.sh
 
 # install miniconda3
 ARG PYTHON_VERSION=310
@@ -64,37 +65,37 @@ ARG CONDA_PREFIX=/opt/miniconda3
 RUN wget -qO Miniconda3.sh https://repo.anaconda.com/miniconda/Miniconda3-py${PYTHON_VERSION}_${CONDA_VERSION}-Linux-x86_64.sh \
     && chmod +x Miniconda3.sh \
     && ./Miniconda3.sh -b -p ${CONDA_PREFIX} \
-    && rm -rf *
-ENV PATH="${CONDA_PREFIX}/bin:${PATH}"
+    && rm -rf * \
+    && echo "export PATH=\"${CONDA_PREFIX}/bin:\${PATH}\"" >>/etc/profile.d/docker_env.sh
 
 # common
-RUN python3 -m pip install \
+RUN /opt/miniconda3/bin/python3 -m pip install \
     cffi pytest build pybind11 cython \
     immutabledict \
     ipython jupyterlab fire \
     numpy matplotlib seaborn pandas scipy scikit-learn \
     opencv-python opencv-contrib-python \
     Pillow PyYAML protobuf \
-    && python3 -m pip cache purge
+    && /opt/miniconda3/bin/python3 -m pip cache purge
 
 # tensorrt
-RUN python3 -m pip install tensorrt \
-    && python3 -m pip cache purge
+RUN /opt/miniconda3/bin/python3 -m pip install tensorrt \
+    && /opt/miniconda3/bin/python3 -m pip cache purge
 
 # onnx
-RUN python3 -m pip install \
+RUN /opt/miniconda3/bin/python3 -m pip install \
     onnx onnxscript onnxconverter-common onnxoptimizer onnxsim skl2onnx \
     onnxruntime-gpu onnxruntime-extensions onnxruntime-tools \
-    && python3 -m pip cache purge
+    && /opt/miniconda3/bin/python3 -m pip cache purge
 
 # pytorch
-RUN python3 -m pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision \
-    && python3 -m pip cache purge
+RUN /opt/miniconda3/bin/python3 -m pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision \
+    && /opt/miniconda3/bin/python3 -m pip cache purge
 
-RUN python3 -m pip install \
+RUN /opt/miniconda3/bin/python3 -m pip install \
     sentencepiece tiktoken \
     streamlit \
-    && python3 -m pip cache purge
+    && /opt/miniconda3/bin/python3 -m pip cache purge
 
 # start sshd server: /usr/sbin/sshd -D -p 8022
 ARG SSHD_PASSWD=demo.123
