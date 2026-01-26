@@ -27,7 +27,7 @@ RUN apt update \
     nsight-compute-2025.2.1 nsight-systems-2025.1.3 nsight-dl \
     libnvinfer-dev libnvonnxparsers-dev libnvinfer-bin \
     && rm -rf /var/lib/apt/lists/* \
-    && echo "export PATH=\"/usr/local/cuda/bin:\${PATH}\"" >>/etc/profile.d/docker_env.sh
+    && echo "export PATH=\"/usr/local/nvidia/bin:/usr/local/cuda/bin:\${PATH}\"" >>/etc/profile.d/docker_env.sh
 
 # common libs
 RUN apt update \
@@ -106,3 +106,7 @@ RUN sed \
         -i /etc/ssh/sshd_config \
     && mkdir -p /run/sshd \
     && echo "root:${SSHD_PASSWD}" | chpasswd
+
+ENTRYPOINT [ "/bin/sh", "-c" ]
+CMD [ "/bin/bash --login" ]
+
