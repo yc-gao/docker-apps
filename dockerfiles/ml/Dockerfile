@@ -78,8 +78,8 @@ RUN /opt/miniconda3/bin/python3 -m pip install \
     Pillow PyYAML protobuf \
     && /opt/miniconda3/bin/python3 -m pip cache purge
 
-# tensorrt
-RUN /opt/miniconda3/bin/python3 -m pip install tensorrt \
+# pytorch
+RUN /opt/miniconda3/bin/python3 -m pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision \
     && /opt/miniconda3/bin/python3 -m pip cache purge
 
 # onnx
@@ -88,8 +88,8 @@ RUN /opt/miniconda3/bin/python3 -m pip install \
     onnxruntime-gpu onnxruntime-extensions onnxruntime-tools \
     && /opt/miniconda3/bin/python3 -m pip cache purge
 
-# pytorch
-RUN /opt/miniconda3/bin/python3 -m pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision \
+# tensorrt
+RUN /opt/miniconda3/bin/python3 -m pip install tensorrt \
     && /opt/miniconda3/bin/python3 -m pip cache purge
 
 RUN /opt/miniconda3/bin/python3 -m pip install \
