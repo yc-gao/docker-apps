@@ -79,7 +79,7 @@ RUN /opt/miniconda3/bin/python3 -m pip install \
     && /opt/miniconda3/bin/python3 -m pip cache purge
 
 # pytorch
-RUN /opt/miniconda3/bin/python3 -m pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision \
+RUN /opt/miniconda3/bin/python3 -m pip install --index-url https://download.pytorch.org/whl/cu124 torch torchvision \
     && /opt/miniconda3/bin/python3 -m pip cache purge
 
 # onnx
