@@ -107,6 +107,4 @@ RUN sed \
     && mkdir -p /run/sshd \
     && echo "root:${SSHD_PASSWD}" | chpasswd
 
-ENTRYPOINT [ "/bin/sh", "-c" ]
-CMD [ "/bin/bash --login" ]
-
+CMD [ "/bin/bash", "--login" ]
