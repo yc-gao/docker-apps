@@ -76,6 +76,7 @@ RUN /opt/miniconda3/bin/python3 -m pip install \
     numpy matplotlib seaborn pandas scipy scikit-learn \
     opencv-python opencv-contrib-python \
     Pillow PyYAML protobuf \
+    yt-dlp \
     && /opt/miniconda3/bin/python3 -m pip cache purge
 
 # pytorch
