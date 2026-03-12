@@ -1,0 +1,23 @@
+# podman run -v /home/ycgao/Workdir:/home/ycgao/Workdir -w /home/ycgao/Workdir -d --name mllab --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all --network host -v /home/ycgao/Workdir/docker-apps/bin/_internal/_home:/root ghcr.io/yc-gao/ml:latest /usr/sbin/sshd -D -p 8022
+
+[Unit]
+Description=Podman mllab.service
+Documentation=man:podman-generate-systemd(1)
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/run/user/1000/containers
+
+[Service]
+Environment=PODMAN_SYSTEMD_UNIT=%n
+Restart=on-failure
+TimeoutStopSec=70
+ExecStart=/usr/bin/podman start mllab
+ExecStop=/usr/bin/podman stop  \
+	-t 10 mllab
+ExecStopPost=/usr/bin/podman stop  \
+	-t 10 mllab
+PIDFile=/run/user/1000/containers/overlay-containers/mllab/userdata/conmon.pid
+Type=forking
+
+[Install]
+WantedBy=default.target
