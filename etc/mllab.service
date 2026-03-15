@@ -3,7 +3,7 @@ Description=Mllab Container Service
 
 [Service]
 Type=simple
-ExecStart=podman run -ti --rm --name mllab -v /home/ycgao/Workdir:/home/ycgao/Workdir -w /home/ycgao/Workdir --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all --network host -v /home/ycgao/Workdir/docker-apps/bin/_internal/_home:/root ghcr.io/yc-gao/ml:latest /usr/sbin/sshd -D -p 8022
+ExecStart=podman run -ti --rm --name mllab --network host -v /home/ycgao/Workdir:/home/ycgao/Workdir -w /home/ycgao/Workdir -v /home/ycgao/Workdir/docker-apps/bin/_internal/_home:/root --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all ghcr.io/yc-gao/ml:latest /usr/sbin/sshd -D -p 8022
 
 [Install]
 WantedBy=default.target
